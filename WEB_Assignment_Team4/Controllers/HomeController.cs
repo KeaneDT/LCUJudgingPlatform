@@ -10,5 +10,13 @@ namespace WEB_Assignment_Team4.Controllers
         {
             return View();
         }
+        public IActionResult Privacy()
+        {
+            return View();
+        }
+        public IActionResult PublicMain()
+        {
+            return View();
+        }
     }
 }
