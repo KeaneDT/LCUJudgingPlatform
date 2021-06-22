@@ -35,5 +35,9 @@ namespace WEB_Assignment_Team4.Controllers
         {
             return View();
         }
+        public IActionResult Contact()
+        {
+            return View();
+        }
     }
 }
