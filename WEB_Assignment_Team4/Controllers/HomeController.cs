@@ -10,11 +10,28 @@ namespace WEB_Assignment_Team4.Controllers
         {
             return View();
         }
-        public IActionResult Privacy()
+   
+        public IActionResult PublicMain()
         {
             return View();
         }
-        public IActionResult PublicMain()
+
+        public ActionResult StaffLogin(IFormCollection FormData)
+        {
+            string userID = FormData["txtLoginID"].ToString();
+            string password = FormData["txtPassword"].ToString();
+            string role = "Administrator";
+
+            if(userID == "admin1@lcu.edu.sg" && password == "admin1@lcu.edu.sg")
+            {
+                return RedirectToAction("StaffMain");
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
+        }
+        public ActionResult StaffMain()
         {
             return View();
         }
