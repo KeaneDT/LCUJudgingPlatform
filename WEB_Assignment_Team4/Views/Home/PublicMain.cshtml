@@ -3,5 +3,40 @@
     ViewData["Title"] = "Log In Page";
 }
 
-<h1>Log In Page</h1>
-
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width = device-width,
+                                           initial-scale = 1" />
+    <link rel="stylesheet" type="text/css" href="~/css/site.css" />
+</head>
+<body>
+    <div class="heading">
+        <h1>Log to <br />
+        LCU Judging Platform</h1>
+        <div>
+            <form method ="post" action="~/Administrator/Index">
+                <fieldset class="loginFieldset">
+                    <input type="email" name="txtLoginID" id="txtLoginID"
+                    placeholder="Email" />
+                    <br />
+                    <input type="password" name="txtPassID" id="txtPassID"
+                    placeholder="Password" />
+                    <br />
+                    <input type="submit" id="btnStaffLogin" class="myButton" value="Login" />
+                </fieldset>
+            </form>
+        </div>
+        <div>
+            <fieldset class="loginFieldset">
+                <a href="~/Home/PublicMain">Don't have an account</a>
+                <br />
+                <a href="~/Home/PublicMain">Create a Competitior Account</a>
+                <br />
+                <a href="~/Home/PublicMain">Create a Judge Account</a>
+            </fieldset>
+        </div>
+    </div>
+</body>
+</html>
