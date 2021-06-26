@@ -17,15 +17,15 @@
         <h1>Log to <br />
         LCU Judging Platform</h1>
         <div>
-            <form method ="post" action="~/Home/StaffLogin">
+            <form method ="post" action="~/Home/AdminLogin">
                 <fieldset class="loginFieldset">
                     <input type="email" name="txtLoginID" id="txtLoginID"
-                    placeholder="Email" />
+                    placeholder="Email" required />
                     <br />
-                    <input type="password" name="txtPassID" id="txtPassID"
-                    placeholder="Password" />
+                    <input type="password" name="txtPassword" id="txtPassword"
+                    placeholder="Password" required />
                     <br />
-                    <input type="submit" id="btnStaffLogin" class="myButton" value="Login" />
+                    <input type="submit" id="btnAdminLogin" class="myButton" value="Login" />
                 </fieldset>
             </form>
         </div>

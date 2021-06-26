@@ -16,22 +16,22 @@ namespace WEB_Assignment_Team4.Controllers
             return View();
         }
 
-        public ActionResult StaffLogin(IFormCollection FormData)
+        public ActionResult AdminLogin(IFormCollection FormData)
         {
             string userID = FormData["txtLoginID"].ToString();
             string password = FormData["txtPassword"].ToString();
             string role = "Administrator";
 
-            if(userID == "admin1@lcu.edu.sg" && password == "admin1@lcu.edu.sg")
+            if(userID == "admin1@lcu.edu.sg" && password == "p@55Admin")
             {
-                return RedirectToAction("StaffMain");
+                return RedirectToAction("AdminMain");
             }
             else
             {
                 return RedirectToAction("Index");
             }
         }
-        public ActionResult StaffMain()
+        public ActionResult AdminMain()
         {
             return View();
         }
