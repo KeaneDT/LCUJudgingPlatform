@@ -9,16 +9,13 @@
 </head>
 <body>
     <header>
-        @{
-            string userRole = Context.Session.GetString("Role");
-            if (userRole == "Administrator")
-            {
-                @await Html.PartialAsync("_AdminMain.cshtml")
-            }
-            else
-            {
-                @await Html.PartialAsync("_PublicMain.cshtml")
-            }
+        @if (User.Identity.IsAuthenticated)
+        {
+            @await Html.PartialAsync("_AdminMenu.cshtml")
+        }
+        else
+        {
+            @await Html.PartialAsync("_PublicMain.cshtml")
         }
     </header>
     <div class="container">
