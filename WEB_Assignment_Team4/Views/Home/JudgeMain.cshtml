@@ -32,9 +32,12 @@
                             datetime = Context.Session.GetString("DateTiming");
                         }
                     }
-                    Welcome,&nbsp;
+                    <h2>
+                        Welcome,
+                        <span style="color:goldenrod;">@userRole</span> &nbsp;
+                    </h2>
                     <span style="color:green;">@userId</span> &nbsp;
-                    (Role: @userRole).&nbsp; You have logged in since @datetime &nbsp;
+                    You have logged in since @datetime &nbsp;
                 </p>
             </div>
         </div>
