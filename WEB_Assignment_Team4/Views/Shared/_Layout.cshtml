@@ -9,7 +9,17 @@
 </head>
 <body>
     <header>
-       @await Html.PartialAsync("_PublicMain.cshtml") 
+        @{
+            string userRole = Context.Session.GetString("Role");
+            if (userRole == "Administrator")
+            {
+                @await Html.PartialAsync("_AdminMain.cshtml")
+            }
+            else
+            {
+                @await Html.PartialAsync("_PublicMain.cshtml")
+            }
+        }
     </header>
     <div class="container">
         <main role="main" class="pb-3">
