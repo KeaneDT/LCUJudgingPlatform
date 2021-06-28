@@ -45,6 +45,13 @@ namespace WEB_Assignment_Team4.Controllers
         {
             return View();
         }
+        public ActionResult LogOut()
+        {
+            // Clear all key-values pairs stored in session state
+            HttpContext.Session.Clear();            
+            // Call the Index action of Home controller
+            return RedirectToAction("PublicMain");
+        }
         public IActionResult Contact()
         {
             return View();

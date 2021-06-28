@@ -1,7 +1,7 @@
 ﻿<!--A grey navbar that expands horizontally at medium device -->
 <nav class="navbar navbar-expand-md bg-light navbar-light">
     <!--  The brand(or icon) of the navbar -->
-    <a class="navbar-brand" href="~/Home/Index" style=" color:#3399FF;"> LCU Judging Platform </a>
+    <a class="navbar-brand" href="~/Home/AdminMain" style=" color:#3399FF;"> LCU Judging Platform </a>
     <!--  Toggle/collapsible Button, also known as hamburger button -->
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#staffNavbar">
         <span class="navbar-toggler-icon"></span>
@@ -11,16 +11,22 @@
         <!--  Links that are aligned to the left, mr-auto: right margin auto-adjusted -->
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="~/Voting/Vote">Create Interest</a>
+                <a class="nav-link" href="~/Interest/Create">Create Interest</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="~/Leaderboard/Leader">View Interest</a>
+                <a class="nav-link" href="~/Interest/View">View Interest</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="~/Home/Contact">View Competition</a>
+                <a class="nav-link" href="~/Competition/View">View Competition</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="~/Home/Contact">Judges</a>
+                <a class="nav-link" href="~/Judge/JudgeList">Judges</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <!-- A link for logging out user-->
+                <a class="nav-link" asp-controller="Home" asp-action="LogOut">Log Out</a>
             </li>
         </ul>
     </div>
