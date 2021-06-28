@@ -15,6 +15,14 @@
             {
                 @await Html.PartialAsync("_AdminMain.cshtml")
             }
+            if (userRole == "Competitor")
+            {
+                @await Html.PartialAsync("_CompetitiorMain.cshtml")
+            }
+            if (userRole == "Judge")
+            {
+                @await Html.PartialAsync("_JudgeMain.cshtml")
+            }
             else
             {
                 @await Html.PartialAsync("_PublicMain.cshtml")
