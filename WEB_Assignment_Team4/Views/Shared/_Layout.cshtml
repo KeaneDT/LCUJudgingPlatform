@@ -9,7 +9,14 @@
 </head>
 <body>
     <header>
-       @await Html.PartialAsync("_PublicMain.cshtml") 
+        @if (User.Identity.IsAuthenticated)
+        {
+            @await Html.PartialAsync("_AdminMenu.cshtml")
+        }
+        else
+        {
+            @await Html.PartialAsync("_PublicMain.cshtml")
+        }
     </header>
     <div class="container">
         <main role="main" class="pb-3">
