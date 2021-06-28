@@ -20,11 +20,12 @@ namespace WEB_Assignment_Team4.Controllers
         {
             string userID = FormData["txtLoginID"].ToString();
             string password = FormData["txtPassword"].ToString();
-            string Role = "Administrator";
             DateTime DateTiming = DateTime.Now;
 
+            //Admin Login
             if(userID == "admin1@lcu.edu.sg" && password == "p@55Admin")
             {
+                string Role = "Administrator";
                 // Store Login ID in session with the key "LoginID"
                 HttpContext.Session.SetString("LoginID", userID);
                 // Store user role "Staff" as a string in session with the key "Role"
@@ -34,6 +35,19 @@ namespace WEB_Assignment_Team4.Controllers
 
                 return RedirectToAction("AdminMain");
             }
+            //Judge Login
+            else if(userID == "abc1@lcu.edu.sg" && password == "p@55Judge")
+            {
+                string Role = "Judge";
+                // Store Login ID in session with the key "LoginID"
+                HttpContext.Session.SetString("LoginID", userID);
+                // Store user role "Staff" as a string in session with the key "Role"
+                HttpContext.Session.SetString("Role", Role);
+                // Store date and time of the user when it has logged in
+                HttpContext.Session.SetString("DateTiming", DateTiming.ToString());
+
+                return RedirectToAction("JudgeMain");
+            }
             else
             {
                 // Store an error message to TempData for display at the index view
@@ -42,6 +56,10 @@ namespace WEB_Assignment_Team4.Controllers
             }
         }
         public ActionResult AdminMain()
+        {
+            return View();
+        }
+        public ActionResult JudgeMain()
         {
             return View();
         }
