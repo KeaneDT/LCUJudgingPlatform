@@ -1,0 +1,13 @@
+﻿@model IEnumerable<WEB_Assignment_Team4.Models.Interest>
+
+@{
+    ViewData["Title"] = "View Interest";
+}
+<title>View Interest</title>
+
+<h4 class="PageTitle">View Interest</h4>
+<h5>Sample Text</h5>
+<p><a asp-action="Create">Create New Interest</a></p>
+<!-- Add a partial view to display a list of interest records
+     in a tabular format. -->
+<partial name="~/Views/Interest/_ViewInterest.cshtml" model="@Model" />
