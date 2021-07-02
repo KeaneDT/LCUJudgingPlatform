@@ -10,24 +10,33 @@ namespace WEB_Assignment_Team4.Models
     {
         //JudgeID
         public int JudgeID { get; set; }
+
         //JudgeName
+        [Required(ErrorMessage = "Judge Name Required!")]
         [Display(Name = "Judge Name")]
-        [Required]
-        [StringLength(50)]
+        [StringLength(50, ErrorMessage = "Judge Name cannot be more than 50 characters!")]
         public string JudgeName { get; set; }
+
         //Salutation
         [StringLength(5)]
-        public string? Salutation { get; set; } //Nullable - from db
+        public string Salutation { get; set; } //Nullable - from db
+
         //AreaInterestID
+        [Required(ErrorMessage = "Area of Interest ID Required!")]
+        [Display(Name = "Area of Interest ID")]
         public int AreaInterestID { get; set; }
+
         //EmailAddr
+        [Required(ErrorMessage = "Email Address Required!")]
         [Display(Name = "Email Address")]
         [EmailAddress]
         [ValidateJudgeExists]
-        [StringLength(50)]
+        [StringLength(50, ErrorMessage = "Email length cannot be more than 50 characters!")]
         public string EmailAddr { get; set; }
+
         //Password
+        //Default value set
         [StringLength(255)]
-        public string Password { get; set; }
+        public string Password { get; set; } = "p@55Judge";
     }
 }
