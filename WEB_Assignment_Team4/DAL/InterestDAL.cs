@@ -67,7 +67,7 @@ namespace WEB_Assignment_Team4.DAL
 
             // Specify an Insert SQL statments which will
             // return the auto-generated StaffID after insertion
-            cmd.CommandText = @"INSERT INTO AreaInterest(AreaInterestID,Name)
+            cmd.CommandText = @"INSERT INTO AreaInterest(Name)
                                OUTPUT INSERTED.AreaInterestID
                                VALUES(@Name)";
 
@@ -87,6 +87,40 @@ namespace WEB_Assignment_Team4.DAL
 
             // return id with no error occured.
             return interest.AreaInterestID;
+        }
+        public bool IsInterestExist(string name, int AreaInterestId) //Create new validation
+        {
+            bool intrecordFound = false;
+
+            //Create a SqlCommand object and specify the SQL statement
+            //to get a staff record with the email address to be validated
+            SqlCommand cmd = conn.CreateCommand();
+            cmd.CommandText = @"SELECT AreaInterestId FROM AreaInterest WHERE Name=@selectedName";
+            cmd.Parameters.AddWithValue("@selectedName", name);
+
+            //Open a database connection and execute the SQL statement
+            conn.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            if (reader.HasRows) //Records Found
+            {
+                while (reader.Read())
+                {
+                    if (reader.GetInt32(0) != AreaInterestId)
+                    {
+                        //The email address is used by another judge
+                        intrecordFound = true;
+                    }
+                }
+            }
+            else
+            {
+                intrecordFound = false; // The email address given does not exist
+            }
+            reader.Close();
+            conn.Close();
+
+            return intrecordFound;
         }
     }
 }

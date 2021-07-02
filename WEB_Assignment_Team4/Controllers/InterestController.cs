@@ -20,10 +20,21 @@ namespace WEB_Assignment_Team4.Controllers
             if(HttpContext.Session.GetString("Role") == null ||
               (HttpContext.Session.GetString("Role") != "Administrator"))
             {
-                return RedirectToAction ("AdminMain", "Home");
+                return RedirectToAction ("Index", "Home");
             }
             List<Interest> interestList = interestContext.GetAllInterest();
             return View(interestList);
+        }
+        public ActionResult Create()
+        {
+            //Stop Accessing the action if not logged in
+            //or account not in the "Administrator" role
+            if (HttpContext.Session.GetString("Role") == null ||
+              (HttpContext.Session.GetString("Role") != "Administrator"))
+            {
+                return RedirectToAction("Index", "Interest");
+            }
+            return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
