@@ -57,6 +57,13 @@ namespace WEB_Assignment_Team4.Controllers
         }
         public ActionResult AdminMain()
         {
+            //Stop Accessing the action if not logged in
+            //or account not in the "Administrator" role
+            if (HttpContext.Session.GetString("Role") == null ||
+              (HttpContext.Session.GetString("Role") != "Administrator"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
             return View();
         }
         public ActionResult JudgeMain()
