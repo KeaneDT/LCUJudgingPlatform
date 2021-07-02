@@ -23,6 +23,7 @@ namespace WEB_Assignment_Team4.Models
         //EmailAddr
         [Display(Name = "Email Address")]
         [EmailAddress]
+        [ValidateJudgeExists]
         [StringLength(50)]
         public string EmailAddr { get; set; }
         //Password

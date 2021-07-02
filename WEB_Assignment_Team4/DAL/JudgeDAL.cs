@@ -63,5 +63,39 @@ namespace WEB_Assignment_Team4.DAL
 
             return judgeList;
         }
+        public bool IsJudgeExist(string email, int judgeId) //Create new validation
+        {
+            bool emailFound = false;
+
+            //Create a SqlCommand object and specify the SQL statement
+            //to get a staff record with the email address to be validated
+            SqlCommand cmd = conn.CreateCommand();
+            cmd.CommandText = @"SELECT JudgeID FROM Judge WHERE EmailAddr=@selectedEmail";
+            cmd.Parameters.AddWithValue("@selectedEmail", email);
+
+            //Open a database connection and execute the SQL statement
+            conn.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            if (reader.HasRows) //Records Found
+            {
+                while (reader.Read())
+                {
+                    if (reader.GetInt32(0) != judgeId)
+                    {
+                        //The email address is used by another judge
+                        emailFound = true;
+                    }
+                }
+            }
+            else
+            {
+                emailFound = false; // The email address given does not exist
+            }
+            reader.Close();
+            conn.Close();
+
+            return emailFound;
+        }
     }
 }
