@@ -11,17 +11,20 @@
     <header>
         @{
             string userRole = Context.Session.GetString("Role");
-            if (userRole == "Administrator")
+            if (userRole != null)
             {
-                @await Html.PartialAsync("_AdminMain.cshtml")
-            }
-            else if (userRole == "Competitor")
-            {
-                @await Html.PartialAsync("_CompetitiorMain.cshtml")
-            }
-            else if (userRole == "Judge")
-            {
-                @await Html.PartialAsync("_JudgeMain.cshtml")
+                if (userRole == "Administrator")
+                {
+                    @await Html.PartialAsync("_AdminMain.cshtml")
+                }
+                else if (userRole == "Competitor")
+                {
+                    @await Html.PartialAsync("_CompetitiorMain.cshtml")
+                }
+                else if (userRole == "Judge")
+                {
+                    @await Html.PartialAsync("_JudgeMain.cshtml")
+                }
             }
             else
             {
