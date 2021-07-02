@@ -17,7 +17,7 @@
         <h1>Log to <br />
         LCU Judging Platform</h1>
         <div>
-            <form method ="post" action="~/Home/AdminLogin">
+            <form method ="post" action="~/Home/Login">
                 <fieldset class="loginFieldset">
                     <input type="email" name="txtLoginID" id="txtLoginID"
                     placeholder="Email" required />
@@ -25,7 +25,7 @@
                     <input type="password" name="txtPassword" id="txtPassword"
                     placeholder="Password" required />
                     <br />
-                    <input type="submit" id="btnAdminLogin" class="myButton" value="Login" />
+                    <input type="submit" id="btnLogin" class="myButton" value="Login" />
                     <br />                
                     <span style="color:red  ;">@TempData["Message"]</span> 
                 </fieldset>

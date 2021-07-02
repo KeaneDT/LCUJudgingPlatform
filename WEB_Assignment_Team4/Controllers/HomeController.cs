@@ -16,7 +16,7 @@ namespace WEB_Assignment_Team4.Controllers
             return View();
         }
 
-        public ActionResult AdminLogin(IFormCollection FormData)
+        public ActionResult Login(IFormCollection FormData)
         {
             string userID = FormData["txtLoginID"].ToString();
             string password = FormData["txtPassword"].ToString();
