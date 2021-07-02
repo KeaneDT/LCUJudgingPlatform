@@ -59,5 +59,34 @@ namespace WEB_Assignment_Team4.DAL
 
             return interestList;
         }
+
+        public int Add(Interest interest)
+        {
+            // Create a Sqlcommand object from connection object
+            SqlCommand cmd = conn.CreateCommand();
+
+            // Specify an Insert SQL statments which will
+            // return the auto-generated StaffID after insertion
+            cmd.CommandText = @"INSERT INTO AreaInterest(AreaInterestID,Name)
+                               OUTPUT INSERTED.AreaInterestID
+                               VALUES(@Name)";
+
+            // Define the parameters used in SQL statment, value for each parameter
+            // is retrieved from respective class's property.
+            cmd.Parameters.AddWithValue("@Name", interest.Name);
+
+            // A connection to database must be opened before any operations made.
+            conn.Open();
+
+            // ExecuteScalar is used to retrieve the auto-generated 
+            // AreaInterestID after executing the INSERT SQL statments
+            interest.AreaInterestID = (int)cmd.ExecuteScalar();
+
+            // A connection should be closed after operations.
+            conn.Close();
+
+            // return id with no error occured.
+            return interest.AreaInterestID;
+        }
     }
 }

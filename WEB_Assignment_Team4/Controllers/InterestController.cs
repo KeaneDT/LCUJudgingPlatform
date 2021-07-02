@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using WEB_Assignment_Team4.DAL;
 using WEB_Assignment_Team4.Models;
 
@@ -25,6 +24,24 @@ namespace WEB_Assignment_Team4.Controllers
             }
             List<Interest> interestList = interestContext.GetAllInterest();
             return View(interestList);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(Interest interest)
+        {
+            if (ModelState.IsValid)
+            {
+                // add interest records to database
+                interest.AreaInterestID = interestContext.Add(interest);
+                // Redirect user to Interest/Index view
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                // input validation fails, return to the Create view 
+                // to display error messgae
+                return View(interest);
+            }
         }
     }
 }
