@@ -21,7 +21,7 @@ namespace WEB_Assignment_Team4.DAL
                 .AddJsonFile("appsettings.json");
 
             Configuration = builder.Build();
-            string strConn = Configuration.GetConnectionString("NPBookConnectionString");
+            string strConn = Configuration.GetConnectionString("CJPConnectionString");
 
             //Instantiate a Sqlconnection object with the
             //Connection String read.
