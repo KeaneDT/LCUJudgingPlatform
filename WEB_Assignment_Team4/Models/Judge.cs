@@ -12,11 +12,21 @@ namespace WEB_Assignment_Team4.Models
         public int JudgeID { get; set; }
         //JudgeName
         [Display(Name = "Judge Name")]
+        [Required]
+        [StringLength(50)]
         public string JudgeName { get; set; }
-        public string Salutation { get; set; } //Nullable - from db
+        //Salutation
+        [StringLength(5)]
+        public string? Salutation { get; set; } //Nullable - from db
+        //AreaInterestID
         public int AreaInterestID { get; set; }
+        //EmailAddr
         [Display(Name = "Email Address")]
+        [EmailAddress]
+        [StringLength(50)]
         public string EmailAddr { get; set; }
+        //Password
+        [StringLength(255)]
         public string Password { get; set; }
     }
 }
