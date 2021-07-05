@@ -17,13 +17,6 @@ namespace WEB_Assignment_Team4.Controllers
         
         public ActionResult Create()
         {
-            // Stop accessing the action if not logged in
-            // or account not in the "Staff" role
-            if ((HttpContext.Session.GetString("Role") == null) ||
-                (HttpContext.Session.GetString("Role") != "Judge"))
-            {
-                return RedirectToAction("Index", "Home");
-            }
             ViewData["SalutationList"] = GetSalutations();
             ViewData["InterestList"] = GetAllInterest();
             return View();
