@@ -14,10 +14,7 @@ namespace WEB_Assignment_Team4.Controllers
     public class JudgeController : Controller
     {
         private InterestDAL interestContext = new InterestDAL();
-        public IActionResult Index()
-        {
-            return View();
-        }
+        
         public ActionResult Create()
         {
             // Stop accessing the action if not logged in
