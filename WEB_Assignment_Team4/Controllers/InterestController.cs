@@ -36,8 +36,16 @@ namespace WEB_Assignment_Team4.Controllers
             }
             return View();
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
+        public ActionResult Delete(Interest interest)
+        {
+            //
+            interestContext.Delete(interest.AreaInterestID);
+            return RedirectToAction("Index");
+        }
+        [HttpPost]
         public ActionResult Create(Interest interest)
         {
             if (ModelState.IsValid)
@@ -53,6 +61,29 @@ namespace WEB_Assignment_Team4.Controllers
                 // to display error messgae
                 return View(interest);
             }
+        }
+        public ActionResult Delete(int? id)
+        {
+            //Stop Accessing the action if not logged in
+            //or account not in the "Administrator" role
+            if (HttpContext.Session.GetString("Role") == null ||
+              (HttpContext.Session.GetString("Role") != "Administrator"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            if (id == null)
+            {
+                //Return to listing page, not allowed to edit
+                return RedirectToAction("Index");
+            }
+            Interest interest = interestContext.GetInterestDetails(id.Value);
+            if(interest == null)
+            {
+                //Return to listing page, not allowed to edit
+                return RedirectToAction("Index");
+            }
+            return View(interest);
         }
     }
 }

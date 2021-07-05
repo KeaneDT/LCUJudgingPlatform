@@ -60,6 +60,45 @@ namespace WEB_Assignment_Team4.DAL
             return interestList;
         }
 
+        public Interest GetInterestDetails(int interestId)
+        {
+            Interest interest = new Interest();
+
+            //Create a SqlCommand object from connection object
+            SqlCommand cmd = conn.CreateCommand();
+
+            //Specify the SELECT SQL statement that     
+            //retrieves all attributes of a staff record.
+            cmd.CommandText = @"SELECT * FROM AreaInterest                         
+                                WHERE AreaInterestID = @selectedAreaInterestID";
+
+            //Define the parameter used in SQL statement, value for the   
+            //parameter is retrieved from the method parameter “staffId”.
+            cmd.Parameters.AddWithValue("@selectedAreaInterestID", interestId);
+
+            //Open a database connection
+            conn.Open();
+            //Execute SELCT SQL through a DataReader
+            SqlDataReader reader = cmd.ExecuteReader();
+            if (reader.HasRows)
+            {
+                //Read the record from database
+                while (reader.Read())
+                {
+                    // Fill staff object with values from the data reader
+                    interest.AreaInterestID = interestId;
+                    interest.Name = !reader.IsDBNull(1) ? reader.GetString(1) : null;
+                }
+            }
+            //Close data reader
+            reader.Close();
+            //Close database connection
+            conn.Close();
+
+            return interest;
+        }
+        // Return number of rows updated
+
         public int Add(Interest interest)
         {
             // Create a Sqlcommand object from connection object
@@ -108,19 +147,39 @@ namespace WEB_Assignment_Team4.DAL
                 {
                     if (reader.GetInt32(0) != AreaInterestId)
                     {
-                        //The email address is used by another judge
+                        //The name is used by another user
                         intrecordFound = true;
                     }
                 }
             }
             else
             {
-                intrecordFound = false; // The email address given does not exist
+                intrecordFound = false; // The name given does not exist
             }
             reader.Close();
             conn.Close();
 
             return intrecordFound;
+        }
+        public int Delete (int interestID)
+        {
+            //Instantiate a SqlCommand object, supply it with a DELETE SQL Statments
+            //to delete a interest record specified by a interest ID
+            SqlCommand cmd = conn.CreateCommand();
+            cmd.CommandText = @"DELETE FROM AreaInterest
+                                WHERE AreaInterestID = @selectAreaInterestId";
+            cmd.Parameters.AddWithValue("@selectAreaInterestId", interestID);
+            // Open a database connection
+            conn.Open();
+            int rowAffected = 0;
+
+            //Execute the DELETE SQL to remove the interest record
+            rowAffected += cmd.ExecuteNonQuery();
+
+            //
+            conn.Close();
+            //Return number of row of interest record updated or deleted
+            return rowAffected;
         }
     }
 }
