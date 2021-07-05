@@ -98,7 +98,6 @@ namespace WEB_Assignment_Team4.DAL
             return interest;
         }
         // Return number of rows updated
-
         public int Add(Interest interest)
         {
             // Create a Sqlcommand object from connection object

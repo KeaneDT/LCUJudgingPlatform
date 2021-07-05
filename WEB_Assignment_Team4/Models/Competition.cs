@@ -19,14 +19,14 @@ namespace WEB_Assignment_Team4.Models
 
         [Display(Name = "Start Date")]
         [DataType(DataType.Date)]
-        public DateTime StartDate { get; set; }
+        public DateTime? StartDate { get; set; }
 
         [Display(Name = "End Date")]
         [DataType(DataType.Date)]
-        public DateTime EndDate { get; set; }
+        public DateTime? EndDate { get; set; }
 
         [Display(Name = "Result Release Date")]
         [DataType(DataType.Date)]
-        public DateTime ResultReleaseDate { get; set; }
+        public DateTime? ResultReleaseDate { get; set; }
     }
 }
