@@ -98,14 +98,20 @@ namespace WEB_Assignment_Team4.Controllers
         [HttpPost]
         public ActionResult Create(Competition competition)
         {
+            //Get interest list for drop-down list
+            //in case of the need to return to create.cshtml view
             ViewData["interestList"] = GetAllInterests();
+            
             if (ModelState.IsValid)
             {
+                //Add competition records to database
                 competition.CompetitionID = competitionContext.Add(competition);
                 return RedirectToAction("Index");
             }
             else
             {
+                //Input validation fails, return to the Competition view
+                //To display error message
                 return View(competition);
             }
         }
