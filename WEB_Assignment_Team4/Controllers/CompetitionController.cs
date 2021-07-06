@@ -101,6 +101,7 @@ namespace WEB_Assignment_Team4.Controllers
             ViewData["interestList"] = GetAllInterests();
             if (ModelState.IsValid)
             {
+                competition.CompetitionID = competitionContext.Add(competition);
                 return RedirectToAction("Index");
             }
             else

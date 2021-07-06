@@ -62,6 +62,34 @@ namespace WEB_Assignment_Team4.DAL
 
             return competitionList;
         }
+
+        public int Add(Competition competition)
+        {
+            //
+            SqlCommand cmd = conn.CreateCommand();
+
+            //
+            //
+            cmd.CommandText = @"INSERT INTO Competition (AreaInterestID, CompetitionName,
+                                StartDate, EndDate, ResultReleasedDate)
+                                OUTPUT INSERTED.CompetitionID
+                                VALUES(@interesttype, @name, @startdate, 
+                                @enddate, @resultreleased)";
+            cmd.Parameters.AddWithValue("@interesttype", competition.AreaInterestID);
+            cmd.Parameters.AddWithValue("@name", competition.Name);
+            cmd.Parameters.AddWithValue("@startdate", competition.StartDate);
+            cmd.Parameters.AddWithValue("@enddate", competition.EndDate);
+            cmd.Parameters.AddWithValue("@resultreleased", competition.ResultReleaseDate);
+
+            conn.Open();
+
+            competition.CompetitionID = (int)cmd.ExecuteScalar();
+
+            conn.Close();
+
+            return competition.CompetitionID;
+
+        }
         public Competition GetDetails(int competitionId)
         {
             Competition competition = new Competition();
