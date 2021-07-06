@@ -27,9 +27,17 @@ namespace WEB_Assignment_Team4.Controllers
             List<Competition> competitionList = competitionContext.GetAllCompetition();
             return View(competitionList);
         }
-
+        private List<Interest> GetAllInterests()
+        {
+            List<Interest> interestList = interestContext.GetAllInterest();
+            interestList.Insert(0, new Interest
+            {
+                AreaInterestID = 0,
+                Name = "--Select--"
+            });
+            return interestList;
+        }
         // GET: CompetitionController/Details/5
-
         public ActionResult Details(int id)
         {
             // Stop accessing the action if not logged in
@@ -75,21 +83,29 @@ namespace WEB_Assignment_Team4.Controllers
         // GET: CompetitionController/Create
         public ActionResult Create()
         {
+            // Stop accessing the action if not logged in
+            // or account not in the "Staff" Role
+            if ((HttpContext.Session.GetString("Role") == null) ||
+                (HttpContext.Session.GetString("Role") != "Administrator"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            ViewData["interestList"] = GetAllInterests();
             return View();
         }
 
         // POST: CompetitionController/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(Competition competition)
         {
-            try
+            ViewData["interestList"] = GetAllInterests();
+            if (ModelState.IsValid)
             {
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index");
             }
-            catch
+            else
             {
-                return View();
+                return View(competition);
             }
         }
 
