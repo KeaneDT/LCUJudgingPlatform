@@ -18,11 +18,7 @@ namespace WEB_Assignment_Team4.Controllers
 
         public ActionResult Index()
         {
-            // Stop accessing the action if not logged in
-            // or account not in the "Staff" role
-            
-            List<Judge> judgeList = judgeContext.GetAllJudges();
-            return View(judgeList);
+            return RedirectToAction("PublicMain", "Home");
         }
         public ActionResult Create()
         {

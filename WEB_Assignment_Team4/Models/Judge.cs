@@ -22,8 +22,8 @@ namespace WEB_Assignment_Team4.Models
         public string Salutation { get; set; } //Nullable - from db
 
         //AreaInterestID
-        [Required(ErrorMessage = "Area of Interest ID Required!")]
-        [Display(Name = "Area of Interest ID")]
+        [Required(ErrorMessage = "Area of Interest Required!")]
+        [Display(Name = "Area of Interest")]
         public int AreaInterestID { get; set; }
 
         //EmailAddr
