@@ -15,6 +15,7 @@ namespace WEB_Assignment_Team4.Models
         public int? AreaInterestID { get; set; }
 
         [Display(Name = "Competition Name")]
+        [ValidateCompetitionNamecs]
         public string Name { get; set; }
 
         [Display(Name = "Start Date")]

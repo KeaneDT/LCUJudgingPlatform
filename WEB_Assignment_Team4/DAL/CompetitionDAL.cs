@@ -62,7 +62,38 @@ namespace WEB_Assignment_Team4.DAL
 
             return competitionList;
         }
+        public bool IsNameExist(string name, int competitonId)
+        {
+            bool nameFound = false;
+            //
+            //
+            SqlCommand cmd = conn.CreateCommand();
+            cmd.CommandText = @"SELECT CompetitionID From Competition
+                                WHERE CompetitionName=@selectedCompetitionName";
+            cmd.Parameters.AddWithValue(@"selectedCompetitionName", name);
 
+            //
+            conn.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    if (reader.GetInt32(0) != competitonId)
+                        //
+                        nameFound = true;
+                }
+            }
+            else //
+            {
+                nameFound = false;
+            }
+            reader.Close();
+            conn.Close();
+
+            return nameFound;
+
+        }
         public int Add(Competition competition)
         {
             //Create a SqlCommand Object object from connection object

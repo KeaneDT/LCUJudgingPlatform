@@ -96,6 +96,7 @@ namespace WEB_Assignment_Team4.Controllers
 
         // POST: CompetitionController/Create
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(Competition competition)
         {
             //Get interest list for drop-down list
