@@ -89,5 +89,10 @@ namespace WEB_Assignment_Team4.Controllers
         {
             return View();
         }
+
+        public IActionResult Voting()
+        {
+            return View();
+        }
     }
 }

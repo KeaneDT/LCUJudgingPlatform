@@ -25,6 +25,8 @@ namespace WEB_Assignment_Team4.Controllers
             List<Interest> interestList = interestContext.GetAllInterest();
             return View(interestList);
         }
+        
+
         public ActionResult Create()
         {
             //Stop Accessing the action if not logged in

@@ -12,7 +12,8 @@ namespace WEB_Assignment_Team4.Controllers
     public class CompetitionController : Controller
     {
         private CompetitionDAL competitionContext = new CompetitionDAL();
-        
+        private InterestDAL interestContext = new InterestDAL();
+
         // GET
         public ActionResult Index()
         {
@@ -28,9 +29,47 @@ namespace WEB_Assignment_Team4.Controllers
         }
 
         // GET: CompetitionController/Details/5
+
         public ActionResult Details(int id)
         {
-            return View();
+            // Stop accessing the action if not logged in
+            // or account not in the "Staff" role
+            if ((HttpContext.Session.GetString("Role") == null) ||
+            (HttpContext.Session.GetString("Role") != "Staff"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            Competition competition = competitionContext.GetDetails(id);
+            CompetitionViewModel competitionVM = MapToCompetitionVM(competition);
+            return View(competitionVM);
+        }
+
+        public CompetitionViewModel MapToCompetitionVM(Competition competition)
+        {
+            string areaInterestName = "";
+            if (competition.AreaInterestID != null)
+            {
+                List<Interest> interestList = interestContext.GetAllInterest();
+                foreach (Interest interest in interestList)
+                {
+                    if(interest.AreaInterestID == competition.AreaInterestID.Value)
+                    {
+                        areaInterestName = interest.Name;
+                        break;
+                    }
+                }
+            }
+
+            CompetitionViewModel competitionVM = new CompetitionViewModel
+            {
+                CompetitionID = competition.CompetitionID,
+                Name = competition.Name,
+                StartDate = competition.StartDate,
+                EndDate = competition.EndDate,
+                ResultReleaseDate = competition.ResultReleaseDate,
+                AreaInterestName = areaInterestName,
+            };
+            return competitionVM;
         }
 
         // GET: CompetitionController/Create

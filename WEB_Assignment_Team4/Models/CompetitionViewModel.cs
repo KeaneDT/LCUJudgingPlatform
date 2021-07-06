@@ -6,15 +6,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WEB_Assignment_Team4.Models
 {
-    public class Competition
+    public class CompetitionViewModel
     {
         [Display(Name = "Competition ID")]
         public int CompetitionID { get; set; }
 
-        [Display(Name = "Interest ID")]
-        public int? AreaInterestID { get; set; }
-
-        [Display(Name = "Competition Name")]
         public string Name { get; set; }
 
         [Display(Name = "Start Date")]
@@ -28,5 +24,8 @@ namespace WEB_Assignment_Team4.Models
         [Display(Name = "Result Release Date")]
         [DataType(DataType.Date)]
         public DateTime? ResultReleaseDate { get; set; }
+
+        [Display(Name = "Area of Interest Name")]
+        public string AreaInterestName { get; set; }
     }
 }
