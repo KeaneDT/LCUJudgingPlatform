@@ -97,5 +97,25 @@ namespace WEB_Assignment_Team4.DAL
 
             return emailFound;
         }
+        public int Add(Judge judge)
+        {
+            SqlCommand cmd = conn.CreateCommand();
+
+            cmd.CommandText = @"INSERT INTO Judge (JudgeName, Salutation, AreaInterestID, EmailAddr, Password)
+                                OUTPUT INSERTED.JudgeID
+                                VALUES(@name, @salutation, @interestID, @email, @password)";
+
+            cmd.Parameters.AddWithValue("@name", judge.JudgeName);
+            cmd.Parameters.AddWithValue("@salutation", judge.Salutation);
+            cmd.Parameters.AddWithValue("@interestID", judge.AreaInterestID);
+            cmd.Parameters.AddWithValue("@email", judge.EmailAddr);
+            cmd.Parameters.AddWithValue("@password", judge.Password);
+
+            conn.Open();
+            judge.JudgeID = (int)cmd.ExecuteScalar();
+            conn.Close();
+
+            return judge.JudgeID;
+        }
     }
 }

@@ -14,13 +14,46 @@ namespace WEB_Assignment_Team4.Controllers
     public class JudgeController : Controller
     {
         private InterestDAL interestContext = new InterestDAL();
-        
+        private JudgeDAL judgeContext = new JudgeDAL();
+
+        public ActionResult Index()
+        {
+            // Stop accessing the action if not logged in
+            // or account not in the "Staff" role
+            
+            List<Judge> judgeList = judgeContext.GetAllJudges();
+            return View(judgeList);
+        }
         public ActionResult Create()
         {
             ViewData["SalutationList"] = GetSalutations();
             ViewData["InterestList"] = GetAllInterest();
             return View();
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(Judge judge)
+        {
+            //Get country list for drop-down list
+            //in case of the need to return to Create.cshtml view
+            ViewData["SalutationList"] = GetSalutations();
+            ViewData["InterestList"] = GetAllInterest();
+            if (ModelState.IsValid)
+            {
+                //Add staff record to database
+                judge.JudgeID = judgeContext.Add(judge);
+                //Redirect user to Staff/Index view
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                //Input validation fails, return to the Create view
+                //to display error message
+                return View(judge);
+            }
+        }
+
         private List<SelectListItem> GetSalutations()
         {
             List<SelectListItem> sal = new List<SelectListItem>();
