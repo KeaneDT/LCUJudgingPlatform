@@ -97,6 +97,30 @@ namespace WEB_Assignment_Team4.DAL
 
             return emailFound;
         }
+        public bool ValidJudgeLogin(string email, string pass)
+        {
+            bool validLogin = false;
+            SqlCommand cmd = conn.CreateCommand();
+            cmd.CommandText = @"SELECT JudgeID FROM Judge WHERE EmailAddr=@email AND Password=@pass";
+            cmd.Parameters.AddWithValue("@email", email);
+            cmd.Parameters.AddWithValue("@pass", pass);
+            //Open a database connection and execute the SQL statement
+            conn.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            if (reader.HasRows) //Records Found
+            {
+                validLogin = true;
+            }
+            else
+            {
+                validLogin = false; 
+            }
+            reader.Close();
+            conn.Close();
+
+            return validLogin;
+        }
         public int Add(Judge judge)
         {
             SqlCommand cmd = conn.CreateCommand();

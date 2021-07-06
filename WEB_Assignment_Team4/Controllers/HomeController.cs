@@ -1,11 +1,19 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
+using System.IO;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using WEB_Assignment_Team4.DAL;
+using WEB_Assignment_Team4.Models;
 
 namespace WEB_Assignment_Team4.Controllers
 {
     public class HomeController : Controller
     {
+        private JudgeDAL judgeContext = new JudgeDAL();
         public IActionResult Index()
         {
             return View();
@@ -36,7 +44,7 @@ namespace WEB_Assignment_Team4.Controllers
                 return RedirectToAction("AdminMain");
             }
             //Judge Login
-            else if(userID == "abc1@lcu.edu.sg" && password == "p@55Judge")
+            else if(judgeContext.ValidJudgeLogin(userID,password)==true)
             {
                 string Role = "Judge";
                 // Store Login ID in session with the key "LoginID"
