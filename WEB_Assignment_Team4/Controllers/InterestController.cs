@@ -25,7 +25,23 @@ namespace WEB_Assignment_Team4.Controllers
             List<Interest> interestList = interestContext.GetAllInterest();
             return View(interestList);
         }
-        
+
+        public ActionResult Select(int? id)
+        {
+            InterestViewModel interestVM = new InterestViewModel();
+            interestVM.interestList = interestContext.GetAllInterest();
+            if (id != null)
+            {
+                ViewData["selectedInterestNo"] = id.Value;
+                interestVM.competitionList = interestContext.GetInterestCompetition(id.Value);
+            }
+            else
+            {
+                ViewData["selectedInterestNo"] = "";
+            }
+            return View(interestVM);
+        }
+
 
         public ActionResult Create()
         {

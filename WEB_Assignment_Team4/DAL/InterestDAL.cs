@@ -28,6 +28,43 @@ namespace WEB_Assignment_Team4.DAL
             //Connection String read.
             conn = new SqlConnection(strConn);
         }
+
+        public List<Competition> GetInterestCompetition(int areaInterestID)
+        {
+            //Create a SqlCommand object from connection object
+            SqlCommand cmd = conn.CreateCommand();
+            //Specify the SQL statement that select all branches
+            cmd.CommandText = @"SELECT * FROM Competition WHERE AreaInterestID = @selectedInterest";
+            //Define the parameter used in SQL statement, value for the
+            //parameter is retrieved from the method parameter “branchNo”.
+            cmd.Parameters.AddWithValue("@selectedInterest", areaInterestID);
+
+            //Open a database connection
+            conn.Open();
+            //Execute SELCT SQL through a DataReader
+            SqlDataReader reader = cmd.ExecuteReader();
+            List<Competition> competitionList = new List<Competition>();
+            while (reader.Read())
+            {
+                competitionList.Add(
+                    new Competition
+                    {
+                        CompetitionID = reader.GetInt32(0),
+                        Name = reader.GetString(2),
+                        StartDate = reader.GetDateTime(3),
+                        EndDate = reader.GetDateTime(4),
+                        ResultReleaseDate = reader.GetDateTime(5),
+
+                        AreaInterestID = !reader.IsDBNull(1)?
+                        reader.GetInt32(1):(int?) null,
+                    });
+            }
+            //Close DataReader
+            reader.Close();
+            //Close database connection
+            conn.Close();
+            return competitionList;
+        }
         
         public List<Interest> GetAllInterest()
         {
