@@ -15,6 +15,7 @@ namespace WEB_Assignment_Team4.Controllers
     {
         private InterestDAL interestContext = new InterestDAL();
         private JudgeDAL judgeContext = new JudgeDAL();
+        private CompetitionDAL competitionContext = new CompetitionDAL();
 
         public ActionResult Create()
         {
@@ -44,6 +45,12 @@ namespace WEB_Assignment_Team4.Controllers
                 //to display error message
                 return View(judge);
             }
+        }
+
+        public ActionResult SelectCompetition()
+        {
+            ViewData["JudgeCompetitionList"] = GetJudgeCompetition();
+            return View();
         }
 
         private List<SelectListItem> GetSalutations()
@@ -84,6 +91,14 @@ namespace WEB_Assignment_Team4.Controllers
                 Name = "--Select--"
             });
             return interestList;
+        }
+        private List<Competition> GetJudgeCompetition()
+        {
+            string email = HttpContext.Session.GetString("LoginID");
+            int judgeID = judgeContext.GetJudgeID(email);
+            List<Competition> competitionList = competitionContext.GetJudgeCompetition(judgeID);
+
+            return competitionList;
         }
     }
 }

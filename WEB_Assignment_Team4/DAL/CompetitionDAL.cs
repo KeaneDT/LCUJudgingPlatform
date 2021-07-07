@@ -173,6 +173,36 @@ namespace WEB_Assignment_Team4.DAL
 
             return competition;
         }
-        // Return number of rows updated
+        public List<Competition> GetJudgeCompetition(int judgeID)
+        {
+            //Create a SqlCommand object from connection object 
+            SqlCommand cmd = conn.CreateCommand();
+            //Specify the SELECT SQL statments
+            cmd.CommandText = @"SELECT * FROM Competition INNER JOIN CompetitionJudge ON Competition.CompetitionID=CompetitionJudge.CompetitionID 
+                                WHERE CompetitionJudge.JudgeID = @judgeID";
+            cmd.Parameters.AddWithValue("@judgeID", judgeID);
+
+            conn.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+            List<Competition> judgeCompList = new List<Competition>();
+            while (reader.Read())
+            {
+                judgeCompList.Add(
+                    new Competition
+                    {
+                        CompetitionID = reader.GetInt32(0),
+                        AreaInterestID = reader.GetInt32(1),
+                        Name = reader.GetString(2),
+                        StartDate = reader.GetDateTime(3),
+                        EndDate = reader.GetDateTime(4),
+                        ResultReleaseDate = reader.GetDateTime(5),
+                    }
+                );
+            }
+            reader.Close();
+            conn.Close();
+
+            return judgeCompList;
+        }
     }
 }
