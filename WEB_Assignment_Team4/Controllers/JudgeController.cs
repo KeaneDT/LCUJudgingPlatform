@@ -16,10 +16,6 @@ namespace WEB_Assignment_Team4.Controllers
         private InterestDAL interestContext = new InterestDAL();
         private JudgeDAL judgeContext = new JudgeDAL();
 
-        public ActionResult Index()
-        {
-            return RedirectToAction("PublicMain", "Home");
-        }
         public ActionResult Create()
         {
             ViewData["SalutationList"] = GetSalutations();
@@ -40,7 +36,7 @@ namespace WEB_Assignment_Team4.Controllers
                 //Add staff record to database
                 judge.JudgeID = judgeContext.Add(judge);
                 //Redirect user to Staff/Index view
-                return RedirectToAction("Index");
+                return RedirectToAction("PublicMain", "Home");
             }
             else
             {

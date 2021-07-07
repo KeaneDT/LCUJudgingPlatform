@@ -76,6 +76,11 @@ namespace WEB_Assignment_Team4.Controllers
         }
         public ActionResult JudgeMain()
         {
+            if (HttpContext.Session.GetString("Role") == null ||
+               (HttpContext.Session.GetString("Role") != "Judge"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
             return View();
         }
         public ActionResult LogOut()
