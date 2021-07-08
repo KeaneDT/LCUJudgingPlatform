@@ -43,7 +43,7 @@ namespace WEB_Assignment_Team4.Controllers
             // Stop accessing the action if not logged in
             // or account not in the "Staff" role
             if ((HttpContext.Session.GetString("Role") == null) ||
-            (HttpContext.Session.GetString("Role") != "Staff"))
+                (HttpContext.Session.GetString("Role") != "Administrator"))
             {
                 return RedirectToAction("Index", "Home");
             }
@@ -62,8 +62,8 @@ namespace WEB_Assignment_Team4.Controllers
                 {
                     if(interest.AreaInterestID == competition.AreaInterestID.Value)
                     {
-                        areaInterestName = interest.Name;
-                        break;
+                       areaInterestName = interest.Name;
+                       break;
                     }
                 }
             }
@@ -75,7 +75,6 @@ namespace WEB_Assignment_Team4.Controllers
                 StartDate = competition.StartDate,
                 EndDate = competition.EndDate,
                 ResultReleaseDate = competition.ResultReleaseDate,
-                AreaInterestName = areaInterestName,
             };
             return competitionVM;
         }

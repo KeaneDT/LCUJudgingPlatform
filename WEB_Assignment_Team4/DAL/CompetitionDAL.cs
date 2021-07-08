@@ -143,7 +143,7 @@ namespace WEB_Assignment_Team4.DAL
 
             //Define the parameter used in SQL statement, value for the   
             //parameter is retrieved from the method parameter “staffId”.
-            cmd.Parameters.AddWithValue("@selectedAreaInterestID", competitionId);
+            cmd.Parameters.AddWithValue("@selectedCompetitionID", competitionId);
 
             //Open a database connection
             conn.Open();
