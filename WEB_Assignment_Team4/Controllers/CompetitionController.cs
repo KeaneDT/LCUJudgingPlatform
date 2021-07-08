@@ -118,23 +118,49 @@ namespace WEB_Assignment_Team4.Controllers
         }
 
         // GET: CompetitionController/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
-            return View();
+            //
+            //
+            if ((HttpContext.Session.GetString("Role") == null) ||
+              (HttpContext.Session.GetString("Role") != "Administrator"))
+            {
+                return RedirectToAction("Index", "Competition");
+            }
+            if(id == null) //
+            {
+                //
+                return RedirectToAction("Index");
+            }
+            ViewData["interestList"] = GetAllInterests();
+            Competition competition = competitionContext.GetDetails(id.Value);
+            if( competition == null)
+            {
+                return RedirectToAction("Index");
+            }
+            return View(competition);
         }
 
         // POST: CompetitionController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(Competition competition)
         {
-            try
+            //
+            //
+            ViewData["interestList"] = GetAllInterests();
+
+            if (ModelState.IsValid)
             {
-                return RedirectToAction(nameof(Index));
+                //
+                competitionContext.Update(competition);
+                return RedirectToAction("Index");
             }
-            catch
+            else
             {
-                return View();
+                //
+                //
+                return View(competition);
             }
         }
 

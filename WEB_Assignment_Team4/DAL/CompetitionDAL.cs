@@ -173,6 +173,43 @@ namespace WEB_Assignment_Team4.DAL
 
             return competition;
         }
+        public int Update(Competition competition)
+        {
+            //
+            SqlCommand cmd = conn.CreateCommand();
+
+            //
+            cmd.CommandText = @"UPDATE Competition SET AreaInterestID=@interestID,CompetitionName=@name,
+                                StartDate=@startdate,EndDate=@enddate,
+                                ResultReleasedDate=@daterelease
+                                WHERE CompetitionID=@selectedCompID";
+
+            //
+            //
+            cmd.Parameters.AddWithValue("@name", competition.Name);
+            cmd.Parameters.AddWithValue("@startdate", competition.StartDate);
+            cmd.Parameters.AddWithValue("@enddate", competition.EndDate);
+            cmd.Parameters.AddWithValue("@daterelease", competition.ResultReleaseDate);
+
+            if (competition.AreaInterestID != null && competition.AreaInterestID != 0)
+                //
+                cmd.Parameters.AddWithValue("@interestID", competition.AreaInterestID.Value);
+            else
+                //
+                cmd.Parameters.AddWithValue("@interestID", DBNull.Value);
+            cmd.Parameters.AddWithValue("@selectedCompID", competition.CompetitionID);
+
+            //
+            conn.Open();
+            //
+            int count = cmd.ExecuteNonQuery();
+
+            //
+            conn.Close();
+
+            return count;
+
+        }
         public List<Competition> GetJudgeCompetition(string email)
         {
             //Create a SqlCommand object from connection object 

@@ -1,0 +1,59 @@
+﻿@model WEB_Assignment_Team4.Models.Competition
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Competition</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="CompetitionID" class="control-label"></label>
+                <input asp-for="CompetitionID" class="form-control" readonly />
+                <span asp-validation-for="CompetitionID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AreaInterestID" class="control-label">Interest Name:</label>
+                <select asp-for="AreaInterestID"
+                        asp-items="@(new SelectList(
+                                   ViewData["interestList"] as List <Interest>,
+                                   "AreaInterestID","Name"))"
+                        class="form-control" required></select>
+                <span asp-validation-for="AreaInterestID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StartDate" class="control-label"></label>
+                <input asp-for="StartDate" class="form-control" />
+                <span asp-validation-for="StartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EndDate" class="control-label"></label>
+                <input asp-for="EndDate" class="form-control" />
+                <span asp-validation-for="EndDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ResultReleaseDate" class="control-label"></label>
+                <input asp-for="ResultReleaseDate" class="form-control" />
+                <span asp-validation-for="ResultReleaseDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
