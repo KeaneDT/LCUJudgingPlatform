@@ -206,7 +206,6 @@ namespace WEB_Assignment_Team4.DAL
             reader.Close();
             //Close the database connection
             conn.Close();
-
             return competitionList;
         }
     }
