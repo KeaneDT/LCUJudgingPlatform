@@ -75,6 +75,7 @@ namespace WEB_Assignment_Team4.Controllers
                 StartDate = competition.StartDate,
                 EndDate = competition.EndDate,
                 ResultReleaseDate = competition.ResultReleaseDate,
+                AreaInterestName = areaInterestName
             };
             return competitionVM;
         }
