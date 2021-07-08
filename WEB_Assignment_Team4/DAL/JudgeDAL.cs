@@ -141,33 +141,6 @@ namespace WEB_Assignment_Team4.DAL
 
             return judge.JudgeID;
         }
-        public int GetJudgeID(string email)
-        {
-            int judgeID = 0;
 
-            SqlCommand cmd = conn.CreateCommand();
-
-            cmd.CommandText = @"SELECT JudgeID FROM Judge WHERE EmailAddr = @email";
-            cmd.Parameters.AddWithValue("@email", email);
-
-            //Open a database connection
-            conn.Open();
-
-            //Execute SELCT SQL through a DataReader
-            SqlDataReader reader = cmd.ExecuteReader();
-
-            while (reader.Read())
-            {
-                judgeID = reader.GetInt32(0);
-            }
-
-            //Close DataReader
-            reader.Close();
-
-            //Close database connection
-            conn.Close();
-
-            return judgeID;
-        }
     }
 }

@@ -46,10 +46,9 @@ namespace WEB_Assignment_Team4.Controllers
                 return View(judge);
             }
         }
-
         public ActionResult SelectCompetition()
         {
-            ViewData["JudgeCompetitionList"] = GetJudgeCompetition();
+            ViewData["CompetitionJudgeList"] = GetJudgeCompetition();
             return View();
         }
 
@@ -94,11 +93,8 @@ namespace WEB_Assignment_Team4.Controllers
         }
         private List<Competition> GetJudgeCompetition()
         {
-            string email = HttpContext.Session.GetString("LoginID");
-            int judgeID = judgeContext.GetJudgeID(email);
-            List<Competition> competitionList = competitionContext.GetJudgeCompetition(judgeID);
-
-            return competitionList;
+            List<Competition> cList = competitionContext.GetJudgeCompetition(HttpContext.Session.GetString("LoginID"));
+            return cList;
         }
     }
 }

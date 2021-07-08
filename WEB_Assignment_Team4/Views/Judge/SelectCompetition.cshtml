@@ -1,0 +1,22 @@
+﻿@model WEB_Assignment_Team4.Models.Competition
+
+@{
+    ViewData["Title"] = "SelectCompetition";
+}
+
+<h1>SelectCompetition</h1>
+
+<h4>Competition</h4>
+<hr />
+<div class="form-group">
+    <label asp-for="CompetitionID" class="control-label"></label>
+    <div class="col-sm-9 col-md-5">
+        <select asp-for="CompetitionID"
+                asp-items="@(new SelectList(
+                                    @ViewData["CompetitionJudgeList"] as List<Competition>,
+                                              "CompetitionID", "Name"))"
+                class="form-control">
+        </select>
+    </div>
+</div>
+

@@ -173,21 +173,24 @@ namespace WEB_Assignment_Team4.DAL
 
             return competition;
         }
-        public List<Competition> GetJudgeCompetition(int judgeID)
+        public List<Competition> GetJudgeCompetition(string email)
         {
             //Create a SqlCommand object from connection object 
             SqlCommand cmd = conn.CreateCommand();
             //Specify the SELECT SQL statments
-            cmd.CommandText = @"SELECT * FROM Competition INNER JOIN CompetitionJudge ON Competition.CompetitionID=CompetitionJudge.CompetitionID 
-                                WHERE CompetitionJudge.JudgeID = @judgeID";
-            cmd.Parameters.AddWithValue("@judgeID", judgeID);
-
+            cmd.CommandText = @"SELECT x.* FROM Competition x INNER JOIN CompetitionJudge y ON x.CompetitionID=y.CompetitionID
+                                INNER JOIN Judge z ON y.JudgeID=z.JudgeID WHERE z.EmailAddr = @email";
+            cmd.Parameters.AddWithValue("@email", email);
+            //Open a database connection
             conn.Open();
+            //Execute the SELECT SQL through a DataReader
             SqlDataReader reader = cmd.ExecuteReader();
-            List<Competition> judgeCompList = new List<Competition>();
+
+            //Read all records until the end, save data into a staff list
+            List<Competition> competitionList = new List<Competition>();
             while (reader.Read())
             {
-                judgeCompList.Add(
+                competitionList.Add(
                     new Competition
                     {
                         CompetitionID = reader.GetInt32(0),
@@ -199,10 +202,12 @@ namespace WEB_Assignment_Team4.DAL
                     }
                 );
             }
+            //Close DataReader
             reader.Close();
+            //Close the database connection
             conn.Close();
 
-            return judgeCompList;
+            return competitionList;
         }
     }
 }
