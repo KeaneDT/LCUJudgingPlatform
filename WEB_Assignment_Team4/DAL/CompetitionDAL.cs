@@ -175,36 +175,35 @@ namespace WEB_Assignment_Team4.DAL
         }
         public int Update(Competition competition)
         {
-            //
+            //Create a Sqlcommand object from connection object
             SqlCommand cmd = conn.CreateCommand();
 
-            //
+            //Specifiy an UPDATE SQL Statments
             cmd.CommandText = @"UPDATE Competition SET AreaInterestID=@interestID,CompetitionName=@name,
                                 StartDate=@startdate,EndDate=@enddate,
                                 ResultReleasedDate=@daterelease
                                 WHERE CompetitionID=@selectedCompID";
 
-            //
-            //
+            //Define the parameters used in SQL statment, value for each parameter
+            //is retrieved from the respective class's property.
             cmd.Parameters.AddWithValue("@name", competition.Name);
             cmd.Parameters.AddWithValue("@startdate", competition.StartDate);
             cmd.Parameters.AddWithValue("@enddate", competition.EndDate);
             cmd.Parameters.AddWithValue("@daterelease", competition.ResultReleaseDate);
 
             if (competition.AreaInterestID != null && competition.AreaInterestID != 0)
-                //
+                //A InterestID is assigned
                 cmd.Parameters.AddWithValue("@interestID", competition.AreaInterestID.Value);
             else
-                //
+                //No InterestID is assigned
                 cmd.Parameters.AddWithValue("@interestID", DBNull.Value);
             cmd.Parameters.AddWithValue("@selectedCompID", competition.CompetitionID);
 
-            //
+            //Open a database connection
             conn.Open();
-            //
+            //ExecuteNonQuery is used for UPDATE and DELETE
             int count = cmd.ExecuteNonQuery();
-
-            //
+            //Close the database connection
             conn.Close();
 
             return count;

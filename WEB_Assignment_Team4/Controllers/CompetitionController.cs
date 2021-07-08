@@ -84,7 +84,7 @@ namespace WEB_Assignment_Team4.Controllers
         public ActionResult Create()
         {
             // Stop accessing the action if not logged in
-            // or account not in the "Staff" Role
+            // or account not in the "Administrator" Role
             if ((HttpContext.Session.GetString("Role") == null) ||
                 (HttpContext.Session.GetString("Role") != "Administrator"))
             {
@@ -120,22 +120,23 @@ namespace WEB_Assignment_Team4.Controllers
         // GET: CompetitionController/Edit/5
         public ActionResult Edit(int? id)
         {
-            //
-            //
+            //Stop accessing the action if not logged in
+            //or account not in the "Administrator" role
             if ((HttpContext.Session.GetString("Role") == null) ||
               (HttpContext.Session.GetString("Role") != "Administrator"))
             {
                 return RedirectToAction("Index", "Competition");
             }
-            if(id == null) //
+            if(id == null) //Query string parameter not provided 
             {
-                //
+                //Return the listing page, not allowed to edit
                 return RedirectToAction("Index");
             }
             ViewData["interestList"] = GetAllInterests();
             Competition competition = competitionContext.GetDetails(id.Value);
             if( competition == null)
             {
+                //Return the listing page, not allowed to edit
                 return RedirectToAction("Index");
             }
             return View(competition);
@@ -146,20 +147,20 @@ namespace WEB_Assignment_Team4.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Competition competition)
         {
-            //
-            //
+            //Get interest List for the drop-down list
+            //in case of the need to return to Edit.cshtml view
             ViewData["interestList"] = GetAllInterests();
 
             if (ModelState.IsValid)
             {
-                //
+                //Update competition record to the database
                 competitionContext.Update(competition);
                 return RedirectToAction("Index");
             }
             else
             {
-                //
-                //
+                //Input Validation fails, return to the view
+                //to display an error message
                 return View(competition);
             }
         }
