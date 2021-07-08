@@ -30,7 +30,7 @@
                     <td>@item.Name</td>
                     <td>
                         <a asp-action="Select" asp-controller="Interest"
-                           asp-route-id="@item.AreaInterestID">View Competition</a>
+                           asp-route-id="@item.AreaInterestID">Select Area of Interest</a>
                     </td>
                 </tr>
             }
@@ -47,7 +47,7 @@
             Competitions Under Selected Area of Interest
             @ViewData["selectedInterestNo"].ToString() :
         </h5>
-        <partial name="~/Views/Competition/_ViewCompetition.cshtml"
+        <partial name="~/Views/Competition/_SelectCompetition.cshtml"
                  model="@Model.competitionList" />
     }
     else
