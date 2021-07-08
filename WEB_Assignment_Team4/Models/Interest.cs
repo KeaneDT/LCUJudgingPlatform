@@ -9,6 +9,7 @@ namespace WEB_Assignment_Team4.Models
     {
         [Display(Name = "ID")]
         public int AreaInterestID { get; set; }
+        [ValidateInterestName]
         // Display for Name
         [Required(ErrorMessage = "Please enter the event name")]
         public string Name { get; set; }
