@@ -48,8 +48,18 @@ namespace WEB_Assignment_Team4.Controllers
         }
         public ActionResult SelectCompetition()
         {
+            ViewData["ShowResult"] = false;
             ViewData["CompetitionJudgeList"] = GetJudgeCompetition();
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult SelectCompetition(Competition competition)
+        {
+            ViewData["ShowResult"] = true;
+            ViewData["CompetitionJudgeList"] = GetJudgeCompetition();
+            ViewData["CompetitionID"] = competition.CompetitionID;
+            return View(competition);
         }
 
         private List<SelectListItem> GetSalutations()
