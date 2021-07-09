@@ -16,7 +16,6 @@ namespace WEB_Assignment_Team4.Controllers
         private InterestDAL interestContext = new InterestDAL();
         private JudgeDAL judgeContext = new JudgeDAL();
         private CompetitionDAL competitionContext = new CompetitionDAL();
-        private CriteriaDAL criteriaContext = new CriteriaDAL();
 
         public ActionResult Create()
         {
