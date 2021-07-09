@@ -190,7 +190,7 @@ namespace WEB_Assignment_Team4.Controllers
         public ActionResult Delete(Competition competition)
         {
             //
-            competitionContext.Delete(competition.CompetitionID);
+            competitionContext.Delete(competition.CompetitionID, competition.AreaInterestID);
             return RedirectToAction("Index");
         }
     }
