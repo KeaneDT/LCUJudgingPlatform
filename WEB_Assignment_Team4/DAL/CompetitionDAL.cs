@@ -207,7 +207,28 @@ namespace WEB_Assignment_Team4.DAL
             conn.Close();
 
             return count;
+        }
+        public int Delete(int CompId)
+        {
+            //
+            //
+            SqlCommand cmd = conn.CreateCommand();
+            cmd.CommandText = @"DELETE FROM Competition
+                               WHERE CompetitionID = @selectedCompetitionID";
+            cmd.Parameters.AddWithValue("selectedCompetitionID", CompId);
 
+            //
+            conn.Open();
+
+            int rowAffected = 0;
+
+            //
+            rowAffected += cmd.ExecuteNonQuery();
+
+            //
+            conn.Close();
+            //
+            return rowAffected;
         }
         public List<Competition> GetJudgeCompetition(string email)
         {

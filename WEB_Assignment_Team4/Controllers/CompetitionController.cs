@@ -166,24 +166,32 @@ namespace WEB_Assignment_Team4.Controllers
         }
 
         // GET: CompetitionController/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int? id)
         {
-            return View();
+            //Stop accessing the action if not logged in
+            //or account not in the "Administrator" role
+            if (id == null)
+            {
+                //
+                return RedirectToAction("Index");
+            }
+            Competition competition = competitionContext.GetDetails(id.Value);
+            if(competition == null)
+            {
+                //
+                return RedirectToAction("Index");
+            }
+            return View(competition);
         }
 
         // POST: CompetitionController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(Competition competition)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            //
+            competitionContext.Delete(competition.CompetitionID);
+            return RedirectToAction("Index");
         }
     }
 }
