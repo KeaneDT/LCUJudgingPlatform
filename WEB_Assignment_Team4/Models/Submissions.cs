@@ -9,7 +9,7 @@ namespace WEB_Assignment_Team4.Models
     public class Submissions
     {
         [Display(Name = "CompetitionID")]
-        public int CompetitionID { get; set; }
+        public int? CompetitionID { get; set; }
 
         [Display(Name = "CompetitorID")]
         public int CompetitorID { get; set; }
