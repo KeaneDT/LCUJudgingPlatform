@@ -16,6 +16,7 @@ namespace WEB_Assignment_Team4.Controllers
         private InterestDAL interestContext = new InterestDAL();
         private JudgeDAL judgeContext = new JudgeDAL();
         private CompetitionDAL competitionContext = new CompetitionDAL();
+        private CriteriaDAL criteriaContext = new CriteriaDAL();
 
         public ActionResult Create()
         {
@@ -46,22 +47,6 @@ namespace WEB_Assignment_Team4.Controllers
                 return View(judge);
             }
         }
-        public ActionResult SelectCompetition()
-        {
-            ViewData["ShowResult"] = false;
-            ViewData["CompetitionJudgeList"] = GetJudgeCompetition();
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult SelectCompetition(Competition competition)
-        {
-            ViewData["ShowResult"] = true;
-            ViewData["CompetitionJudgeList"] = GetJudgeCompetition();
-            ViewData["CompetitionID"] = competition.CompetitionID;
-            return View(competition);
-        }
-
         private List<SelectListItem> GetSalutations()
         {
             List<SelectListItem> sal = new List<SelectListItem>();

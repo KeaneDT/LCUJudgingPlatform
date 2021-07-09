@@ -1,0 +1,62 @@
+﻿@model WEB_Assignment_Team4.Models.CompetitionCriteriaViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h4 class="PageTitle">View Competitions</h4>
+<div class="table-responsive">
+    <table id="viewCompetition" class="table table-striped table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th>CompetitionID</th>
+                <th>Name</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.competitionList)
+            {
+                string selectedRow = "";
+                if (ViewData["selectedCompetitionNo"].ToString()
+                == item.CompetitionID.ToString())
+                {
+                    // Highlight the selected row
+                    selectedRow = "class='table-primary'";
+                }
+                <tr @Html.Raw(selectedRow)>
+                    <td>@item.CompetitionID.ToString()</td>
+                    <td>@item.Name</td>
+                    <td>@item.StartDate</td>
+                    <td>@item.EndDate</td>
+                    <td>
+                        <a asp-action="Index" asp-controller="Criteria"
+                           asp-route-id="@item.CompetitionID">View Criteria</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<!-- Display a list of criteria for each competition -->
+@if (ViewData["selectedCompetitionNo"].ToString() != "")
+{
+    <br />
+    <p><a asp-action="Create">Create New Criteria</a></p>
+    if (Model.criteriaList.Count != 0)
+    {
+        <h5>
+            Criteria for selected Competition
+            @ViewData["selectedCompetitionNo"].ToString() :
+        </h5>
+        <partial name="~/Views/Criteria/_ViewCriteria.cshtml"
+                 model="@Model.criteriaList" />
+    }
+    else
+    {
+        <h5>No Criteria for this Competition!</h5>
+    }
+}
