@@ -164,12 +164,25 @@ namespace WEB_Assignment_Team4.Controllers
                 return View(competition);
             }
         }
-
+        // POST: CompetitionController/Delete/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(Competition competition)
+        {
+            //
+            competitionContext.Delete(competition.CompetitionID, competition.AreaInterestID);
+            return RedirectToAction("Index");
+        }
         // GET: CompetitionController/Delete/5
         public ActionResult Delete(int? id)
         {
             //Stop accessing the action if not logged in
             //or account not in the "Administrator" role
+            if ((HttpContext.Session.GetString("Role") == null) ||
+              (HttpContext.Session.GetString("Role") != "Administrator"))
+            {
+                return RedirectToAction("Index", "Competition");
+            }
             if (id == null)
             {
                 //
@@ -184,14 +197,6 @@ namespace WEB_Assignment_Team4.Controllers
             return View(competition);
         }
 
-        // POST: CompetitionController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(Competition competition)
-        {
-            //
-            competitionContext.Delete(competition.CompetitionID, competition.AreaInterestID);
-            return RedirectToAction("Index");
-        }
+      
     }
 }

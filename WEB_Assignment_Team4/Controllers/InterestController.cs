@@ -64,6 +64,7 @@ namespace WEB_Assignment_Team4.Controllers
             return RedirectToAction("Index");
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(Interest interest)
         {
             if (ModelState.IsValid)
