@@ -17,6 +17,7 @@ namespace WEB_Assignment_Team4.Models
         [StringLength(50, ErrorMessage = "Judge Name cannot be more than 50 characters!")]
         public string CriteriaName { get; set; }
         //Weightage
+        [Required(ErrorMessage = "Weightage is Required!")]
         [ValidateWeightage]
         [Range(1,100, ErrorMessage = "Criteria Weightage cannot be the integer specified!")]
         public int Weightage { get; set; }

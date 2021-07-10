@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WEB_Assignment_Team4.Models;
 using WEB_Assignment_Team4.DAL;
+using WEB_Assignment_Team4.Models;
 
 namespace WEB_Assignment_Team4.Controllers
 {
@@ -30,6 +32,7 @@ namespace WEB_Assignment_Team4.Controllers
             if (id != null)
             {
                 ViewData["selectedCompetitionNo"] = id.Value;
+                HttpContext.Session.SetInt32("criteriaCompNum", id.Value);
                 // Get list of staff working in the branch
                 ccVM.criteriaList = criteriaContext.GetCompetitionCriteria(id.Value);
             }
@@ -54,22 +57,37 @@ namespace WEB_Assignment_Team4.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-
+            ViewData["selectedCompetitionNo"] = HttpContext.Session.GetInt32("criteriaCompNum");
             return View();
         }
 
         // POST: CriteriaController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(Criteria criteria)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
+            ViewData["selectedCompetitionNo"] = HttpContext.Session.GetInt32("criteriaCompNum");
+            if (ModelState.IsValid)
+            {   
+                //Add staff record to database
+                criteria.CompetitionID = Convert.ToInt32(HttpContext.Session.GetInt32("criteriaCompNum"));
+                if (criteriaContext.GetCriteriaTotal(criteria.CompetitionID) + criteria.Weightage <= 100)
+                {
+                    criteria.CriteriaID = criteriaContext.Add(criteria);
+                    //Redirect user to Staff/Index view
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    TempData["Message"] = "Total Weightage will be more than 100%!";
+                    return View(criteria);
+                }
             }
-            catch
+            else
             {
-                return View();
+                //Input validation fails, return to the Create view
+                //to display error message
+                return View(criteria);
             }
         }
 
