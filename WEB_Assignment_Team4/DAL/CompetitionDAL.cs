@@ -208,33 +208,14 @@ namespace WEB_Assignment_Team4.DAL
 
             return count;
         }
-        public int Delete(int CompId, int? InterestID)
+        public int Delete(Competition competition)
         {
-            //
-            //
-            SqlCommand cmd3 = conn.CreateCommand();
-            cmd3.CommandText = @"DELETE FROM Competition
-                               WHERE AreaInterestID = @selectedinterestID";
-            cmd3.Parameters.AddWithValue("@selectedinterestID", InterestID);
-
-
-            SqlCommand cmd2 = conn.CreateCommand();
-            cmd2.CommandText = @"UPDATE AreaInterest SET AreaInterestID = @null,
-                                WHERE AreaInterestID = @selectedinterestID";
-            cmd2.Parameters.AddWithValue("@null",InterestID);
-            
-            
-            SqlCommand cmd1 = conn.CreateCommand();
-            cmd1.CommandText = @"UPDATE Competition SET AreaInterestID=@null,
-                                SET CompetitionID =@null
-                                WHERE CompetitionID=@selectedCompID";
-            cmd1.Parameters.AddWithValue("@null", CompId);
-            cmd1.Parameters.AddWithValue("@null", InterestID);
-            
             SqlCommand cmd = conn.CreateCommand();
-            cmd.CommandText = @"DELETE FROM Competition
-                               WHERE CompetitionID = @selectedCompetitionID";
-            cmd.Parameters.AddWithValue("selectedCompetitionID", CompId);
+            cmd.CommandText = @"DELETE Competition
+                                FROM AreaInterest x INNER JOIN Competition y
+                                ON x.AreaInterestID = y.AreaInterestID
+                                WHERE CompetitionID = @selectCompetitionID";
+            cmd.Parameters.AddWithValue("@selectCompetitionID", competition.CompetitionID);
 
             //
             conn.Open();
