@@ -18,6 +18,12 @@ namespace WEB_Assignment_Team4.Controllers
         {
             return View();
         }
+
+        private CompetitorDAL competitorContext = new CompetitorDAL();
+        public IActionResult Competitor()
+        {
+            return View();
+        }
    
         public IActionResult PublicMain()
         {
@@ -56,6 +62,19 @@ namespace WEB_Assignment_Team4.Controllers
 
                 return RedirectToAction("JudgeMain");
             }
+            //Competitor Login
+            else if (competitorContext.ValidCompetitorLogin(userID, password) == true)
+            {
+                string Role = "Competitor";
+                // Store Login ID in session with the key "LoginID"
+                HttpContext.Session.SetString("LoginID", userID);
+                // Store user role "Staff" as a string in session with the key "Role"
+                HttpContext.Session.SetString("Role", Role);
+                // Store date and time of the user when it has logged in
+                HttpContext.Session.SetString("DateTiming", DateTiming.ToString());
+
+                return RedirectToAction("CompetitorMain");
+            }
             else
             {
                 // Store an error message to TempData for display at the index view
@@ -78,6 +97,15 @@ namespace WEB_Assignment_Team4.Controllers
         {
             if (HttpContext.Session.GetString("Role") == null ||
                (HttpContext.Session.GetString("Role") != "Judge"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            return View();
+        }
+        public ActionResult CompetitorMain()
+        {
+            if (HttpContext.Session.GetString("Role") == null ||
+               (HttpContext.Session.GetString("Role") != "Competitor"))
             {
                 return RedirectToAction("Index", "Home");
             }

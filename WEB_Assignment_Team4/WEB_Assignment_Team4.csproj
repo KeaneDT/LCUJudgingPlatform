@@ -10,7 +10,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Competitor\" />
     <Folder Include="Views\Submissions\" />
   </ItemGroup>
 
