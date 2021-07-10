@@ -60,8 +60,16 @@ namespace WEB_Assignment_Team4.Controllers
         public ActionResult Delete(Interest interest)
         {
             //
-            interestContext.Delete(interest.AreaInterestID);
-            return RedirectToAction("Index");
+            try
+            {
+                interestContext.Delete(interest.AreaInterestID);
+                return RedirectToAction("Index");
+            }
+            catch(Exception er)
+            {
+                ModelState.AddModelError(String.Empty, er.Message);
+                return RedirectToAction("Index");
+            }
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
