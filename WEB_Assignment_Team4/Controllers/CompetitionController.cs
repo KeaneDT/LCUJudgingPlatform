@@ -167,10 +167,10 @@ namespace WEB_Assignment_Team4.Controllers
         // POST: CompetitionController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(Competition competition)
+        public ActionResult Delete(Competition Competition)
         {
             //
-            competitionContext.Delete(competition);
+            competitionContext.Delete(Competition.CompetitionID);
             return RedirectToAction("Index");
         }
         // GET: CompetitionController/Delete/5
@@ -194,6 +194,7 @@ namespace WEB_Assignment_Team4.Controllers
                 //
                 return RedirectToAction("Index");
             }
+            competitionContext.Delete(competition.CompetitionID);
             return View(competition);
         }
 

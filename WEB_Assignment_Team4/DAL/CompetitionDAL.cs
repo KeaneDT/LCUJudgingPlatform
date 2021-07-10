@@ -208,26 +208,25 @@ namespace WEB_Assignment_Team4.DAL
 
             return count;
         }
-        public int Delete(Competition competition)
+        public int Delete(int CompetitionID)
         {
             SqlCommand cmd = conn.CreateCommand();
             cmd.CommandText = @"DELETE Competition
                                 FROM AreaInterest x INNER JOIN Competition y
                                 ON x.AreaInterestID = y.AreaInterestID
                                 WHERE CompetitionID = @selectCompetitionID";
-            cmd.Parameters.AddWithValue("@selectCompetitionID", competition.CompetitionID);
+            cmd.Parameters.AddWithValue("@selectCompetitionID", CompetitionID);
 
-            //
+            // Open a database connection
             conn.Open();
-
             int rowAffected = 0;
 
-            //
+            //Execute the DELETE SQL to remove the interest record
             rowAffected += cmd.ExecuteNonQuery();
 
             //
             conn.Close();
-            //
+            //Return number of row of interest record updated or deleted
             return rowAffected;
         }
         public List<Competition> GetJudgeCompetition(string email)
