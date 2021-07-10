@@ -1,12 +1,22 @@
 ﻿@model WEB_Assignment_Team4.Models.Criteria
 
-<br />
-<h4>Add Criteria for Competition @ViewData["selectedCompetitionNo"].ToString()</h4>
+@{
+    ViewData["Title"] = "Edit Criteria";
+}
+
+<h4>Edit Criteria</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <form asp-action="Edit">
+            <div class="form-group row">
+                <label asp-for="CriteriaID"
+                       class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-9 col-md-5">
+                    <input asp-for="CriteriaID" readonly
+                           class="form-control-plaintext" />
+                </div>
+            </div>
             <div class="form-group">
                 <label asp-for="CriteriaName" class="control-label"></label>
                 <input asp-for="CriteriaName" class="form-control" />
@@ -18,9 +28,8 @@
                 <span asp-validation-for="Weightage" class="text-danger"></span>
             </div>
             <span style="color:red  ;">@TempData["Message"]</span>
-            <br />
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
     </div>

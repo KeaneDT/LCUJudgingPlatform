@@ -79,7 +79,7 @@ namespace WEB_Assignment_Team4.Controllers
                 }
                 else
                 {
-                    TempData["Message"] = "Total Weightage will be more than 100%!";
+                    TempData["Message"] = "Total Weightage cannot be more than 100%!";
                     return View(criteria);
                 }
             }
@@ -87,35 +87,63 @@ namespace WEB_Assignment_Team4.Controllers
             {
                 //Input validation fails, return to the Create view
                 //to display error message
+                TempData["Message"] = "";
                 return View(criteria);
             }
         }
 
         // GET: CriteriaController/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
             if ((HttpContext.Session.GetString("Role") == null) ||
             (HttpContext.Session.GetString("Role") != "Judge"))
             {
                 return RedirectToAction("Index", "Home");
             }
+            if (id == null)
+            { //Query string parameter not provided
+              //Return to listing page, not allowed to edit
+                return RedirectToAction("Index");
+            }
 
-            return View();
+            Criteria criteria = criteriaContext.GetDetails(id.Value);
+
+            if (criteria == null)
+            {
+                return RedirectToAction("Index");
+            }
+            return View(criteria);
         }
 
         // POST: CriteriaController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(Criteria criteria)
         {
-            try
+            if (ModelState.IsValid)
             {
-                return RedirectToAction(nameof(Index));
+                criteria.CompetitionID = Convert.ToInt32(HttpContext.Session.GetInt32("criteriaCompNum"));
+                //Add staff record to database
+                if (criteriaContext.GetCriteriaTotal(criteria.CompetitionID) - criteriaContext.GetCriteria(criteria.CriteriaID) + criteria.Weightage <= 100)
+                {
+                    criteria.CriteriaID = criteriaContext.Update(criteria);
+                    //Redirect user to Staff/Index view
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    TempData["Message"] = "Total Weightage cannot be more than 100%!";
+                    return View(criteria);
+                }
             }
-            catch
+            else
             {
-                return View();
+                //Input validation fails, return to the Create view
+                //to display error message
+                TempData["Message"] = "";
+                return View(criteria);
             }
+
         }
 
         // GET: CriteriaController/Delete/5
