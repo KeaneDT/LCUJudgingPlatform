@@ -49,6 +49,12 @@ namespace WEB_Assignment_Team4.Controllers
         // GET: CriteriaController/Create
         public ActionResult Create()
         {
+            if ((HttpContext.Session.GetString("Role") == null) ||
+            (HttpContext.Session.GetString("Role") != "Judge"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             return View();
         }
 
@@ -70,6 +76,12 @@ namespace WEB_Assignment_Team4.Controllers
         // GET: CriteriaController/Edit/5
         public ActionResult Edit(int id)
         {
+            if ((HttpContext.Session.GetString("Role") == null) ||
+            (HttpContext.Session.GetString("Role") != "Judge"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             return View();
         }
 
@@ -91,6 +103,12 @@ namespace WEB_Assignment_Team4.Controllers
         // GET: CriteriaController/Delete/5
         public ActionResult Delete(int id)
         {
+            if ((HttpContext.Session.GetString("Role") == null) ||
+            (HttpContext.Session.GetString("Role") != "Judge"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             return View();
         }
 

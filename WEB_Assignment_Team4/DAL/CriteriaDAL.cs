@@ -63,6 +63,31 @@ namespace WEB_Assignment_Team4.DAL
 
             return cList;
         }
+        public int GetCriteriaTotal(int compID)
+        {
+            //Create a SqlCommand object from connection object 
+            SqlCommand cmd = conn.CreateCommand();
+            //Specify the SELECT SQL statments
+            cmd.CommandText = @"SELECT Weightage FROM Criteria WHERE CompetitionID = @competitionID";
+            cmd.Parameters.AddWithValue("@competitionID", compID);
+
+            //Open a database connection
+            conn.Open();
+            //Execute the SELECT SQL through a DataReader
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            int count = 0;
+            while (reader.Read())
+            {
+                count += reader.GetInt32(0);
+            }
+            //Close DataReader
+            reader.Close();
+            //Close the database connection
+            conn.Close();
+
+            return count;
+        }
         public int Add(Criteria criteria)
         {
             SqlCommand cmd = conn.CreateCommand();

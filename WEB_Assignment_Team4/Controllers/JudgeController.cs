@@ -85,26 +85,5 @@ namespace WEB_Assignment_Team4.Controllers
             });
             return interestList;
         }
-        private List<Competition> GetJudgeCompetition()
-        {
-            List<Competition> cList = competitionContext.GetJudgeCompetition(HttpContext.Session.GetString("LoginID"));
-            if (cList.Count == 0)
-            {
-                cList.Insert(0, new Competition
-                {
-                    CompetitionID = 0,
-                    Name = "No Competitions Found!"
-                });
-            }
-            else
-            {
-                cList.Insert(0, new Competition
-                {
-                    CompetitionID = 0,
-                    Name = "--Select--"
-                });
-            }
-            return cList;
-        }
     }
 }
