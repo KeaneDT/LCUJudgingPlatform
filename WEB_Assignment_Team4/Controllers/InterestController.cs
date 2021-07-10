@@ -65,10 +65,12 @@ namespace WEB_Assignment_Team4.Controllers
                 interestContext.Delete(interest.AreaInterestID);
                 return RedirectToAction("Index");
             }
-            catch(Exception er)
+            catch(Exception)
             {
-                ModelState.AddModelError(String.Empty, er.Message);
+                TempData["Message"] = "The competition records still exist." +
+                    "                  Please delete the records and retry again.";
                 return RedirectToAction("Index");
+                
             }
         }
         [HttpPost]
