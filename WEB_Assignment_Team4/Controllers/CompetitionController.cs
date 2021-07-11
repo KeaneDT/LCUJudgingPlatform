@@ -189,13 +189,13 @@ namespace WEB_Assignment_Team4.Controllers
             }
             if (id == null)
             {
-                //
+                //Return to the index page, not allowed to edit
                 return RedirectToAction("Index");
             }
             Competition competition = competitionContext.GetDetails(id.Value);
             if(competition == null)
             {
-                //
+                //Return to the index page, not allowed to edit
                 return RedirectToAction("Index");
             }
             competitionContext.Delete(competition.CompetitionID);

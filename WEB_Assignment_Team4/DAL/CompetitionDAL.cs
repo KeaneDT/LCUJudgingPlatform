@@ -65,28 +65,28 @@ namespace WEB_Assignment_Team4.DAL
         public bool IsNameExist(string name, int competitonId)
         {
             bool nameFound = false;
-            //
-            //
+            //Create a SqlCommand object and specify the SQL Statment
+            //to get a competition record with the name to be validated
             SqlCommand cmd = conn.CreateCommand();
             cmd.CommandText = @"SELECT CompetitionID From Competition
                                 WHERE CompetitionName=@selectedCompetitionName";
             cmd.Parameters.AddWithValue(@"selectedCompetitionName", name);
 
-            //
+            //Open a database connection and execute the SQL statment
             conn.Open();
             SqlDataReader reader = cmd.ExecuteReader();
-            if (reader.HasRows)
+            if (reader.HasRows) //Records Found
             {
                 while (reader.Read())
                 {
                     if (reader.GetInt32(0) != competitonId)
-                        //
+                        // The competition name is used by another competition record.
                         nameFound = true;
                 }
             }
-            else //
+            else // No records Found
             {
-                nameFound = false;
+                nameFound = false; // The name given does not exist
             }
             reader.Close();
             conn.Close();
