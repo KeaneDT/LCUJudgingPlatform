@@ -13,6 +13,7 @@ namespace WEB_Assignment_Team4.DAL
     {
         private IConfiguration Configuration { get; set; }
         private SqlConnection conn;
+
         //Constructor
         public JudgeDAL()
         {
@@ -40,7 +41,7 @@ namespace WEB_Assignment_Team4.DAL
             //Execute the SELECT SQL through a DataReader
             SqlDataReader reader = cmd.ExecuteReader();
 
-            //Read all records until the end, save data into a staff list
+            //Read all records until the end, save data into a Judge list
             List<Judge> judgeList = new List<Judge>();
             while (reader.Read())
             {
@@ -68,7 +69,7 @@ namespace WEB_Assignment_Team4.DAL
             bool emailFound = false;
 
             //Create a SqlCommand object and specify the SQL statement
-            //to get a staff record with the email address to be validated
+            //to get a Judge record with the email address to be validated
             SqlCommand cmd = conn.CreateCommand();
             cmd.CommandText = @"SELECT JudgeID FROM Judge WHERE EmailAddr=@selectedEmail";
             cmd.Parameters.AddWithValue("@selectedEmail", email);
@@ -123,8 +124,10 @@ namespace WEB_Assignment_Team4.DAL
         }
         public int Add(Judge judge)
         {
+            //Create a SqlCommand object from connection object
             SqlCommand cmd = conn.CreateCommand();
 
+            //Specify the INSERT SQL statment to Insert the new Judge details and output the JudgeID Generated
             cmd.CommandText = @"INSERT INTO Judge (JudgeName, Salutation, AreaInterestID, EmailAddr, Password)
                                 OUTPUT INSERTED.JudgeID
                                 VALUES(@name, @salutation, @interestID, @email, @password)";
@@ -135,8 +138,11 @@ namespace WEB_Assignment_Team4.DAL
             cmd.Parameters.AddWithValue("@email", judge.EmailAddr);
             cmd.Parameters.AddWithValue("@password", judge.Password);
 
+            //Open a database connection
             conn.Open();
+            //Assign the JudgeID from outputed int
             judge.JudgeID = (int)cmd.ExecuteScalar();
+            //Close database connection
             conn.Close();
 
             return judge.JudgeID;

@@ -15,9 +15,9 @@ namespace WEB_Assignment_Team4.Models
         {
             // Get the email value to validate
             string email = Convert.ToString(value);
-            // Casting the validation context to the "Staff" model class
+            // Casting the validation context to the "Judge" model class
             Judge judge = (Judge)validationContext.ObjectInstance;
-            // Get the Staff Id from the staff instance
+            // Get the JudgeID from the Judge instance
             int judgeId = judge.JudgeID;
 
             if (judgeContext.IsJudgeExist(email, judgeId))

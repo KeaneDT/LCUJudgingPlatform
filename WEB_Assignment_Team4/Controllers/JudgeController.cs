@@ -13,10 +13,11 @@ namespace WEB_Assignment_Team4.Controllers
 {
     public class JudgeController : Controller
     {
+        //Declare DAL Objects to use SQL Commands in the Actions
         private InterestDAL interestContext = new InterestDAL();
         private JudgeDAL judgeContext = new JudgeDAL();
-        private CompetitionDAL competitionContext = new CompetitionDAL();
 
+        //GET Action to display the View along with the Lists for Salutation and Interest defined
         public ActionResult Create()
         {
             ViewData["SalutationList"] = GetSalutations();
@@ -24,27 +25,28 @@ namespace WEB_Assignment_Team4.Controllers
             return View();
         }
 
+        //POST Action similar to GET Action but Values inserted are added to the Database
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Judge judge)
         {
-            //Get country list for drop-down list
-            //in case of the need to return to Create.cshtml view
+            //Lists for the View
             ViewData["SalutationList"] = GetSalutations();
             ViewData["InterestList"] = GetAllInterest();
             if (ModelState.IsValid)
             {
-
+                //If the user has not selected any Interest
                 if (judge.AreaInterestID == 0)
                 {
+                    //Return View with Error Message
                     TempData["Message"] = "Select Area of Interest!";
                     return View(judge);
                 }
                 else
                 {
-                    //Add staff record to database
+                    //Add Judge record to database
                     judge.JudgeID = judgeContext.Add(judge);
-                    //Redirect user to Staff/Index view
+                    //Redirect user to Home/PublicMain (Login Page) view
                     return RedirectToAction("PublicMain", "Home");
                 }
             }
@@ -55,6 +57,8 @@ namespace WEB_Assignment_Team4.Controllers
                 return View(judge);
             }
         }
+
+        //Function to Create a list for Salutations & Populate the list with the relevant values
         private List<SelectListItem> GetSalutations()
         {
             List<SelectListItem> sal = new List<SelectListItem>();
@@ -82,11 +86,13 @@ namespace WEB_Assignment_Team4.Controllers
 
             return sal;
         }
+
+        //Function to populate a list of Interests using SQL Select commands
         private List<Interest> GetAllInterest()
         {
-            // Get a list of branches from database
+            // Get a list of Interests from database
             List<Interest> interestList = interestContext.GetAllInterest();
-            // Adding a select prompt at the first row of the branch list
+            // Adding a select prompt at the first row of the Interest list
             interestList.Insert(0, new Interest
             {
                 AreaInterestID = 0,

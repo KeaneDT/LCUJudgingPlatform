@@ -13,6 +13,7 @@ namespace WEB_Assignment_Team4.DAL
     {
         private IConfiguration Configuration { get; set; }
         private SqlConnection conn;
+
         //Constructor
         public CriteriaDAL()
         {
@@ -29,11 +30,12 @@ namespace WEB_Assignment_Team4.DAL
             //Connection String read.
             conn = new SqlConnection(strConn);
         }
+
         public List<Criteria> GetCompetitionCriteria(int compID)
         {
             //Create a SqlCommand object from connection object 
             SqlCommand cmd = conn.CreateCommand();
-            //Specify the SELECT SQL statments
+            //Specify the SELECT SQL statments to get all the Criteria Details based on the CompetitionID specified
             cmd.CommandText = @"SELECT * FROM Criteria WHERE CompetitionID = @competitionID";
             cmd.Parameters.AddWithValue("@competitionID", compID);
 
@@ -42,7 +44,7 @@ namespace WEB_Assignment_Team4.DAL
             //Execute the SELECT SQL through a DataReader
             SqlDataReader reader = cmd.ExecuteReader();
 
-            //Read all records until the end, save data into a staff list
+            //Read all records until the end, save data into a Criteria list
             List<Criteria> cList = new List<Criteria>();
             while (reader.Read())
             {
@@ -67,7 +69,7 @@ namespace WEB_Assignment_Team4.DAL
         {
             //Create a SqlCommand object from connection object 
             SqlCommand cmd = conn.CreateCommand();
-            //Specify the SELECT SQL statments
+            //Specify the SELECT SQL statment to get the Weightage of the Criteria based on the CriteriaID specified
             cmd.CommandText = @"SELECT Weightage FROM Criteria WHERE CriteriaID = @criteriaID";
             cmd.Parameters.AddWithValue("@criteriaID", criteriaID);
 
@@ -91,7 +93,7 @@ namespace WEB_Assignment_Team4.DAL
         {
             //Create a SqlCommand object from connection object 
             SqlCommand cmd = conn.CreateCommand();
-            //Specify the SELECT SQL statments
+            //Specify the SELECT SQL statment to get the Weightage of all Criteria based on the CompetitionID specified
             cmd.CommandText = @"SELECT Weightage FROM Criteria WHERE CompetitionID = @competitionID";
             cmd.Parameters.AddWithValue("@competitionID", compID);
 
@@ -119,12 +121,11 @@ namespace WEB_Assignment_Team4.DAL
             //Create a SqlCommand object from connection object
             SqlCommand cmd = conn.CreateCommand();
 
-            //Specify the SELECT SQL statement that
-            //retrieves all attributes of a staff record.
+            //Specify the SELECT SQL statment to get the details of a Criteria based on the CriteriaID specified specified
             cmd.CommandText = @"SELECT * FROM Criteria WHERE CriteriaID = @criteriaID";
 
             //Define the parameter used in SQL statement, value for the
-            //parameter is retrieved from the method parameter “staffId”.
+            //parameter is retrieved from the method parameter “criteriaID”
             cmd.Parameters.AddWithValue("@criteriaID", criteriaID);
 
             //Open a database connection
@@ -136,7 +137,6 @@ namespace WEB_Assignment_Team4.DAL
                 //Read the record from database
                 while (reader.Read())
                 {
-                    // Fill staff object with values from the data reader
                     criteria.CriteriaID = criteriaID;
                     criteria.CompetitionID = reader.GetInt32(1);
                     criteria.CriteriaName = reader.GetString(2);
@@ -152,8 +152,10 @@ namespace WEB_Assignment_Team4.DAL
         }
         public int Add(Criteria criteria)
         {
+            //Create a SqlCommand object from connection object
             SqlCommand cmd = conn.CreateCommand();
 
+            //Specify the INSERT SQL statment to Insert the new Criteria details and output the CriteriaID Generated
             cmd.CommandText = @"INSERT INTO Criteria (CompetitionID, CriteriaName, Weightage)
                                 OUTPUT INSERTED.CriteriaID
                                 VALUES(@competitionID, @cName, @weightage)";
@@ -162,8 +164,11 @@ namespace WEB_Assignment_Team4.DAL
             cmd.Parameters.AddWithValue("@cName", criteria.CriteriaName);
             cmd.Parameters.AddWithValue("@weightage", criteria.Weightage);
 
+            //Open a database connection
             conn.Open();
+            //Assign the CriteriaID from outputed int
             criteria.CriteriaID = (int)cmd.ExecuteScalar();
+            //Close database connection
             conn.Close();
 
             return criteria.CriteriaID;
@@ -172,7 +177,7 @@ namespace WEB_Assignment_Team4.DAL
         {
             //Create a SqlCommand object from connection object
             SqlCommand cmd = conn.CreateCommand();
-            //Specify an UPDATE SQL statement
+            //Specify an UPDATE SQL statement based on the CriteriaID specified
             cmd.CommandText = @"UPDATE Criteria SET CriteriaName = @name,
                                 Weightage = @weightage
                                 WHERE CriteriaID = @criteriaID";
@@ -194,20 +199,20 @@ namespace WEB_Assignment_Team4.DAL
         }
         public int Delete(int criteriaID)
         {
-            //Instantiate a SqlCommand object, supply it with a DELETE SQL statement
-            //to delete a staff record specified by a Staff ID
+            //Create a SqlCommand object from connection object
             SqlCommand cmd = conn.CreateCommand();
+            //Specify an DELETE SQL statement based on the CriteriaID specified
             cmd.CommandText = @"DELETE FROM Criteria
                                 WHERE CriteriaID = @criteriaID";
             cmd.Parameters.AddWithValue("@criteriaID", criteriaID);
             //Open a database connection
             conn.Open();
             int rowAffected = 0;
-            //Execute the DELETE SQL to remove the staff record
+            //Execute the DELETE SQL to remove the Criteria record
             rowAffected += cmd.ExecuteNonQuery();
             //Close database connection
             conn.Close();
-            //Return number of row of staff record updated or deleted
+            //Return number of row of Criteria record updated or deleted
             return rowAffected;
         }
     }
