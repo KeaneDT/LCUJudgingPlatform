@@ -156,12 +156,14 @@ namespace WEB_Assignment_Team4.Controllers
             {
                 //Update competition record to the database
                 competitionContext.Update(competition);
+                TempData["Message"] = "Records Updated Successfully. ";
                 return RedirectToAction("Index");
             }
             else
             {
                 //Input Validation fails, return to the view
                 //to display an error message
+                TempData["Message"] = "Records Update Failed. ";
                 return View(competition);
             }
         }
@@ -170,8 +172,9 @@ namespace WEB_Assignment_Team4.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(Competition Competition)
         {
-            //
+            //Delete the records from the database
             competitionContext.Delete(Competition.CompetitionID);
+            TempData["Message"] = "Records Added Successfully. ";
             return RedirectToAction("Index");
         }
         // GET: CompetitionController/Delete/5
