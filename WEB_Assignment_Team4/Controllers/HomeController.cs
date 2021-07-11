@@ -69,7 +69,7 @@ namespace WEB_Assignment_Team4.Controllers
                 string Role = "Judge";
                 // Store Login ID in session with the key "LoginID"
                 HttpContext.Session.SetString("LoginID", userID);
-                // Store user role "Staff" as a string in session with the key "Role"
+                // Store user role "Judge" as a string in session with the key "Role"
                 HttpContext.Session.SetString("Role", Role);
                 // Store date and time of the user when it has logged in
                 HttpContext.Session.SetString("DateTiming", DateTiming.ToString());
@@ -82,7 +82,7 @@ namespace WEB_Assignment_Team4.Controllers
                 string Role = "Competitor";
                 // Store Login ID in session with the key "LoginID"
                 HttpContext.Session.SetString("LoginID", userID);
-                // Store user role "Staff" as a string in session with the key "Role"
+                // Store user role "Competitor" as a string in session with the key "Role"
                 HttpContext.Session.SetString("Role", Role);
                 // Store date and time of the user when it has logged in
                 HttpContext.Session.SetString("DateTiming", DateTiming.ToString());
@@ -109,6 +109,8 @@ namespace WEB_Assignment_Team4.Controllers
         }
         public ActionResult JudgeMain()
         {
+            //Stop Accessing the action if not logged in
+            //or account not in the "Judge" role
             if (HttpContext.Session.GetString("Role") == null ||
                (HttpContext.Session.GetString("Role") != "Judge"))
             {
@@ -118,6 +120,8 @@ namespace WEB_Assignment_Team4.Controllers
         }
         public ActionResult CompetitorMain()
         {
+            //Stop Accessing the action if not logged in
+            //or account not in the "Competitor" role
             if (HttpContext.Session.GetString("Role") == null ||
                (HttpContext.Session.GetString("Role") != "Competitor"))
             {

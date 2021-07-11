@@ -216,7 +216,7 @@ namespace WEB_Assignment_Team4.DAL
             conn.Close();
             //Return number of row of interest record updated or deleted
             return rowAffected;
-            //System.Data.SqlClient.SqlException
+           
         }
     }
 }
