@@ -15,16 +15,22 @@ namespace WEB_Assignment_Team4.Models
         public int CompetitorID { get; set; }
 
         [Display(Name = "File Name")]
-        public string FileName { get; set; }
+        public string? FileName { get; set; }
 
         [Display(Name = "Date and time of file upload")]
         [DataType(DataType.Date)]
-        public DateTime UploadDateTime { get; set; }
+        public DateTime? UploadDateTime { get; set; }
 
         [Display(Name = "Total votes")]
         public int VoteCount { get; set; }
 
         [Display(Name = "Ranking")]
-        public int Ranking { get; set; }
+        public int? Ranking { get; set; }
+
+        public List<Submissions> submissionsList { get; set; }
+        public Submissions()
+        {
+            submissionsList = new List<Submissions>();
+        }
     }
 }

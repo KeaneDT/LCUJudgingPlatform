@@ -1,18 +1,35 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using WEB_Assignment_Team4.DAL;
+using WEB_Assignment_Team4.Models;
 
 namespace WEB_Assignment_Team4.Controllers
 {
     public class SubmissionsController : Controller
     {
+        private SubmissionsDAL submissionContext = new SubmissionsDAL();
+
         // GET: SubmissionsController
-        public ActionResult Index()
+        public ActionResult Index(int? id)
         {
-            return View();
+            Submissions submissions = new Submissions();
+            submissions.submissionsList = submissionContext.GetAllSubmissions();
+            // Check if BranchNo (id) presents in the query string
+            if (id != null)
+            {
+                ViewData["selectedCompetition"] = id.Value;
+                // Get list of staff working in the branch
+                submissions.submissionsList = submissionContext.GetCompetitionSubmissions(id.Value);
+            }
+            else
+            {
+                ViewData["selectedCompetition"] = "";
+            }
+            return View(submissions);
         }
 
         // GET: SubmissionsController/Details/5
