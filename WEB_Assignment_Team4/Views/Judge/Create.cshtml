@@ -4,53 +4,77 @@
     ViewData["Title"] = "Judge Registration";
 }
 
-<h1>Create Judge Account</h1>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <!--JudgeID to be auto-generated-->
-            <div class="form-group">
-                <label asp-for="JudgeName" class="control-label"></label>
-                <input asp-for="JudgeName" class="form-control" />
+<br />
+<h3 class="text-center">Judge Profile Creation</h3>
+<br />
+<form asp-action="Create">
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="form-group col-2">
+                <select asp-for="Salutation"
+                        asp-items="@ViewData["SalutationList"]
+                            as List<SelectListItem>"
+                        class="form-control rounded-pill border-3 border-warning">
+                </select>
+            </div>
+            <div class="form-group col-4">
+                <input asp-for="JudgeName" class="form-control rounded-pill border-3 border-warning" placeholder="Enter Name" />
                 <span asp-validation-for="JudgeName" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Salutation" class="control-label"></label>
-                <div class="col-sm-9 col-md-5">
-                    <select asp-for="Salutation"
-                            asp-items="@ViewData["SalutationList"]
-                            as List<SelectListItem>"
-                            class="form-control">
-                    </select>
-                </div>
-            </div>
-            <div class="form-group">
-                <label asp-for="AreaInterestID" class="control-label"></label>
-                <div class="col-sm-9 col-md-5">
-                    <select asp-for="AreaInterestID"
-                            asp-items="@(new SelectList(
+        </div>
+    </div>
+    <br />
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="form-group col-6">
+                <select asp-for="AreaInterestID"
+                        asp-items="@(new SelectList(
                                     @ViewData["InterestList"] as List<Interest>,
                                               "AreaInterestID", "Name"))"
-                            class="form-control">
-                    </select>
-                </div>
+                        class="form-control rounded-pill border-3 border-warning">
+                </select>
+                <span style="color:red  ;">@TempData["Message"]</span>
             </div>
-            <div class="form-group">
-                <label asp-for="EmailAddr" class="control-label"></label>
-                <input asp-for="EmailAddr" class="form-control" />
+        </div>
+    </div>
+    <br />
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="form-group col-6">
+                <input asp-for="EmailAddr" class="form-control rounded-pill border-3 border-warning" placeholder="Enter Email" />
                 <span asp-validation-for="EmailAddr" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" />
+        </div>
+    </div>
+    <br />
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="form-group col-6">
+                <input asp-for="Password" class="form-control rounded-pill border-3 border-warning" placeholder="Enter Password" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
+        </div>
+    </div>
+    <br />
+    <div class="container-fluid">
+        <div class="row justify-content-center">
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Create Account" class="btn btn-primary rounded-pill" />
             </div>
-        </form>
+        </div>
+    </div>
+</form>
+<br />
+<br />
+<br />
+<div class="container-fluid">
+    <div class="text-center">
+        <span class="text-warning">Already Have an Account?</span>
+        <br />
+        <a href="~/Home/PublicMain">Proceed to Log In</a>
     </div>
 </div>
+
+
 
 

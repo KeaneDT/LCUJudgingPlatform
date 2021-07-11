@@ -14,32 +14,51 @@
 </head>
 <body>
     <div class="heading">
-        <h1>Log to <br />
-        LCU Judging Platform</h1>
-        <div>
-            <form method ="post" action="~/Home/Login">
-                <fieldset class="loginFieldset">
-                    <input type="email" name="txtLoginID" id="txtLoginID"
-                    placeholder="Email" required />
-                    <br />
-                    <input type="password" name="txtPassword" id="txtPassword"
-                    placeholder="Password" required />
-                    <br />
-                    <input type="submit" id="btnLogin" class="myButton" value="Login" />
-                    <br />                
-                    <span style="color:red  ;">@TempData["Message"]</span> 
-                </fieldset>
-            </form>
-        </div>
-        <div> 
+        <br />
+        <h3 class="text-center">Login to<br />LCU Judging Platform</h3>
+    </div>
+    <div>
+        <form method="post" action="~/Home/Login">
             <fieldset class="loginFieldset">
                 <br />
-                <a>Don't have an account?</a>
+                <div class="container-fluid">
+                    <div class="row justify-content-center">
+                        <div class="form-group col-4">
+                            <input class="form-control rounded-pill border-3 border-warning" placeholder="Email" type="email" name="txtLoginID" id="txtLoginID" required />
+                        </div>
+                    </div>
+                </div>
+                <div class="container-fluid">
+                    <div class="row justify-content-center">
+                        <div class="form-group col-4">
+                            <input class="form-control rounded-pill border-3 border-warning" placeholder="Password" type="password" name="txtPassword" id="txtPassword" required />
+                        </div>
+                    </div>
+                </div>
                 <br />
-                <a href="~/Competitor/Create">Create a Competitior Account</a>
-                <br />
-                <a href="~/Judge/Create">Create a Judge Account</a>
+                <div class="container-fluid">
+                    <div class="row justify-content-center">
+                        <div class="form-group">
+                            <input type="submit" id="btnLogin" value="Login" class="btn btn-primary rounded-pill" />
+                        </div>
+                    </div>
+                </div>
+                <div class="container-fluid">
+                    <div class="row justify-content-center">
+                        <span style="color:red  ;">@TempData["Message"]</span>
+                    </div>
+                </div>
             </fieldset>
+        </form>
+    </div>
+    <br />
+    <div class="container-fluid">
+        <div class="text-center">
+            <span class="text-warning">Don't Have an Account?</span>
+            <br />
+            <a href="~/Competitor/Create">Create a Competitior Account</a>
+            <br />
+            <a href="~/Judge/Create">Create a Judge Account</a>
         </div>
     </div>
 </body>

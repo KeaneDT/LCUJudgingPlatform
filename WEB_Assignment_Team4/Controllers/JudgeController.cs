@@ -34,10 +34,19 @@ namespace WEB_Assignment_Team4.Controllers
             ViewData["InterestList"] = GetAllInterest();
             if (ModelState.IsValid)
             {
-                //Add staff record to database
-                judge.JudgeID = judgeContext.Add(judge);
-                //Redirect user to Staff/Index view
-                return RedirectToAction("PublicMain", "Home");
+
+                if (judge.AreaInterestID == 0)
+                {
+                    TempData["Message"] = "Select Area of Interest!";
+                    return View(judge);
+                }
+                else
+                {
+                    //Add staff record to database
+                    judge.JudgeID = judgeContext.Add(judge);
+                    //Redirect user to Staff/Index view
+                    return RedirectToAction("PublicMain", "Home");
+                }
             }
             else
             {
@@ -81,7 +90,7 @@ namespace WEB_Assignment_Team4.Controllers
             interestList.Insert(0, new Interest
             {
                 AreaInterestID = 0,
-                Name = "--Select--"
+                Name = "Select Interest"
             });
             return interestList;
         }

@@ -43,12 +43,6 @@ namespace WEB_Assignment_Team4.Controllers
             return View(ccVM);
         }
 
-        // GET: CriteriaController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
         // GET: CriteriaController/Create
         public ActionResult Create()
         {
@@ -147,15 +141,26 @@ namespace WEB_Assignment_Team4.Controllers
         }
 
         // GET: CriteriaController/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int? id)
         {
             if ((HttpContext.Session.GetString("Role") == null) ||
             (HttpContext.Session.GetString("Role") != "Judge"))
             {
                 return RedirectToAction("Index", "Home");
             }
+            if (id == null)
+            { //Query string parameter not provided
+              //Return to listing page, not allowed to edit
+                return RedirectToAction("Index");
+            }
 
-            return View();
+            Criteria criteria = criteriaContext.GetDetails(id.Value);
+
+            if (criteria == null)
+            {
+                return RedirectToAction("Index");
+            }
+            return View(criteria);
         }
 
         // POST: CriteriaController/Delete/5
