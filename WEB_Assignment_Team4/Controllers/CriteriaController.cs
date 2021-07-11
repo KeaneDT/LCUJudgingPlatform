@@ -106,6 +106,7 @@ namespace WEB_Assignment_Team4.Controllers
             {
                 return RedirectToAction("Index");
             }
+            ViewData["selectedCompetitionNo"] = HttpContext.Session.GetInt32("criteriaCompNum");
             return View(criteria);
         }
 
@@ -114,6 +115,7 @@ namespace WEB_Assignment_Team4.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Criteria criteria)
         {
+            ViewData["selectedCompetitionNo"] = HttpContext.Session.GetInt32("criteriaCompNum");
             if (ModelState.IsValid)
             {
                 criteria.CompetitionID = Convert.ToInt32(HttpContext.Session.GetInt32("criteriaCompNum"));

@@ -41,6 +41,14 @@
         </tbody>
     </table>
 </div>
+@{ 
+    if(Model.competitionList.Count == 0)
+    {
+    <p class="text-danger">
+        You are not in any Competitions! Send a message to an Admin to be added!
+    </p>
+    }
+}
 
 <!--Need to find way to replace Competition table with a Select List Form instead-->
 <!-- Display a list of criteria for each competition -->
@@ -54,7 +62,7 @@
     {
         <h4>
             Criteria for Competition
-            @ViewData["selectedCompetitionNo"].ToString() :
+            @ViewData["selectedCompetitionNo"].ToString()
         </h4>
         <partial name="~/Views/Criteria/_ViewCriteria.cshtml"
                  model="@Model.criteriaList" />
