@@ -16,6 +16,7 @@ namespace WEB_Assignment_Team4.Controllers
         private JudgeDAL judgeContext = new JudgeDAL();
         public IActionResult Index()
         {
+            ViewData["Role"] = HttpContext.Session.GetString("Role");
             return View();
         }
 
@@ -27,11 +28,24 @@ namespace WEB_Assignment_Team4.Controllers
    
         public IActionResult PublicMain()
         {
+            if ((HttpContext.Session.GetString("Role") == "Administrator") ||
+            (HttpContext.Session.GetString("Role") == "Judge") ||
+            (HttpContext.Session.GetString("Role") == "Competitor"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
             return View();
         }
 
         public ActionResult Login(IFormCollection FormData)
         {
+            if ((HttpContext.Session.GetString("Role") == "Administrator") ||
+            (HttpContext.Session.GetString("Role") == "Judge") ||
+            (HttpContext.Session.GetString("Role") == "Competitor"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             string userID = FormData["txtLoginID"].ToString();
             string password = FormData["txtPassword"].ToString();
             DateTime DateTiming = DateTime.Now;

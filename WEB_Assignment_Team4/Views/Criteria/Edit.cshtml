@@ -3,39 +3,56 @@
 @{
     ViewData["Title"] = "Edit Criteria";
 }
-
-<h4>Edit Criteria</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div class="form-group row">
-                <label asp-for="CriteriaID"
-                       class="col-sm-3 col-form-label"></label>
-                <div class="col-sm-9 col-md-5">
-                    <input asp-for="CriteriaID" readonly
-                           class="form-control-plaintext" />
+<br />
+<h3 class="text-center">Edit Criteria for Competition @ViewData["selectedCompetitionNo"].ToString()</h3>
+<br />
+<form asp-action="Edit">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="form-group col-6">
+                <div class="form-group row">
+                    <label asp-for="CriteriaID"
+                           class="col-sm-3 col-form-label"><h6>Criteria ID:</h6></label>
+                    <div class="col-sm-9 col-md-5">
+                        <input asp-for="CriteriaID" readonly
+                               class="form-control-plaintext" />
+                    </div>
                 </div>
             </div>
-            <div class="form-group">
-                <label asp-for="CriteriaName" class="control-label"></label>
-                <input asp-for="CriteriaName" class="form-control" />
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="form-group col-6">
+                <h6>Criteria Name:</h6>
+                <input asp-for="CriteriaName" class="form-control rounded-pill border-3 border-warning" placeholder="Criteria Name" />
                 <span asp-validation-for="CriteriaName" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Weightage" class="control-label"></label>
-                <input asp-for="Weightage" class="form-control" min="1" max="100" />
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="form-group col-6">
+                <h6>Weightage:</h6>
+                <input asp-for="Weightage" class="form-control rounded-pill border-3 border-warning" min="1" max="100" placeholder="Weightage" />
+                <span style="color:red  ;">@TempData["Message"]</span>
                 <span asp-validation-for="Weightage" class="text-danger"></span>
             </div>
-            <span style="color:red  ;">@TempData["Message"]</span>
+        </div>
+    </div>
+    <br />
+    <div class="container-fluid">
+        <div class="row justify-content-center">
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Save Changes" class="btn btn-primary text-white rounded-pill" />
             </div>
-        </form>
+        </div>
+    </div>
+</form>
+<br />
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <a asp-action="Index" asp-route-id="@ViewData["selectedCompetitionNo"]">Back to Criteria</a>
     </div>
 </div>
-
-<div>
-    <a asp-action="Index">Back to Criteria</a>
-</div>
-
