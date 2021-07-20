@@ -115,7 +115,7 @@ namespace WEB_Assignment_Team4.DAL
             }
             else
             {
-                validLogin = false; 
+                validLogin = false;
             }
             reader.Close();
             conn.Close();
@@ -147,6 +147,48 @@ namespace WEB_Assignment_Team4.DAL
 
             return judge.JudgeID;
         }
+        public Judge GetDetails(int JudgeId)
+        {
+            Judge Judge = new Judge();
 
+            //Create a SqlCommand object from connection object
+            SqlCommand cmd = conn.CreateCommand();
+
+            //Specify the SELECT SQL statement that     
+            //retrieves all attributes of a staff record.
+            cmd.CommandText = @"SELECT * FROM Judge                       
+                                WHERE JudgeID = @selectedJudgeID";
+
+            //Define the parameter used in SQL statement, value for the   
+            //parameter is retrieved from the method parameter “staffId”.
+            cmd.Parameters.AddWithValue("@selectedJudgeID", JudgeId);
+
+            //Open a database connection
+            conn.Open();
+            //Execute SELCT SQL through a DataReader
+            SqlDataReader reader = cmd.ExecuteReader();
+            if (reader.HasRows)
+            {
+                //Read the record from database
+                while (reader.Read())
+                {
+                    // Fill staff object with values from the data reader
+                    Judge.JudgeID = JudgeId;
+                    Judge.JudgeName = !reader.IsDBNull(1) ? reader.GetString(1) : null;
+                    Judge.Salutation = !reader.IsDBNull(2) ? reader.GetString(2) : null;
+                    Judge.AreaInterestID = reader.GetInt32(3);
+                    Judge.EmailAddr = !reader.IsDBNull(4) ? reader.GetString(4) : null;
+                    Judge.Password = !reader.IsDBNull(5) ? reader.GetString(5) : null;
+                }
+            }
+            //Close data reader
+            reader.Close();
+            //Close database connection
+            conn.Close();
+
+            return Judge;
+        }
     }
 }
+
+
