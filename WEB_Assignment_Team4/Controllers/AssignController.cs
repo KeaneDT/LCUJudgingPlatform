@@ -27,17 +27,6 @@ namespace WEB_Assignment_Team4.Controllers
             return View(judgeList);
         }
      
-        private List<Judge> GetAllJudges()
-        {
-            List<Judge> judgeList = judgeContext.GetAllJudges();
-            judgeList.Insert(0, new Judge
-            {
-                JudgeID = 0,
-                JudgeName = "--Select--"
-            });
-            return judgeList;
-        }
-
         // GET: AssignController/Details/5
         public ActionResult Details(int id)
         {
@@ -54,7 +43,6 @@ namespace WEB_Assignment_Team4.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-            ViewData["judgeList"] = GetAllJudges();
             return View();
         }
 
@@ -63,22 +51,13 @@ namespace WEB_Assignment_Team4.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(JudgeAssign judgeAssign)
         {
-            //Get interest list for drop-down list
-            //in case of the need to return to create.cshtml view
-            ViewData["judgeList"] = GetAllJudges();
-
             try
             {
-                //Add competition records to database
-                //judgeAssign.CompetitionID = judgeContext.Add(judgeAssign);
-                return RedirectToAction("Index");
+                return RedirectToAction(nameof(Index));
             }
-            catch (Exception)
+            catch
             {
-                //Input validation fails, return to the Competition view
-                //To display error message
-                TempData["Message"] = "Select One Interest from the list. ";
-                return RedirectToAction("Create");
+                return View();
             }
         }
 
