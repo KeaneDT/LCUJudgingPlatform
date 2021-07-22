@@ -24,7 +24,7 @@ namespace WEB_Assignment_Team4.Models
         //AreaInterestID
         [Required(ErrorMessage = "Area of Interest Required!")]
         [Display(Name = "Area of Interest")]
-        public int AreaInterestID { get; set; }
+        public int? AreaInterestID { get; set; }
 
         //EmailAddr
         [Required(ErrorMessage = "Email Address Required!")]

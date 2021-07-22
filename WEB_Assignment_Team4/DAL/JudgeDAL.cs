@@ -147,6 +147,9 @@ namespace WEB_Assignment_Team4.DAL
 
             return judge.JudgeID;
         }
+
+       
+
         public Judge GetDetails(int JudgeId)
         {
             Judge Judge = new Judge();
@@ -176,7 +179,8 @@ namespace WEB_Assignment_Team4.DAL
                     Judge.JudgeID = JudgeId;
                     Judge.JudgeName = !reader.IsDBNull(1) ? reader.GetString(1) : null;
                     Judge.Salutation = !reader.IsDBNull(2) ? reader.GetString(2) : null;
-                    Judge.AreaInterestID = reader.GetInt32(3);
+                    Judge.AreaInterestID = !reader.IsDBNull(3) ? 
+                                            reader.GetInt32(3) :(int?)null;
                     Judge.EmailAddr = !reader.IsDBNull(4) ? reader.GetString(4) : null;
                     Judge.Password = !reader.IsDBNull(5) ? reader.GetString(5) : null;
                 }

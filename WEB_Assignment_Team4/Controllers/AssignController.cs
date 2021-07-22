@@ -12,7 +12,7 @@ namespace WEB_Assignment_Team4.Controllers
     public class AssignController : Controller
     {
         private JudgeDAL judgeContext = new JudgeDAL();
-        
+        private CompetitionDAL competitionContext = new CompetitionDAL();
         // GET: AssignController
         public ActionResult Index()
         {
@@ -34,7 +34,7 @@ namespace WEB_Assignment_Team4.Controllers
         }
 
         // GET: AssignController/Create
-        public ActionResult Create()
+        public ActionResult Create(int? id)
         {
             // Stop accessing the action if not logged in
             // or account not in the "Administrator" Role
@@ -43,14 +43,37 @@ namespace WEB_Assignment_Team4.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
+            ViewData["judgeList"] = GetJudges();
+            ViewData["competitionList"] = GetCompetition();
             return View();
         }
-
+        private List<Judge> GetJudges()
+        {
+            List<Judge> judgeList = judgeContext.GetAllJudges();
+            judgeList.Insert(0, new Judge
+            {
+                JudgeID= 0,
+                JudgeName = "Select Name"
+            });
+            return judgeList;
+        }
+        private List<Competition> GetCompetition()
+        {
+            List<Competition> competitionList = competitionContext.GetAllCompetition();
+            competitionList.Insert(0, new Competition
+            {
+                CompetitionID = 0,
+                Name = "Select Competition"
+            });
+            return competitionList;
+        }
         // POST: AssignController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(JudgeAssign judgeAssign)
         {
+            ViewData["judgeList"] = GetJudges();
+            ViewData["competitionList"] = GetCompetition();
             try
             {
                 return RedirectToAction(nameof(Index));
