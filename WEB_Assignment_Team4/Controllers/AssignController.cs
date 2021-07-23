@@ -13,6 +13,7 @@ namespace WEB_Assignment_Team4.Controllers
     {
         private JudgeDAL judgeContext = new JudgeDAL();
         private CompetitionDAL competitionContext = new CompetitionDAL();
+      
         // GET: AssignController
         public ActionResult Index()
         {
@@ -34,7 +35,7 @@ namespace WEB_Assignment_Team4.Controllers
         }
 
         // GET: AssignController/Create
-        public ActionResult Create(int? id)
+        public ActionResult Assign(int? id)
         {
             // Stop accessing the action if not logged in
             // or account not in the "Administrator" Role
@@ -70,17 +71,20 @@ namespace WEB_Assignment_Team4.Controllers
         // POST: AssignController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(JudgeAssign judgeAssign)
+        public ActionResult Assign(JudgeAssign judgeAssign)
         {
             ViewData["judgeList"] = GetJudges();
             ViewData["competitionList"] = GetCompetition();
-            try
+
+            if (ModelState.IsValid)
             {
-                return RedirectToAction(nameof(Index));
+                judgeAssign.CompetitionID = judgeContext.Assign(judgeAssign);
+                return RedirectToAction("Index");
             }
-            catch
+            else
             {
-                return View();
+                TempData["Message"] = "Select One Interest from the list. ";
+                return RedirectToAction("Assign");
             }
         }
 

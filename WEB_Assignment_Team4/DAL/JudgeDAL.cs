@@ -148,7 +148,30 @@ namespace WEB_Assignment_Team4.DAL
             return judge.JudgeID;
         }
 
-       
+        public int Assign(JudgeAssign assign)
+        {
+            //Create a SqlCommand object from connection object
+            SqlCommand cmd = conn.CreateCommand();
+
+            //Specify the INSERT SQL statment to Insert the new Judge details and output the JudgeID Generated
+            cmd.CommandText = @"INSERT INTO CompetitionJudge (CompetitionID)
+                                OUTPUT INSERTED.JudgeID
+                                VALUES(@compID)";
+
+            //cmd.Parameters.AddWithValue("@judgeID", assign.JudgeID);
+            cmd.Parameters.AddWithValue("@compID", assign.CompetitionID);
+            
+            //Open a database connection
+            conn.Open();
+            
+            //Assign the JudgeID from outputed int
+            assign.JudgeID = (int)cmd.ExecuteScalar();
+            
+            //Close database connection
+            conn.Close();
+
+            return assign.JudgeID;
+        }
 
         public Judge GetDetails(int JudgeId)
         {
