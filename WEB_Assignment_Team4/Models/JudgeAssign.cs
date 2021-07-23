@@ -11,12 +11,9 @@ namespace WEB_Assignment_Team4.Models
     {
         
         [Display(Name = "Competition ID")]
-        
         public int CompetitionID { get; set; }
 
         [Display(Name = "Judge ID")]
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int JudgeID { get; set; }
     }
 }

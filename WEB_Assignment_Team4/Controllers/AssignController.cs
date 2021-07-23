@@ -13,7 +13,7 @@ namespace WEB_Assignment_Team4.Controllers
     {
         private JudgeDAL judgeContext = new JudgeDAL();
         private CompetitionDAL competitionContext = new CompetitionDAL();
-      
+
         // GET: AssignController
         public ActionResult Index()
         {
@@ -27,7 +27,7 @@ namespace WEB_Assignment_Team4.Controllers
             List<Judge> judgeList = judgeContext.GetAllJudges();
             return View(judgeList);
         }
-     
+
         // GET: AssignController/Details/5
         public ActionResult Details(int id)
         {
@@ -53,7 +53,7 @@ namespace WEB_Assignment_Team4.Controllers
             List<Judge> judgeList = judgeContext.GetAllJudges();
             judgeList.Insert(0, new Judge
             {
-                JudgeID= 0,
+                JudgeID = 0,
                 JudgeName = "Select Name"
             });
             return judgeList;
@@ -110,24 +110,37 @@ namespace WEB_Assignment_Team4.Controllers
         }
 
         // GET: AssignController/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult AssignDelete(int? id)
         {
-            return View();
+            //Stop accessing the action if not logged in
+            //or account not in the "Administrator" role
+            if ((HttpContext.Session.GetString("Role") == null) ||
+              (HttpContext.Session.GetString("Role") != "Administrator"))
+            {
+                return RedirectToAction("Index", "Competition");
+            }
+            if (id == null)
+            {
+                //Return to the index page, not allowed to edit
+                return RedirectToAction("Index");
+            }
+            JudgeAssign role = judgeContext.GetJudgesRole(id.Value);
+            if (role == null)
+            {
+                //Return to the index page, not allowed to edit
+                return RedirectToAction("Index");
+            }
+            judgeContext.AssignDelete(role.CompetitionID);
+            return View(role);
         }
-
-        // POST: AssignController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult AssignDelete(JudgeAssign judgeAssign)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            //Delete the records from the database
+            judgeContext.AssignDelete(judgeAssign.CompetitionID);
+            TempData["Message"] = "Records Added Successfully. ";
+            return RedirectToAction("Index");
         }
     }
 }
