@@ -154,18 +154,18 @@ namespace WEB_Assignment_Team4.DAL
             SqlCommand cmd = conn.CreateCommand();
 
             //Specify the INSERT SQL statment to Insert the new Judge details and output the JudgeID Generated
-            cmd.CommandText = @"INSERT INTO CompetitionJudge (CompetitionID)
-                                OUTPUT INSERTED.JudgeID
-                                VALUES(@compID)";
+            cmd.CommandText = @"INSERT INTO CompetitionJudge (CompetitionID,JudgeID)
+                                
+                                VALUES(@compID,@judgeID)";
 
-            //cmd.Parameters.AddWithValue("@judgeID", assign.JudgeID);
+            cmd.Parameters.AddWithValue("@judgeID", assign.JudgeID);
             cmd.Parameters.AddWithValue("@compID", assign.CompetitionID);
             
             //Open a database connection
             conn.Open();
-            
+
             //Assign the JudgeID from outputed int
-            assign.JudgeID = (int)cmd.ExecuteScalar();
+            assign.JudgeID = (int)cmd.ExecuteNonQuery();
             
             //Close database connection
             conn.Close();
