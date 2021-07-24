@@ -33,7 +33,7 @@ namespace WEB_Assignment_Team4.DAL
             //Create a SqlCommand object from connection object 
             SqlCommand cmd = conn.CreateCommand();
             //Specify the SELECT SQL statments
-            cmd.CommandText = @"SELECT * FROM CompetitionSubmission ORDER BY CompetitionID";
+            cmd.CommandText = @"SELECT * FROM CompetitionSubmission WHERE FileSubmitted IS NOT NUll ORDER BY CompetitionID";
             //Open a database connection
             conn.Open();
             //Execute the SELECT SQL through a DataReader
@@ -49,15 +49,9 @@ namespace WEB_Assignment_Team4.DAL
                         CompetitionID = reader.GetInt32(0),
                         CompetitorID = reader.GetInt32(1),
                         VoteCount = reader.GetInt32(5),
-
-                        FileName = !reader.IsDBNull(2) ?
-                        reader.GetString(2) : (string?)null,
-
-                        UploadDateTime = !reader.IsDBNull(3) ?
-                        reader.GetDateTime(3) : (DateTime?)null,
-
-                        Ranking = !reader.IsDBNull(6) ?
-                        reader.GetInt32(5) : (int?)null,
+                        FileName = reader.GetString(2),
+                        UploadDateTime = reader.GetDateTime(3),
+                        Ranking = reader.GetInt32(5)
                     }
                 );
             }
@@ -67,6 +61,41 @@ namespace WEB_Assignment_Team4.DAL
             conn.Close();
 
             return submissionsList;
+        }
+
+        public List<Submissions> GetAllSubmissionsLeaderboard()
+        {
+            //Create a SqlCommand object from connection object 
+            SqlCommand cmd = conn.CreateCommand();
+            //Specify the SELECT SQL statments
+            cmd.CommandText = @"SELECT * FROM CompetitionSubmission WHERE FileSubmitted IS NOT NUll ORDER BY Ranking";
+            //Open a database connection
+            conn.Open();
+            //Execute the SELECT SQL through a DataReader
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            //Read all records until the end, save data into a staff list
+            List<Submissions> leaderboardSubmissionsList = new List<Submissions>();
+            while (reader.Read())
+            {
+                leaderboardSubmissionsList.Add(
+                    new Submissions
+                    {
+                        CompetitionID = reader.GetInt32(0),
+                        CompetitorID = reader.GetInt32(1),
+                        VoteCount = reader.GetInt32(5),
+                        FileName = reader.GetString(2),
+                        UploadDateTime = reader.GetDateTime(3),
+                        Ranking = reader.GetInt32(5)
+                    }
+                );
+            }
+            //Close DataReader
+            reader.Close();
+            //Close the database connection
+            conn.Close();
+
+            return leaderboardSubmissionsList;
         }
 
         public List<Submissions> GetCompetitionSubmissions(int competitionID)
@@ -92,15 +121,9 @@ namespace WEB_Assignment_Team4.DAL
                         CompetitionID = reader.GetInt32(0),
                         CompetitorID = reader.GetInt32(1),
                         VoteCount = reader.GetInt32(5),
-
-                        FileName = !reader.IsDBNull(2) ?
-                        reader.GetString(2) : (string?)null,
-
-                        UploadDateTime = !reader.IsDBNull(3) ?
-                        reader.GetDateTime(3) : (DateTime?)null,
-
-                        Ranking = !reader.IsDBNull(6) ?
-                        reader.GetInt32(5) : (int?)null,
+                        FileName = reader.GetString(2),
+                        UploadDateTime = reader.GetDateTime(3),
+                        Ranking = reader.GetInt32(5)
                     });
             }
             //Close DataReader

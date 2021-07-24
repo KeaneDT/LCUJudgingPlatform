@@ -31,9 +31,11 @@ namespace WEB_Assignment_Team4.Models
         public int? Ranking { get; set; }
 
         public List<Submissions> submissionsList { get; set; }
+        public List<Submissions> leaderboardSubmissionsList { get; set; }
         public Submissions()
         {
             submissionsList = new List<Submissions>();
+            leaderboardSubmissionsList = new List<Submissions>();
         }
     }
 }
