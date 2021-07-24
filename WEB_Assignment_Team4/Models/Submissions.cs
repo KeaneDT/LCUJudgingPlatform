@@ -1,8 +1,14 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using WEB_Assignment_Team4.DAL;
+using WEB_Assignment_Team4.Models;
 
 namespace WEB_Assignment_Team4.Models
 {

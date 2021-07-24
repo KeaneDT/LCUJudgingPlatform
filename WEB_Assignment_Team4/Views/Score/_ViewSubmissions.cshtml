@@ -23,8 +23,8 @@
                     <td>@item.UploadDateTime.ToString()</td>
                     <td>@item.VoteCount</td>
                     <td>
-                        <a asp-action="Edit" asp-controller="Criteria"
-                           asp-route-id="@item.CompetitionID" asp-route-id2="@item.CompetitorID">Edit</a>
+                        <a asp-action="Details" asp-controller="Score"
+                           asp-route-competitionID="@item.CompetitionID" asp-route-competitorID="@item.CompetitorID" asp-route-fileName="@item.FileName">View Submission</a>
                     </td>
                 </tr>
                 }

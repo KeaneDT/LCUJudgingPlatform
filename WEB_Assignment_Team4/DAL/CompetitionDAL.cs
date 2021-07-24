@@ -1,11 +1,16 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Configuration;
-using System.IO;
-using System.Data.SqlClient;
+using System.ComponentModel.DataAnnotations;
+using WEB_Assignment_Team4.DAL;
 using WEB_Assignment_Team4.Models;
+using Microsoft.Extensions.Configuration;
+using System.Data.SqlClient;
 
 namespace WEB_Assignment_Team4.DAL
 {
@@ -88,7 +93,7 @@ namespace WEB_Assignment_Team4.DAL
                         VoteCount = reader.GetInt32(5),
 
                         FileName = !reader.IsDBNull(2) ?
-                        reader.GetString(2) : (string?)null,
+                        reader.GetString(2) : (string)null,
 
                         UploadDateTime = !reader.IsDBNull(3) ?
                         reader.GetDateTime(3) : (DateTime?)null,

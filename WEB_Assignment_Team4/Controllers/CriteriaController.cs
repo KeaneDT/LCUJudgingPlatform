@@ -38,6 +38,7 @@ namespace WEB_Assignment_Team4.Controllers
             if (id != null)
             {
                 ViewData["selectedCompetitionNo"] = id.Value;
+                ViewData["competitionName"] = competitionContext.GetDetails(id.Value).Name;
                 //Set the Competition ID Selected to be used in other actions
                 HttpContext.Session.SetInt32("criteriaCompNum", id.Value);
                 // Get list of Criteria for the Competition
