@@ -130,7 +130,7 @@ namespace WEB_Assignment_Team4.Controllers
                 //Return to the index page, not allowed to edit
                 return RedirectToAction("Index");
             }
-            judgeContext.AssignDelete(role.CompetitionID);
+            judgeContext.AssignDelete(role.CompetitionID, role.JudgeID);
             return View(role);
         }
         [HttpPost]
@@ -138,7 +138,7 @@ namespace WEB_Assignment_Team4.Controllers
         public ActionResult AssignDelete(JudgeAssign judgeAssign)
         {
             //Delete the records from the database
-            judgeContext.AssignDelete(judgeAssign.CompetitionID);
+            judgeContext.AssignDelete(judgeAssign.CompetitionID, judgeAssign.JudgeID);
             TempData["Message"] = "Records Added Successfully. ";
             return RedirectToAction("Index");
         }

@@ -1,11 +1,12 @@
 ﻿@model WEB_Assignment_Team4.Models.CompetitionCriteriaViewModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Competition Criteria";
 }
-
 <br />
-<h4 class="PageTitle">Your Competitions</h4>
+<h3 class="text-center">Competition Criteria</h3>
+<hr />
+<h5 class="PageTitle">Your Competitions</h5>
 <div class="table-responsive">
     <table id="viewCompetition" class="table table-striped table-bordered table-hover">
         <thead class="bg-primary text-white">
@@ -41,17 +42,16 @@
         </tbody>
     </table>
 </div>
-@{ 
-    if(Model.competitionList.Count == 0)
+@{
+    if (Model.competitionList.Count == 0)
     {
-    <p class="text-danger">
-        You are not in any Competitions! Send a message to an Admin to be added!
-    </p>
+        <p class="text-danger">
+            You are not in any Competitions! Send a message to an Admin to be added!
+        </p>
     }
 }
 
 <!--Need to find way to replace Competition table with a Select List Form instead-->
-
 <!-- Display a list of criteria for each competition -->
 @if (ViewData["selectedCompetitionNo"].ToString() != "")
 {
@@ -61,15 +61,15 @@
 
     if (Model.criteriaList.Count != 0)
     {
-        <h4>
-            Criteria for Competition
-            @ViewData["selectedCompetitionNo"].ToString()
-        </h4>
+        <h5>
+            Criteria for
+            @ViewData["competitionName"].ToString()
+        </h5>
         <partial name="~/Views/Criteria/_ViewCriteria.cshtml"
                  model="@Model.criteriaList" />
     }
     else
     {
-        <h5>No Criteria for this Competition!</h5>
+        <p class="text-danger">No Criteria for this Competition!</p>
     }
 }

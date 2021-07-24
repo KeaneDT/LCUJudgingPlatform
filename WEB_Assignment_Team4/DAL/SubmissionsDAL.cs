@@ -60,8 +60,8 @@ namespace WEB_Assignment_Team4.DAL
             //Close the database connection
             conn.Close();
 
-            return submissionsList;
-        }
+                        FileName = !reader.IsDBNull(2) ?
+                        reader.GetString(2) : (string)null,
 
         public List<Submissions> GetAllSubmissionsLeaderboard()
         {
@@ -121,9 +121,15 @@ namespace WEB_Assignment_Team4.DAL
                         CompetitionID = reader.GetInt32(0),
                         CompetitorID = reader.GetInt32(1),
                         VoteCount = reader.GetInt32(5),
-                        FileName = reader.GetString(2),
-                        UploadDateTime = reader.GetDateTime(3),
-                        Ranking = reader.GetInt32(5)
+
+                        FileName = !reader.IsDBNull(2) ?
+                        reader.GetString(2) : (string)null,
+
+                        UploadDateTime = !reader.IsDBNull(3) ?
+                        reader.GetDateTime(3) : (DateTime?)null,
+
+                        Ranking = !reader.IsDBNull(6) ?
+                        reader.GetInt32(5) : (int?)null,
                     });
             }
             //Close DataReader
@@ -131,6 +137,58 @@ namespace WEB_Assignment_Team4.DAL
             //Close database connection
             conn.Close();
             return submissionsList;
+        }
+        public SubmissionViewModel GetSubmissionDetails(int competitionID, int competitorID, string fileName)
+        {
+            SubmissionViewModel sVM = new SubmissionViewModel();
+
+            //Create a SqlCommand object from connection object
+            SqlCommand cmd = conn.CreateCommand();
+
+            //Specify the SELECT SQL statement that
+            //retrieves all attributes of a staff record.
+            cmd.CommandText = @"SELECT y.CompetitorID,y.Salutation, y.CompetitorName,z.CompetitionID,
+                                z.CompetitionName, x.FileSubmitted, x.DateTimeFileUpload, x.Appeal, 
+                                x.VoteCount, x.Ranking FROM CompetitionSubmission x 
+                                INNER JOIN Competitor y ON x.CompetitorID=y.CompetitorID 
+                                INNER JOIN Competition z ON x.CompetitionID=z.CompetitionID 
+                                WHERE x.CompetitionID = @competitionID AND x.CompetitorID = @competitorID AND x.FileSubmitted = @fileName";
+
+            //Define the parameter used in SQL statement, value for the
+            //parameter is retrieved from the method parameter “staffId”.
+            cmd.Parameters.AddWithValue("@competitionID", competitionID);
+            cmd.Parameters.AddWithValue("@competitorID", competitorID);
+            cmd.Parameters.AddWithValue("@fileName", fileName);
+            //Open a database connection
+            conn.Open();
+            //Execute SELCT SQL through a DataReader
+            SqlDataReader reader = cmd.ExecuteReader();
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    sVM.CompetitorID = reader.GetInt32(0);
+                    sVM.Salutation = !reader.IsDBNull(1) ?
+                        reader.GetString(1) : (string)null;
+                    sVM.CompetitorName = reader.GetString(2);
+                    sVM.CompetitionID = reader.GetInt32(3);
+                    sVM.CompetitionName = reader.GetString(4);
+                    sVM.FileName = !reader.IsDBNull(5) ?
+                        reader.GetString(5) : (string)null;
+                    sVM.UploadDateTime = !reader.IsDBNull(6) ?
+                        reader.GetDateTime(6) : (DateTime?)null;
+                    sVM.Appeal = !reader.IsDBNull(7) ?
+                        reader.GetString(7) : (string)null;
+                    sVM.VoteCount = reader.GetInt32(8);
+                    sVM.Ranking = !reader.IsDBNull(9) ?
+                        reader.GetInt32(9) : (int?)null;
+                }
+            }
+            //Close data reader
+            reader.Close();
+            //Close database connection
+            conn.Close();
+            return sVM;
         }
     }
 }

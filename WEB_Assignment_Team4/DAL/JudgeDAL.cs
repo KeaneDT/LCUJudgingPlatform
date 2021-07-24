@@ -172,15 +172,17 @@ namespace WEB_Assignment_Team4.DAL
             return assign.JudgeID;
         }
 
-        public int AssignDelete(int assign)
+        public int AssignDelete(int assignId, int judgeId)
         {
             SqlCommand cmd = conn.CreateCommand();
             cmd.CommandText = @"DELETE CompetitionJudge
                                 FROM Judge x INNER JOIN CompetitionJudge y
                                 ON x.JudgeID = y.JudgeID
-                                WHERE CompetitionID = @selectedCompetitionID";
+                                WHERE y.CompetitionID = @selectedCompetitionID
+                                AND y.JudgeID = @selectedJudgeID";
             
-            cmd.Parameters.AddWithValue("@selectedCompetitionID", assign);
+            cmd.Parameters.AddWithValue("@selectedCompetitionID", assignId);
+            cmd.Parameters.AddWithValue("@selectedJudgeID", judgeId);
 
             // Open a database connection
             conn.Open();
@@ -243,7 +245,7 @@ namespace WEB_Assignment_Team4.DAL
             //Create a SqlCommand object from connection object 
             SqlCommand cmd = conn.CreateCommand();
             //Specify the SELECT SQL statments
-            cmd.CommandText = @"SELECT * FROM CompetitionJudge ORDER BY CompetitionID";
+            cmd.CommandText = @"SELECT * FROM CompetitionJudge ORDER BY CompetitionID ASC";
             //Open a database connection
             conn.Open();
             //Execute the SELECT SQL through a DataReader

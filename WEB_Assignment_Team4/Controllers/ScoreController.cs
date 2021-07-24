@@ -38,6 +38,7 @@ namespace WEB_Assignment_Team4.Controllers
             if (id != null)
             {
                 ViewData["selectedCompetitionNo"] = id.Value;
+                ViewData["competitionName"] = competitionContext.GetDetails(id.Value).Name;
                 //Set the Competition ID Selected to be used in other actions
                 HttpContext.Session.SetInt32("criteriaSubNum", id.Value);
                 // Get list of Criteria for the Competition
@@ -51,30 +52,17 @@ namespace WEB_Assignment_Team4.Controllers
         }
 
         // GET: ScoreController/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(int competitionID, int competitorID, string fileName)
         {
-            return View();
-        }
-
-        // GET: ScoreController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: ScoreController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
+            // Stop accessing the action if not logged in
+            // or account not in the "Judge" role
+            if ((HttpContext.Session.GetString("Role") == null) ||
+            (HttpContext.Session.GetString("Role") != "Judge"))
             {
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Home");
             }
-            catch
-            {
-                return View();
-            }
+            SubmissionViewModel sVM = submissionsContext.GetSubmissionDetails(competitionID, competitorID, fileName);
+            return View(sVM);
         }
 
         // GET: ScoreController/Edit/5
@@ -87,27 +75,6 @@ namespace WEB_Assignment_Team4.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: ScoreController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: ScoreController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
         {
             try
             {
