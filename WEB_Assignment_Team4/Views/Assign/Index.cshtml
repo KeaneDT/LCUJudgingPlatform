@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<WEB_Assignment_Team4.Models.JudgeAssign>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Judge List";
 }
 
-<h1>Index</h1>
+<h1>Judge List</h1>
 
 <p>
-    <a asp-action="Assign">Create New</a>
+    <a asp-action="Assign">Assign Competition</a>
 </p>
 <table class="table">
     <thead>
@@ -31,8 +31,6 @@
                 @Html.DisplayFor(modelItem => item.JudgeID)
             </td>
             <td>
-                <a asp-action="Edit" asp-controller="Competition"
-                   asp-route-id="@item.CompetitionID">Edit</a> |
                 <a asp-action="Details" asp-controller="Competition"
                    asp-route-id="@item.CompetitionID">Details</a> |
                 <a asp-action="AssignDelete" asp-controller="Assign"
