@@ -24,7 +24,7 @@ namespace WEB_Assignment_Team4.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-            List<Judge> judgeList = judgeContext.GetAllJudges();
+            List<JudgeAssign> judgeList = judgeContext.GetAllAssignJudges();
             return View(judgeList);
         }
 

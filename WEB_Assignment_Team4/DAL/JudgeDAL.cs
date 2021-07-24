@@ -238,6 +238,37 @@ namespace WEB_Assignment_Team4.DAL
 
             return Judge;
         }
+        public List<JudgeAssign> GetAllAssignJudges()
+        {
+            //Create a SqlCommand object from connection object 
+            SqlCommand cmd = conn.CreateCommand();
+            //Specify the SELECT SQL statments
+            cmd.CommandText = @"SELECT * FROM CompetitionJudge ORDER BY CompetitionID";
+            //Open a database connection
+            conn.Open();
+            //Execute the SELECT SQL through a DataReader
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            //Read all records until the end, save data into a staff list
+            List<JudgeAssign> competitionList = new List<JudgeAssign>();
+            while (reader.Read())
+            {
+                competitionList.Add(
+                    new JudgeAssign
+                    {
+                        CompetitionID = reader.GetInt32(0),
+                        JudgeID = reader.GetInt32(1)
+                    }
+                );
+            }
+            //Close DataReader
+            reader.Close();
+            //Close the database connection
+            conn.Close();
+
+            return competitionList;
+        }
+
         public JudgeAssign GetJudgesRole(int roleId)
         {
             JudgeAssign role = new JudgeAssign();
