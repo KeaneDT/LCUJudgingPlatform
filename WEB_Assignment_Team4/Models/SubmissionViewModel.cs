@@ -13,12 +13,12 @@ namespace WEB_Assignment_Team4.Models
         public string Salutation { get; set; }
         [Display(Name = "Competitor Name")]
         public string CompetitorName { get; set; }
+        [Display(Name = "Email")]
+        public string EmailAddr { get; set; }
         public int CompetitionID { get; set; }
-        [Display(Name = "Competition Name")]
-        public string CompetitionName { get; set; }
         [Display(Name = "File Name")]
         public string FileName { get; set; }
-        [Display(Name = "Upload Date & Time")]
+        [Display(Name = "Upload Time")]
         public DateTime? UploadDateTime { get; set; }
         public string Appeal { get; set; }
         [Display(Name = "Vote Count")]

@@ -61,6 +61,7 @@ namespace WEB_Assignment_Team4.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
+            ViewData["competitionName"] = competitionContext.GetDetails(competitionID).Name;
             SubmissionViewModel sVM = submissionsContext.GetSubmissionDetails(competitionID, competitorID, fileName);
             return View(sVM);
         }

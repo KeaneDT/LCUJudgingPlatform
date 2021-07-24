@@ -60,8 +60,8 @@ namespace WEB_Assignment_Team4.DAL
             //Close the database connection
             conn.Close();
 
-                        FileName = !reader.IsDBNull(2) ?
-                        reader.GetString(2) : (string)null,
+            return submissionsList;
+        }
 
         public List<Submissions> GetAllSubmissionsLeaderboard()
         {
@@ -148,7 +148,7 @@ namespace WEB_Assignment_Team4.DAL
             //Specify the SELECT SQL statement that
             //retrieves all attributes of a staff record.
             cmd.CommandText = @"SELECT y.CompetitorID,y.Salutation, y.CompetitorName,z.CompetitionID,
-                                z.CompetitionName, x.FileSubmitted, x.DateTimeFileUpload, x.Appeal, 
+                                y.EmailAddr, x.FileSubmitted, x.DateTimeFileUpload, x.Appeal, 
                                 x.VoteCount, x.Ranking FROM CompetitionSubmission x 
                                 INNER JOIN Competitor y ON x.CompetitorID=y.CompetitorID 
                                 INNER JOIN Competition z ON x.CompetitionID=z.CompetitionID 
@@ -172,7 +172,7 @@ namespace WEB_Assignment_Team4.DAL
                         reader.GetString(1) : (string)null;
                     sVM.CompetitorName = reader.GetString(2);
                     sVM.CompetitionID = reader.GetInt32(3);
-                    sVM.CompetitionName = reader.GetString(4);
+                    sVM.EmailAddr = reader.GetString(4);
                     sVM.FileName = !reader.IsDBNull(5) ?
                         reader.GetString(5) : (string)null;
                     sVM.UploadDateTime = !reader.IsDBNull(6) ?
