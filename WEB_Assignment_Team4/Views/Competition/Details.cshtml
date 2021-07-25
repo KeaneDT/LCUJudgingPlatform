@@ -4,49 +4,70 @@
     ViewData["Title"] = "Competition Details";
 }
 
+<h4 class="PageTitle">View Competition Details</h4>
+<hr />
+<fieldset class="formContent">
+    <div class="col-sm-7">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-3">
+                   <label asp-for="CompetitionID">ID</label>
+                </div>
+                <div class="col-sm-9">
+                    @Html.DisplayFor(model => model.CompetitionID)
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.Name)
+                </div>
+                <div class="col-sm-9">
+                    @Html.DisplayFor(model => model.Name)
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.StartDate)
+                </div>
+                <div class="col-sm-9">
+                    @Html.DisplayFor(model => model.StartDate)
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.EndDate)
+                </div>
+                <div class="col-sm-9">
+                    @Html.DisplayFor(model => model.EndDate)
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-sm-3">
+                    <label asp-for="ResultReleaseDate">Result Date:</label>
+                </div>
+                <div class="col-sm-9">
+                    @Html.DisplayFor(model => model.ResultReleaseDate)
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-sm-3">
+                    <label asp-for="ResultReleaseDate">Result Date:</label>
+                </div>
+                <div class="col-sm-9">
+                    @Html.DisplayFor(model => model.AreaInterestName)
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</fieldset>
 <br />
-<div>
-    <h4>View Competition Details</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CompetitionID)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CompetitionID)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.StartDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.StartDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.EndDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.EndDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ResultReleaseDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ResultReleaseDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.AreaInterestName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.AreaInterestName)
-        </dd>
-    </dl>
-</div>
 <div>
     <a asp-action="Index">Back to List</a>
 </div>

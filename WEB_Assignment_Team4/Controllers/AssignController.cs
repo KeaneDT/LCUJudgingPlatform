@@ -79,6 +79,7 @@ namespace WEB_Assignment_Team4.Controllers
             if (ModelState.IsValid)
             {
                 judgeAssign.CompetitionID = judgeContext.Assign(judgeAssign);
+                TempData["Message"] = "Judge Competition Has been assigned. ";
                 return RedirectToAction("Index");
             }
             else
