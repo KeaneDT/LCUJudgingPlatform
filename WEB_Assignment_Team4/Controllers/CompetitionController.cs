@@ -189,10 +189,18 @@ namespace WEB_Assignment_Team4.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(Competition Competition)
         {
-            //Delete the records from the database
-            competitionContext.Delete(Competition.CompetitionID);
-            TempData["Message"] = "Records Added Successfully. ";
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                //Delete the records from the database
+                competitionContext.Delete(Competition.CompetitionID);
+                TempData["Message"] = "Records Added Successfully. ";
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                TempData["Message"] = "Record Unable to Delete.";
+                return RedirectToAction("Index");
+            }
         }
         // GET: CompetitionController/Delete/5
         public ActionResult Delete(int? id)
