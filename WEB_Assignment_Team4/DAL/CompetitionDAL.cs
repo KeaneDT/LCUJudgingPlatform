@@ -291,13 +291,13 @@ namespace WEB_Assignment_Team4.DAL
         public int Delete(int CompetitionID)
         {
             SqlCommand cmd = conn.CreateCommand();
-            cmd.CommandText = @"IF EXISTS ( SELECT c.*
+            cmd.CommandText = @"IF EXISTS(SELECT c.*
                                 FROM Competition c
                                 INNER JOIN CompetitionSubmission cs
                                 ON c.CompetitionID = cs.CompetitionID
                                 where cs.CompetitionID = @selectCompetitionID)
                                 BEGIN
-                                PRINT 'No row found' 
+                                PRINT 'Records Found' 
                                 END
                                 ELSE
                                 DELETE Competition
@@ -306,14 +306,14 @@ namespace WEB_Assignment_Team4.DAL
                                 WHERE y.CompetitionID = @selectCompetitionID";
             cmd.Parameters.AddWithValue("@selectCompetitionID", CompetitionID);
 
-            // Open a database connection
+            //Open a database connection
             conn.Open();
             int rowAffected = 0;
 
             //Execute the DELETE SQL to remove the interest record
             rowAffected += cmd.ExecuteNonQuery();
 
-            //
+            //Close a database connection
             conn.Close();
             //Return number of row of interest record updated or deleted
             return rowAffected;

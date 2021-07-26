@@ -193,12 +193,13 @@ namespace WEB_Assignment_Team4.Controllers
             {
                 //Delete the records from the database
                 competitionContext.Delete(Competition.CompetitionID);
-                TempData["Message"] = "Records Added Successfully. ";
+                TempData["Message"] = "No Competitor Has Joined the Competition, Record has been deleted. ";
                 return RedirectToAction("Index");
             }
             else
             {
-                TempData["Message"] = "Record Unable to Delete.";
+                //Display the error message if the records exist on another table
+                TempData["Message"] = "Competitor Has Joined the Competition, Unable to Delete.";
                 return RedirectToAction("Index");
             }
         }
