@@ -14,7 +14,7 @@
                 <div class="card-body">
                     <div class="d-flex flex-column">
                         <div class="align-items-cente text-center">
-                            <h5 class="text-center">Submission By</h5>
+                            <h5 class="text-center">Submission By Competitor @Model.CompetitorID</h5>
                             <br />
                             <img src="~/images/profile-photo-placeholder.jpg" alt="profile_placeholder" class="rounded-circle" width="165">
                             <h4 class="text-center"><br /><br />@Html.DisplayFor(model => model.Salutation). @Html.DisplayFor(model => model.CompetitorName)</h4>
@@ -35,13 +35,6 @@
                         </div>
                         <div class="col-sm-9 text-secondary">@Html.DisplayFor(model => model.Ranking)</div>
                     </div>
-                    <hr />
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <h6>@Html.DisplayNameFor(model => model.CompetitorID):</h6>
-                        </div>
-                        <div class="col-sm-9 text-secondary">@Html.DisplayFor(model => model.CompetitorID)</div>
-                    </div>
                     <hr>
                     <div class="row">
                         <div class="col-sm-3">
@@ -59,14 +52,30 @@
                     <hr>
                     <div class="row">
                         <div class="col-sm-3">
+                            <h6>@Html.DisplayNameFor(model => model.Score):</h6>
+                        </div>
+                        <div class="col-sm-9 text-secondary">@Html.DisplayFor(model => model.Score)</div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-3">
                             <h6>@Html.DisplayNameFor(model => model.VoteCount):</h6>
                         </div>
                         <div class="col-sm-9 text-secondary">@Html.DisplayFor(model => model.VoteCount)</div>
                     </div>
                     <hr>
                     <p class="tpbutton btn-toolbar text-center">
-                        <a asp-action="Score" class="btn btn-warning rounded-pill mr-2">Score</a>
-                        <a asp-action="Rank" class="btn btn-warning rounded-pill">Rank</a>
+                        <a asp-action="Score" asp-controller="Score"
+                           asp-route-competitionID="@Model.CompetitionID"
+                           asp-route-competitorID="@Model.CompetitorID"
+                           asp-route-fileName="@Model.FileName"
+                           class="btn btn-warning rounded-pill mr-2">Score</a>
+
+                        <a asp-action="Rank" asp-controller="Score"
+                           asp-route-competitionID="@Model.CompetitionID"
+                           asp-route-competitorID="@Model.CompetitorID"
+                           asp-route-fileName="@Model.FileName"
+                           class="btn btn-warning rounded-pill mr-2">Rank</a>
                     </p>
                 </div>
             </div>

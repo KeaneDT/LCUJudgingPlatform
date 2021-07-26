@@ -15,6 +15,7 @@ namespace WEB_Assignment_Team4.Controllers
     public class ScoreController : Controller
     {
         //Declare DAL Objects to use SQL Commands in the Actions
+        CriteriaDAL criteriaContext = new CriteriaDAL();
         CompetitionDAL competitionContext = new CompetitionDAL();
         SubmissionsDAL submissionsContext = new SubmissionsDAL();
 
@@ -52,7 +53,7 @@ namespace WEB_Assignment_Team4.Controllers
         }
 
         // GET: ScoreController/Details/5
-        public ActionResult Details(int competitionID, int competitorID, string fileName)
+        public ActionResult Details(int competitionID, int competitorID)
         {
             // Stop accessing the action if not logged in
             // or account not in the "Judge" role
@@ -62,14 +63,25 @@ namespace WEB_Assignment_Team4.Controllers
                 return RedirectToAction("Index", "Home");
             }
             ViewData["competitionName"] = competitionContext.GetDetails(competitionID).Name;
-            SubmissionViewModel sVM = submissionsContext.GetSubmissionDetails(competitionID, competitorID, fileName);
+            SubmissionViewModel sVM = submissionsContext.GetSubmissionDetails(competitionID, competitorID);
             return View(sVM);
         }
 
         // GET: ScoreController/Edit/5
-        public ActionResult Score(int id)
+        public ActionResult Score(int competitionID, int competitorID, string fileName)
         {
-            return View();
+            // Stop accessing the action if not logged in
+            // or account not in the "Judge" role
+            if ((HttpContext.Session.GetString("Role") == null) ||
+            (HttpContext.Session.GetString("Role") != "Judge"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            SubmissionViewModel sVM = submissionsContext.GetSubmissionDetails(competitionID, competitorID);
+            ViewData["appeal"] = sVM.Appeal;
+            ViewData["competitionName"] = competitionContext.GetDetails(competitionID).Name;
+            return View(criteriaContext.GetSubmissionCriteria(competitionID, competitorID, fileName));
         }
 
         // POST: ScoreController/Edit/5

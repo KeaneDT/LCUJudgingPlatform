@@ -1,0 +1,30 @@
+﻿@model IEnumerable<WEB_Assignment_Team4.Models.CriteriaViewModel>
+
+@{
+    ViewData["Title"] = "Score";
+}
+<br />
+<h3 class="text-center">Submission Criteria Score</h3>
+<hr />
+<partial name="~/Views/Score/_ViewCriteriaVM.cshtml" model="@Model" />
+<br />
+@if (ViewData["appeal"] != null)
+{
+<div class="container">
+    <div class="col-md-12">
+        <div class="card">
+            <h5 class="card-header text-white" style="background-color: #FF4500; ">🛑 Appeal</h5>
+            <div class="card-body">
+                <div class="d-flex flex-column align-items-center text-center">
+                    <p>@ViewData["appeal"].ToString()</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+}
+
+<br />
+<div class="text-center">
+    <a class="text-warning " asp-action="Index" asp-route-id="">Back To Submissions</a>
+</div>

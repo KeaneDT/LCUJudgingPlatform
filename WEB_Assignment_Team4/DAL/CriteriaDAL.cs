@@ -89,6 +89,45 @@ namespace WEB_Assignment_Team4.DAL
 
             return count;
         }
+        public List<CriteriaViewModel> GetSubmissionCriteria(int competitionID, int competitorID, string fileName)
+        {
+            //Create a SqlCommand object from connection object 
+            SqlCommand cmd = conn.CreateCommand();
+            //Specify the SELECT SQL statments to get all the Criteria Details based on the CompetitionID specified
+            cmd.CommandText = @"SELECT x.CompetitionID, x.CriteriaID, y.CriteriaName, y.Weightage, x.Score FROM CompetitionScore x 
+                                INNER JOIN Criteria y ON x.CriteriaID=y.CriteriaID 
+                                INNER JOIN CompetitionSubmission z ON x.CompetitorID=z.CompetitorID 
+                                WHERE x.CompetitorID=@competitorID AND x.CompetitionID=@competitionID AND z.FileSubmitted=@fileName";
+            cmd.Parameters.AddWithValue("@competitorID", competitorID);
+            cmd.Parameters.AddWithValue("@competitionID", competitionID);
+            cmd.Parameters.AddWithValue("@fileName", fileName);
+            //Open a database connection
+            conn.Open();
+            //Execute the SELECT SQL through a DataReader
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            //Read all records until the end, save data into a Criteria list
+            List<CriteriaViewModel> cVMList = new List<CriteriaViewModel>();
+            while (reader.Read())
+            {
+                cVMList.Add(
+                    new CriteriaViewModel
+                    {
+                        CompetitionID = reader.GetInt32(0),
+                        CriteriaID = reader.GetInt32(1),
+                        CriteriaName = reader.GetString(2),
+                        Weightage = reader.GetInt32(3),
+                        Score = reader.GetInt32(4),
+                    }
+                );
+            }
+            //Close DataReader
+            reader.Close();
+            //Close the database connection
+            conn.Close();
+
+            return cVMList;
+        }
         public int GetCriteriaTotal(int compID)
         {
             //Create a SqlCommand object from connection object 

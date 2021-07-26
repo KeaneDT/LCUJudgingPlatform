@@ -152,7 +152,7 @@ namespace WEB_Assignment_Team4.DAL
 
         }
 
-        public SubmissionViewModel GetSubmissionDetails(int competitionID, int competitorID, string fileName)
+        public SubmissionViewModel GetSubmissionDetails(int competitionID, int competitorID)
         {
             SubmissionViewModel sVM = new SubmissionViewModel();
 
@@ -166,13 +166,13 @@ namespace WEB_Assignment_Team4.DAL
                                 x.VoteCount, x.Ranking FROM CompetitionSubmission x 
                                 INNER JOIN Competitor y ON x.CompetitorID=y.CompetitorID 
                                 INNER JOIN Competition z ON x.CompetitionID=z.CompetitionID 
-                                WHERE x.CompetitionID = @competitionID AND x.CompetitorID = @competitorID AND x.FileSubmitted = @fileName";
+                                WHERE x.CompetitionID = @competitionID AND x.CompetitorID = @competitorID";
 
             //Define the parameter used in SQL statement, value for the
             //parameter is retrieved from the method parameter “staffId”.
             cmd.Parameters.AddWithValue("@competitionID", competitionID);
             cmd.Parameters.AddWithValue("@competitorID", competitorID);
-            cmd.Parameters.AddWithValue("@fileName", fileName);
+
             //Open a database connection
             conn.Open();
             //Execute SELCT SQL through a DataReader
