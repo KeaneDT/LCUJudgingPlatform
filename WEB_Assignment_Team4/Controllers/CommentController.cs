@@ -1,18 +1,34 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using WEB_Assignment_Team4.DAL;
+using WEB_Assignment_Team4.Models;
 
 namespace WEB_Assignment_Team4.Controllers
 {
     public class CommentController : Controller
     {
+        private CommentDAL commentContext = new CommentDAL();
+        private CompetitionDAL competitionContext = new CompetitionDAL();
         // GET: CommentController
         public ActionResult Index()
         {
-            return View();
+            List<Comment> commentList = commentContext.GetAllComment();
+            return View(commentList);
+        }
+
+        private List<Competition> GetAllCompetition()
+        {
+            List<Competition> competitionList = competitionContext.GetAllCompetition();
+            competitionList.Insert(0, new Competition
+            {
+                CompetitionID = 0,
+                Name = "--Select--"
+            });
+            return competitionList;
         }
 
         // GET: CommentController/Details/5
@@ -24,22 +40,18 @@ namespace WEB_Assignment_Team4.Controllers
         // GET: CommentController/Create
         public ActionResult Create()
         {
+            ViewData["competitionList"] = GetAllCompetition();
             return View();
         }
 
         // POST: CommentController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(Comment comment)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            ViewData["competitionList"] = GetAllCompetition();
+            comment.CommentID = commentContext.Add(comment);
+            return RedirectToAction("Index");
         }
 
         // GET: CommentController/Edit/5

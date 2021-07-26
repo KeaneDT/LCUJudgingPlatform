@@ -33,9 +33,7 @@
                             }
                             <form asp-controller="Submissions" asp-action="Edit" method="post">
                                 <input type="submit" value="Vote"
-                                       class="btn btn-primary" />
-                                @TempData["competitionID"] = @items.CompetitionID;
-                                @TempData["competitorID"] = @items.CompetitorID;
+                                       class="btn btn-primary"/>
                                 <span style="color:lawngreen;">@votingStatus</span>
                             </form>
 

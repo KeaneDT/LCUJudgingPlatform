@@ -66,6 +66,39 @@ namespace WEB_Assignment_Team4.DAL
             return commentList;
         }
 
+        public int Add(Comment comment)
+        {
+            //Create a SqlCommand Object object from connection object
+            SqlCommand cmd = conn.CreateCommand();
+
+            //Specifiy an INSERT SQL statment which will 
+            //return an auto-generated CompetitionID after insertion
+            cmd.CommandText = @"INSERT INTO Comment (CompetitionID, Description,
+                                DateTimePosted)
+                                OUTPUT INSERTED.CommentID
+                                VALUES(@competitionno, @comment, @dateposted)";
+
+            //Define the parameters used in the SQL statment, value for each parameter
+            //is retrieved from the respective class's property
+            cmd.Parameters.AddWithValue("@competitionno", comment.CompetitionID);
+            cmd.Parameters.AddWithValue("@comment", comment.Description);
+            cmd.Parameters.AddWithValue("@dateposted", comment.DateTimePosted);
+            
+            //A connection to database must be opened before any operations made.
+            conn.Open();
+
+            //ExecuteScalar is used to retrieve the auto-generated
+            //CompetitionID after executing the INSERT SQL statments
+            comment.CommentID = (int)cmd.ExecuteScalar();
+
+            //A connection should be closed after operations/
+            conn.Close();
+
+            //Return id with no error occours
+            return comment.CommentID;
+
+        }
+
 
     }
 
