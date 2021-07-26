@@ -14,6 +14,11 @@ namespace WEB_Assignment_Team4.Controllers
         private SubmissionsDAL submissionContext = new SubmissionsDAL();
 
         // GET: SubmissionsController
+
+        //submissionContext.IncreaseCount(id);
+        //TempData["message"] = "Voted";
+        //return RedirectToAction("Index", "Submission");
+
         public ActionResult Index(int? id)
         {
             Submissions submissions = new Submissions();
@@ -66,23 +71,24 @@ namespace WEB_Assignment_Team4.Controllers
         }
 
         // GET: SubmissionsController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
 
         // POST: SubmissionsController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(Submissions submission)
         {
-            try
+            ViewData["SubmissionList"] = submissionContext.GetAllSubmissions();
+            if (ModelState.IsValid)
             {
-                return RedirectToAction(nameof(Index));
+                //Update staff record to database
+                submissionContext.IncreaseCount(submission);
+                return RedirectToAction("Index");
             }
-            catch
+            else
             {
-                return View();
+                //Input validation fails, return to the view
+                //to display error message
+                return View(submission);
             }
         }
 

@@ -138,6 +138,20 @@ namespace WEB_Assignment_Team4.DAL
             conn.Close();
             return submissionsList;
         }
+
+        public int IncreaseCount(Submissions submission)
+        {
+            SqlCommand cmd = conn.CreateCommand();
+            cmd.CommandText = @"Update CompetitionSubmission SET VoteCount = VoteCount + 1 Where CompetitionID = 1 AND CompetitorID = 1";
+
+
+            conn.Open();
+            int count = cmd.ExecuteNonQuery();
+            conn.Close();
+            return count;
+
+        }
+
         public SubmissionViewModel GetSubmissionDetails(int competitionID, int competitorID, string fileName)
         {
             SubmissionViewModel sVM = new SubmissionViewModel();

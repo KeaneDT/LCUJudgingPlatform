@@ -1,0 +1,52 @@
+﻿@model WEB_Assignment_Team4.Models.Submissions
+
+<h4 class="PageTitle">Submissions</h4>
+@if (Model.submissionsList.Count > 0)
+{
+    <div class="table-responsive">
+        <table id="viewSubmission" class="table table-striped table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>CompetitorID</th>
+                    <th>Upload Date</th>
+                    <th>File Name</th>
+                    <th>Vote Count</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var items in Model.submissionsList)
+                {
+                    <tr>
+                        <td>@items.CompetitorID</td>
+                        <td>@items.UploadDateTime</td>
+                        <td>@items.FileName</td>
+                        <td>@items.VoteCount</td>
+
+                        <td>
+                            @{
+                                string votingStatus = "";
+                                if (@TempData["message"] != null)
+                                {
+                                    votingStatus = @TempData["message"].ToString();
+                                }
+                            }
+                            <form asp-controller="Submissions" asp-action="Edit" method="post">
+                                <input type="submit" value="Vote"
+                                       class="btn btn-primary" />
+                                @TempData["competitionID"] = @items.CompetitionID;
+                                @TempData["competitorID"] = @items.CompetitorID;
+                                <span style="color:lawngreen;">@votingStatus</span>
+                            </form>
+
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <span style="color:red;">No Records Found!</span>
+}
