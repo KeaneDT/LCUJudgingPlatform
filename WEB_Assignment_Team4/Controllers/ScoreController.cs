@@ -67,7 +67,7 @@ namespace WEB_Assignment_Team4.Controllers
         }
 
         // GET: ScoreController/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Score(int id)
         {
             return View();
         }
@@ -75,7 +75,7 @@ namespace WEB_Assignment_Team4.Controllers
         // POST: ScoreController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Score(int id, IFormCollection collection)
         {
             try
             {

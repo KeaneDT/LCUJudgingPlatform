@@ -152,22 +152,52 @@ namespace WEB_Assignment_Team4.DAL
         }
         public int Add(Criteria criteria)
         {
-            //Create a SqlCommand object from connection object
-            SqlCommand cmd = conn.CreateCommand();
+            //Create a SqlCommand objects from connection objects
+            SqlCommand cmd1 = conn.CreateCommand();
+            SqlCommand cmd2 = conn.CreateCommand();
+            SqlCommand cmd3 = conn.CreateCommand();
 
-            //Specify the INSERT SQL statment to Insert the new Criteria details and output the CriteriaID Generated
-            cmd.CommandText = @"INSERT INTO Criteria (CompetitionID, CriteriaName, Weightage)
+            //Specify the INSERT SQL Statement to Insert the new Criteria details and output the CriteriaID Generated
+            cmd1.CommandText = @"INSERT INTO Criteria (CompetitionID, CriteriaName, Weightage)
                                 OUTPUT INSERTED.CriteriaID
                                 VALUES(@competitionID, @cName, @weightage)";
 
-            cmd.Parameters.AddWithValue("@competitionID", criteria.CompetitionID);
-            cmd.Parameters.AddWithValue("@cName", criteria.CriteriaName);
-            cmd.Parameters.AddWithValue("@weightage", criteria.Weightage);
+            cmd1.Parameters.AddWithValue("@competitionID", criteria.CompetitionID);
+            cmd1.Parameters.AddWithValue("@cName", criteria.CriteriaName);
+            cmd1.Parameters.AddWithValue("@weightage", criteria.Weightage);
 
+            //Specify the SELECT SQL Statement to get the CompetitiorID's of those who are in the same competition as the criteria competition & has a valid file submission
+            cmd2.CommandText = @"SELECT Competitor.CompetitorID FROM Competitor
+                                INNER JOIN CompetitionSubmission ON Competitor.CompetitorID=CompetitionSubmission.CompetitorID
+                                WHERE CompetitionSubmission.FileSubmitted IS NOT NULL";
+
+            //Specify the INSERT SQL Statement to Insert the new CriteriaID along with the many CompetitorID's, the CompetitionID and the default Score of 0
+            cmd3.CommandText = @"INSERT INTO CompetitionScore (CriteriaID, CompetitorID, CompetitionID, Score) VALUES (@criteriaID,@competitorID,@competitionID,@score)";
             //Open a database connection
             conn.Open();
+            int rowAffected = 0;
             //Assign the CriteriaID from outputed int
-            criteria.CriteriaID = (int)cmd.ExecuteScalar();
+            criteria.CriteriaID = (int)cmd1.ExecuteScalar();
+
+            //ExecuteReader to iterate through all the CompetitorID in the Competition with valid FileSubmissions
+            SqlDataReader reader = cmd2.ExecuteReader();
+            //In order to make this possible, MultipleActiveResultSets=true; was set in the ConnectionString
+            if (reader.HasRows)
+            {
+                //Set the parameters of cmd3 & then execute. After that, clear the params so it can be reused in the next reader.read()
+                while (reader.Read())
+                {
+                    cmd3.Parameters.AddWithValue("@criteriaID", criteria.CriteriaID);
+                    cmd3.Parameters.AddWithValue("@competitorID", reader.GetInt32(0));
+                    cmd3.Parameters.AddWithValue("@competitionID", criteria.CompetitionID);
+                    cmd3.Parameters.AddWithValue("@score", 0);
+
+                    rowAffected += cmd3.ExecuteNonQuery();
+                    cmd3.Parameters.Clear();
+                }
+            }
+            //Close reader
+            reader.Close();
             //Close database connection
             conn.Close();
 
@@ -200,16 +230,20 @@ namespace WEB_Assignment_Team4.DAL
         public int Delete(int criteriaID)
         {
             //Create a SqlCommand object from connection object
-            SqlCommand cmd = conn.CreateCommand();
+            SqlCommand cmd1 = conn.CreateCommand();
+            SqlCommand cmd2 = conn.CreateCommand();
             //Specify an DELETE SQL statement based on the CriteriaID specified
-            cmd.CommandText = @"DELETE FROM Criteria
+            cmd1.CommandText = @"DELETE FROM Criteria
                                 WHERE CriteriaID = @criteriaID";
-            cmd.Parameters.AddWithValue("@criteriaID", criteriaID);
+            cmd1.Parameters.AddWithValue("@criteriaID", criteriaID);
+            cmd2.CommandText = @"DELETE FROM CompetitionScore WHERE CriteriaID = @criteriaID";
+            cmd2.Parameters.AddWithValue("@criteriaID", criteriaID);
             //Open a database connection
             conn.Open();
             int rowAffected = 0;
             //Execute the DELETE SQL to remove the Criteria record
-            rowAffected += cmd.ExecuteNonQuery();
+            rowAffected += cmd2.ExecuteNonQuery();
+            rowAffected += cmd1.ExecuteNonQuery();
             //Close database connection
             conn.Close();
             //Return number of row of Criteria record updated or deleted

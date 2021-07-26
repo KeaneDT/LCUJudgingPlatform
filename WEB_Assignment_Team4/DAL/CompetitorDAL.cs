@@ -62,6 +62,40 @@ namespace WEB_Assignment_Team4.DAL
 
             return competitorList;
         }
+        public List<Competitor> GetCompetitionCompetitors(int compID)
+        {
+            //Create a SqlCommand object from connection object 
+            SqlCommand cmd = conn.CreateCommand();
+            //Specify the SELECT SQL statments
+            cmd.CommandText = @"SELECT * FROM Competitor WHERE CompetitionID=@compID";
+            cmd.Parameters.AddWithValue("@compID", compID);
+            //Open a database connection
+            conn.Open();
+            //Execute the SELECT SQL through a DataReader
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            //Read all records until the end, save data into a staff list
+            List<Competitor> competitorList = new List<Competitor>();
+            while (reader.Read())
+            {
+                competitorList.Add(
+                    new Competitor
+                    {
+                        CompetitorID = reader.GetInt32(0),
+                        CompetitorName = reader.GetString(1),
+                        Salutation = reader.GetString(2),
+                        EmailAddr = reader.GetString(4),
+                        Password = reader.GetString(5),
+                    }
+                );
+            }
+            //Close DataReader
+            reader.Close();
+            //Close the database connection
+            conn.Close();
+
+            return competitorList;
+        }
         public bool IsCompetitorExist(string email, int competitorId) //Create new validation
         {
             bool emailFound = false;
