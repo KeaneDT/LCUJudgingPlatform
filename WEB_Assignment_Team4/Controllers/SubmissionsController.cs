@@ -72,23 +72,20 @@ namespace WEB_Assignment_Team4.Controllers
 
         // GET: SubmissionsController/Edit/5
 
-        // POST: SubmissionsController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(Submissions submission)
+        public ActionResult Edit(int competitionID, int competitorID)
         {
             ViewData["SubmissionList"] = submissionContext.GetAllSubmissions();
             if (ModelState.IsValid)
             {
                 //Update staff record to database
-                submissionContext.IncreaseCount(submission);
+                submissionContext.IncreaseCount(competitionID, competitorID);
                 return RedirectToAction("Index");
             }
             else
             {
                 //Input validation fails, return to the view
                 //to display error message
-                return View(submission);
+                return RedirectToAction("Index");
             }
         }
 

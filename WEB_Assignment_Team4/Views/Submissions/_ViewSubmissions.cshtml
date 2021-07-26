@@ -31,11 +31,10 @@
                                     votingStatus = @TempData["message"].ToString();
                                 }
                             }
-                            <form asp-controller="Submissions" asp-action="Edit" method="post">
-                                <input type="submit" value="Vote"
-                                       class="btn btn-primary"/>
-                                <span style="color:lawngreen;">@votingStatus</span>
-                            </form>
+                            <a asp-action="Edit" asp-controller="Submissions"
+                               asp-route-competitionID="@items.CompetitionID"
+                               asp-route-competitorID="@items.CompetitorID"
+                               class="btn btn-warning rounded-pill mr-2">Vote</a>
 
                         </td>
                     </tr>
