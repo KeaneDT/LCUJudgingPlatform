@@ -52,6 +52,23 @@ namespace WEB_Assignment_Team4.Controllers
             return View(competitionVM);
         }
 
+        public ActionResult List(int? id)
+        {
+            CompetitionViewModel competitionVM = new CompetitionViewModel();
+            competitionVM.competitionList = competitionContext.GetAllCompetition();
+            if (id != null)
+            {
+                ViewData["selectedCompetitionNo"] = id.Value;
+                competitionVM.commentList = competitionContext.GetCompetitionComment(id.Value);
+            }
+            else
+            {
+                ViewData["selectedCompetitionNo"] = "";
+            }
+            return View(competitionVM);
+        }
+
+
         public CompetitionViewModel MapToCompetitionVM(Competition competition)
         {
             string areaInterestName = "";

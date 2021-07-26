@@ -3,7 +3,7 @@
 @if (Model.submissionsList.Count > 0)
 {
     <div class="table-responsive">
-        <table id="selectInterest" class="table table-striped table-bordered">
+        <table id="viewSubmission" class="table table-striped table-bordered">
             <thead class="thead-dark">
                 <tr>
                     <th>CompetitorID</th>
@@ -21,7 +21,7 @@
                         <td>@items.FileName</td>
 
                         <td>
-                            <a asp-action="Vote" asp-controller="Submissions"
+                            <a asp-action="Vote" asp-controller="Voting"
                                asp-route-id="@items.CompetitionID/@items.CompetitorID">Vote</a>
                         </td>
                     </tr>

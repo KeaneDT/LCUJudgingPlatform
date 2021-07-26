@@ -1,0 +1,22 @@
+﻿@model IEnumerable<WEB_Assignment_Team4.Models.Comment>
+
+<div class="table-responsive">
+    <table id="viewComment" class="table table-striped table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th>Comment</th>
+                <th>Date Posted</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var items in Model)
+            {
+                <tr>
+                    <td>@items.Description</td>
+                    <td>@items.DateTimePosted</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

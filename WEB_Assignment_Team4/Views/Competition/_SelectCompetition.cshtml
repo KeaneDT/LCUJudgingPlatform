@@ -6,11 +6,9 @@
         <table id="selectInterest" class="table table-striped table-bordered">
             <thead class="thead-dark">
                 <tr>
-                    <th>CompetitionID</th>
                     <th>Name</th>
                     <th>Start Date</th>
                     <th>End Date</th>
-                    <th>Result Release Date</th>
                     <th></th>
                 </tr>
             </thead>
@@ -18,15 +16,13 @@
                 @foreach (var items in Model)
                 {
                 <tr>
-                    <td>@items.CompetitionID.ToString()</td>
                     <td>@items.Name</td>
                     <td>@items.StartDate</td>
                     <td>@items.EndDate</td>
-                    <td>@items.ResultReleaseDate</td>
 
                     <td>
-                        <a asp-action="Index" asp-controller="Submissions"
-                           asp-route-id="@items.CompetitionID">View Submissions</a>
+                        <a asp-action="List" asp-controller="Competition"
+                           asp-route-id="@items.CompetitionID">Select Competition</a>
                     </td>
                 </tr>
                 }

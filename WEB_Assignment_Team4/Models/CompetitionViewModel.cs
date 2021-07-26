@@ -28,5 +28,14 @@ namespace WEB_Assignment_Team4.Models
         [Display(Name = "Area of Interest Name")]
         public string AreaInterestName { get; set; }
 
+        public List<Comment> commentList { get; set; }
+        public List<Competition> competitionList { get; set; }
+
+        public CompetitionViewModel()
+        {
+            commentList = new List<Comment>();
+            competitionList = new List<Competition>();
+        }
+
     }
 }

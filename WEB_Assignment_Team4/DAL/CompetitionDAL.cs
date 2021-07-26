@@ -16,7 +16,7 @@ namespace WEB_Assignment_Team4.DAL
 {
     public class CompetitionDAL
     {
-        private IConfiguration Configuration { get; }
+        private IConfiguration Configuration { get; set; }
         private SqlConnection conn;
 
         public CompetitionDAL()
@@ -107,6 +107,40 @@ namespace WEB_Assignment_Team4.DAL
             //Close database connection
             conn.Close();
             return submissionsList;
+        }
+
+        public List<Comment> GetCompetitionComment(int competitionID)
+        {
+            //Create a SqlCommand object from connection object
+            SqlCommand cmd = conn.CreateCommand();
+            //Specify the SQL statement that select all branches
+            cmd.CommandText = @"SELECT * FROM Comment WHERE CompetitionID = @selectedCompetition";
+            //Define the parameter used in SQL statement, value for the
+            //parameter is retrieved from the method parameter “branchNo”.
+            cmd.Parameters.AddWithValue("@selectedCompetition", competitionID);
+
+            //Open a database connection
+            conn.Open();
+            //Execute SELCT SQL through a DataReader
+            SqlDataReader reader = cmd.ExecuteReader();
+            List<Comment> commentList = new List<Comment>();
+            while (reader.Read())
+            {
+                commentList.Add(
+                    new Comment
+                    {
+                        CommentID = reader.GetInt32(0),
+                        CompetitionID = reader.GetInt32(1),
+                        Description = reader.GetString(2),
+                        DateTimePosted = reader.GetDateTime(3),
+                    }
+                );
+            }
+            //Close DataReader
+            reader.Close();
+            //Close database connection
+            conn.Close();
+            return commentList;
         }
         public bool IsNameExist(string name, int competitonId)
         {
