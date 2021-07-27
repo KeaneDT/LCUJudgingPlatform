@@ -20,17 +20,6 @@ namespace WEB_Assignment_Team4.Controllers
             return View(commentList);
         }
 
-        private List<Competition> GetAllCompetition()
-        {
-            List<Competition> competitionList = competitionContext.GetAllCompetition();
-            competitionList.Insert(0, new Competition
-            {
-                CompetitionID = 0,
-                Name = "--Select--"
-            });
-            return competitionList;
-        }
-
         // GET: CommentController/Details/5
         public ActionResult Details(int id)
         {
@@ -40,18 +29,17 @@ namespace WEB_Assignment_Team4.Controllers
         // GET: CommentController/Create
         public ActionResult Create()
         {
-            ViewData["competitionList"] = GetAllCompetition();
             return View();
         }
 
         // POST: CommentController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Comment comment)
+        public ActionResult Create(Comment comment, int id)
         {
-            ViewData["competitionList"] = GetAllCompetition();
-            comment.CommentID = commentContext.Add(comment);
-            return RedirectToAction("Index");
+            Console.WriteLine(id);
+            comment.CommentID = commentContext.Add(comment, id);
+            return RedirectToAction("List","Competition");
         }
 
         // GET: CommentController/Edit/5

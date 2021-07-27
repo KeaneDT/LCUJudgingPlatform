@@ -66,7 +66,7 @@ namespace WEB_Assignment_Team4.DAL
             return commentList;
         }
 
-        public int Add(Comment comment)
+        public int Add(Comment comment, int value)
         {
             //Create a SqlCommand Object object from connection object
             SqlCommand cmd = conn.CreateCommand();
@@ -76,13 +76,14 @@ namespace WEB_Assignment_Team4.DAL
             cmd.CommandText = @"INSERT INTO Comment (CompetitionID, Description,
                                 DateTimePosted)
                                 OUTPUT INSERTED.CommentID
-                                VALUES(@competitionno, @comment, @dateposted)";
+                                VALUES(@competitionno, @text, @dateposted)";
 
             //Define the parameters used in the SQL statment, value for each parameter
             //is retrieved from the respective class's property
-            cmd.Parameters.AddWithValue("@competitionno", comment.CompetitionID);
-            cmd.Parameters.AddWithValue("@comment", comment.Description);
-            cmd.Parameters.AddWithValue("@dateposted", comment.DateTimePosted);
+            DateTime localDate = DateTime.Now;
+            cmd.Parameters.AddWithValue("@competitionno", value);
+            cmd.Parameters.AddWithValue("@text", comment.Description);
+            cmd.Parameters.AddWithValue("@dateposted", localDate);
             
             //A connection to database must be opened before any operations made.
             conn.Open();

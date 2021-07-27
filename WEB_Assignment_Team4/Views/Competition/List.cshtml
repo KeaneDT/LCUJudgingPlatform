@@ -56,3 +56,8 @@
         <h5>No comments</h5>
     }
 }
+<div>
+    <a class="btn btn-warning rounded-pill mr-2"
+       asp-action="Create" asp-controller="Comment"
+       asp-route-id="@ViewData["selectedCompetitionNo"]">Post Comment</a>
+</div>
