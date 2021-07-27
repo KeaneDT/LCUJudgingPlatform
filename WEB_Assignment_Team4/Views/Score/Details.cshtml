@@ -74,7 +74,7 @@
                            asp-route-competitionID="@Model.CompetitionID"
                            asp-route-competitorID="@Model.CompetitorID"
                            asp-route-fileName="@Model.FileName"
-                           class="btn btn-warning rounded-pill mr-2">Rank</a>
+                           class="btn btn-warning rounded-pill">Rank</a>
                     </p>
                 </div>
             </div>
@@ -101,7 +101,7 @@
  }
 <br />
 <div class="text-center">
-<a class="text-warning " asp-action="Index" asp-route-id="@Model.CompetitionID">Back To Submissions</a>
+<a class="btn btn-primary text-white rounded-pill mr-2" asp-action="Index" asp-route-id="@Model.CompetitionID">Back To Submissions</a>
 </div>
 
 

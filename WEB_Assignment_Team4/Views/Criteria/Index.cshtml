@@ -34,9 +34,10 @@
                     <td>@item.Name</td>
                     <td>@item.StartDate</td>
                     <td>@item.EndDate</td>
-                    <td>
+                    <td class="text-center">
                         <a asp-action="Index" asp-controller="Criteria"
-                           asp-route-id="@item.CompetitionID">View Criteria</a>
+                           asp-route-id="@item.CompetitionID"
+                           class="btn btn-warning rounded-pill mr-2">View Criteria</a>
                     </td>
                 </tr>
             }

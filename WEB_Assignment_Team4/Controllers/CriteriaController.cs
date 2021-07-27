@@ -173,6 +173,7 @@ namespace WEB_Assignment_Team4.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
+            ViewData["selectedCompetitionNo"] = HttpContext.Session.GetInt32("criteriaCompNum");
             if (id == null)
             { //Query string parameter not provided
               //Return to listing page, not allowed to edit
@@ -195,6 +196,7 @@ namespace WEB_Assignment_Team4.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(Criteria criteria)
         {
+            ViewData["selectedCompetitionNo"] = HttpContext.Session.GetInt32("criteriaCompNum");
             // Delete the staff record from database
             criteriaContext.Delete(criteria.CriteriaID);
             return RedirectToAction("Index");

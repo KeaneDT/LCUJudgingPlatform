@@ -21,9 +21,11 @@
                     <td>@item.FileName</td>
                     <td>@item.UploadDateTime.ToString()</td>
                     <td>@item.VoteCount</td>
-                    <td>
+                    <td class="text-center">
                         <a asp-action="Details" asp-controller="Score"
-                           asp-route-competitionID="@item.CompetitionID" asp-route-competitorID="@item.CompetitorID">Judge Submission</a>
+                           asp-route-competitionID="@item.CompetitionID" 
+                           asp-route-competitorID="@item.CompetitorID"
+                           class="btn btn-warning rounded-pill mr-2">Judge Submission</a>
                     </td>
                 </tr>
                 }
