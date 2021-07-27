@@ -9,17 +9,17 @@
                 <tr>
                     <th>CriteriaID</th>
                     <th>Name</th>
-                    <th>Weightage(%)</th>
+                    <th>Weightage</th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model)
+               @foreach (var item in Model)
                 {
                     <tr>
                         <td>@item.CriteriaID.ToString()</td>
                         <td>@item.CriteriaName</td>
-                        <td>@item.Weightage</td>
+                        <td>@item.Weightage%</td>
                         <td>
                             <a asp-action="Edit" asp-controller="Criteria"
                                asp-route-id="@item.CriteriaID">Edit</a> |
@@ -28,6 +28,25 @@
                         </td>
                     </tr>
                 }
+                <tr class="bg-primary">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Total</td>
+                    <td></td>
+                    <td>@ViewData["totalWeightage"].ToString()%</td>
+                    @if (@ViewData["totalWeightage"].ToString() == "100")
+                    {
+                        <td class="text-success">Valid Weightage</td>
+                    }
+                    else
+                    {
+                        <td class="text-danger">Weightage Not 100%!</td>
+                    }
+                </tr>
             </tbody>
         </table>
     </div>

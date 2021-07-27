@@ -89,10 +89,22 @@ namespace WEB_Assignment_Team4.Controllers
             return View(criteriaContext.GetSubmissionCriteria(competitionID, competitorID));
         }
 
+        public ActionResult ScoreEdit()
+        {
+            // Stop accessing the action if not logged in
+            // or account not in the "Judge" role
+            if ((HttpContext.Session.GetString("Role") == null) ||
+            (HttpContext.Session.GetString("Role") != "Judge"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            return View();
+        }
+
         // POST: ScoreController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Score(int id, IFormCollection collection)
+        public ActionResult ScoreEdit(int id, IFormCollection collection)
         {
             try
             {

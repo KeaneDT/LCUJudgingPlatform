@@ -26,7 +26,7 @@
                         <td>@item.CriteriaName.ToString()</td>
                         <td>@item.Weightage%</td>
                         <td>@item.Score/10</td>
-                        <td>
+                        <td class="text-center">
                             <a asp-action="ScoreEdit" asp-controller="Score"
                                asp-route-id="@item.CriteriaID">Edit</a>
                         </td>
@@ -51,7 +51,14 @@
                     {
                         <td>Error</td>
                     }
-                    <td></td>
+                    @if (@ViewData["totalWeightage"].ToString() == "100")
+                    {
+                        <td class="text-success text-center">Valid Weightage</td>
+                    }
+                    else
+                    {
+                        <td class="text-danger text-center">Weightage Not 100%!</td>
+                    }
                 </tr>
             </tbody>
         </table>
