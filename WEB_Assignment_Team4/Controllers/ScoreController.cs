@@ -130,7 +130,11 @@ namespace WEB_Assignment_Team4.Controllers
             if (ModelState.IsValid)
             {                
                 criteriaContext.UpdateCriteriaScore(cVM);
-                return RedirectToAction("Index");
+                return RedirectToAction("Score", new
+                {
+                    competitionID = cVM.CompetitionID,
+                    competitorID = cVM.CompetitorID
+                });
             }
             else
             {

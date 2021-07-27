@@ -3,7 +3,8 @@
 @{
     ViewData["Title"] = "ScoreEdit";
 }
-<h3 class="text-center">Edit Competitor @Model.CompetitorID's Score for @Model.CompetitionID</h3>
+<br />
+<h3 class="text-center">Edit Competitor @Model.CompetitorID's Score</h3>
 <hr />
 <form asp-action="ScoreEdit">
     <input asp-for="CompetitionID" class="form-control" type="hidden" readonly />
@@ -92,7 +93,6 @@
     </div>
     <br />
 }
-
 <div class="text-center">
     <a class="btn btn-primary text-white rounded-pill mr-2" asp-action="Score" asp-route-competitionID="@Model.CompetitionID" asp-route-competitorID="@Model.CompetitorID">Back To Scores</a>
 </div>
