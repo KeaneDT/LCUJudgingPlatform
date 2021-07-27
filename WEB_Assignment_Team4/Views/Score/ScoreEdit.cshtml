@@ -1,0 +1,79 @@
+﻿@model WEB_Assignment_Team4.Models.CriteriaViewModel
+
+@{
+    ViewData["Title"] = "ScoreEdit";
+}
+<br />
+<h3 class="text-center">Edit Competitor @Model.CompetitorID's Score</h3>
+<hr />
+<form asp-action="ScoreEdit">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="container">
+        <div class="row gutters-sm">
+            <div class="col-md-7">
+                <div class="card h-100">
+                    <h5 class="card-header text-white" style="background-color: #007bff; ">📒 Criteria Details</h5>
+                    <div class="card-body">
+                        <div class="d-flex flex-column">
+                            <div class="align-items-center text-center">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6>@Html.DisplayNameFor(model => model.CriteriaID):</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">@Html.DisplayFor(model => model.CriteriaID)</div>
+                                </div>
+                                <hr />
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6>@Html.DisplayNameFor(model => model.CriteriaName):</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">@Html.DisplayFor(model => model.CriteriaName)</div>
+                                </div>
+                                <hr />
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6>@Html.DisplayNameFor(model => model.Weightage):</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">@Html.DisplayFor(model => model.Weightage)%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="card h-100">
+                    <h5 class="card-header text-white" style="background-color: #007bff; ">💯 Edit Score</h5>
+                    <div class="card-body">
+                        <div class="d-flex flex-column">
+                            <div class="align-items-center">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mt-2">@Html.DisplayNameFor(model => model.Score):</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        <input asp-for="Score" class="form-control mb-1" min="0" max="10" />
+                                        <span asp-validation-for="Score" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <hr />
+                                <br />
+                                <div class="container-fluid">
+                                    <div class="row justify-content-center">
+                                        <div class="form-group">
+                                            <input type="submit" value="Save Changes" class="btn btn-warning text-black rounded-pill" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<br />
+<div class="text-center">
+    <a class="btn btn-primary text-white rounded-pill mr-2" asp-action="Score" asp-route-competitionID="@Model.CompetitionID" asp-route-competitorID="@Model.CompetitorID">Back To Scores</a>
+</div>
