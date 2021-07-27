@@ -91,6 +91,7 @@ namespace WEB_Assignment_Team4.Controllers
             return View(criteriaContext.GetSubmissionCriteria(competitionID, competitorID));
         }
 
+        [HttpGet]
         public ActionResult ScoreEdit(int? competitionID, int? competitorID, int? criteriaID)
         {
             // Stop accessing the action if not logged in
@@ -107,6 +108,9 @@ namespace WEB_Assignment_Team4.Controllers
             }
             CriteriaViewModel cVM = criteriaContext.GetSubmissionCriteriaDetail(competitionID.Value, competitorID.Value,  criteriaID.Value);
 
+            SubmissionViewModel sVM = submissionsContext.GetSubmissionDetails(competitionID.Value, competitorID.Value);
+            ViewData["appeal"] = sVM.Appeal;
+
             if (cVM == null)
             {
                 return RedirectToAction("Index");
@@ -120,11 +124,13 @@ namespace WEB_Assignment_Team4.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ScoreEdit(CriteriaViewModel cVM)
         {
+            SubmissionViewModel sVM = submissionsContext.GetSubmissionDetails(cVM.CompetitionID, cVM.CompetitorID);
+            ViewData["appeal"] = sVM.Appeal;
+
             if (ModelState.IsValid)
-            {
-                
-                cVM.Score = criteriaContext.UpdateCriteriaScore(cVM);
-                return View(cVM);
+            {                
+                criteriaContext.UpdateCriteriaScore(cVM);
+                return RedirectToAction("Index");
             }
             else
             {

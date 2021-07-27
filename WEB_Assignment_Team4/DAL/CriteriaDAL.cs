@@ -366,10 +366,7 @@ namespace WEB_Assignment_Team4.DAL
             //Create a SqlCommand object from connection object
             SqlCommand cmd = conn.CreateCommand();
             //Specify an UPDATE SQL statement based on the CriteriaID specified
-            cmd.CommandText = @"UPDATE CompetitionScore SET Score = @score 
-                                WHERE CompetitionID = @competitionID
-                                AND CompetitorID = @competitorID
-                                AND CriteriaID = @criteriaID";
+            cmd.CommandText = @"UPDATE CompetitionScore SET Score = @score WHERE CompetitionID = @competitionID AND CompetitorID = @competitorID AND CriteriaID = @criteriaID";
 
             //Define the parameters used in SQL statement, value for each parameter
             //is retrieved from respective class's property.
