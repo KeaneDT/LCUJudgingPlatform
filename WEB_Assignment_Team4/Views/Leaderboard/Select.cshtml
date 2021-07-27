@@ -5,12 +5,11 @@
 }
 
 <h4 class="PageTitle">Select Area of Interest</h4>
-<!-- Display a list of branches -->
 <div class="table-responsive">
-    <table id="selectInterest" class="table table-striped table-bordered">
+    <table id="selectInterestLeaderboard" class="table table-striped table-bordered">
         <thead class="thead-dark">
             <tr>
-                <th>ID1234</th>
+                <th>ID</th>
                 <th>Name</th>
                 <th></th>
             </tr>
@@ -38,7 +37,6 @@
     </table>
 </div>
 
-<!-- Display a list of staff members for each branch -->
 @if (ViewData["selectedInterestNo"].ToString() != "")
 {
     if (Model.competitionList.Count != 0)

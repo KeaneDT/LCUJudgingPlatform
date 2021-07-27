@@ -17,13 +17,13 @@ namespace WEB_Assignment_Team4.Controllers
         public ActionResult Index(int? id)
         {
             Submissions submissions = new Submissions();
-            submissions.leaderboardSubmissionsList = submissionContext.GetAllSubmissionsLeaderboard();
             // Check if BranchNo (id) presents in the query string
             if (id != null)
             {
                 ViewData["selectedCompetition"] = id.Value;
                 // Get list of staff working in the branch
-                submissions.leaderboardSubmissionsList = submissionContext.GetCompetitionSubmissions(id.Value);
+                submissions.submissionsList = submissionContext.GetCompetitionSubmissionsLeaderboard(id.Value);
+                Console.WriteLine("LOL");
             }
             else
             {

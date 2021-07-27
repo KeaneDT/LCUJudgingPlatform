@@ -45,5 +45,8 @@
 }
 else
 {
-    <span style="color:red;">No Records Found!</span>
+    <span style="color:red;">No Submissions Found!</span>
 }
+<div>
+    <a asp-action="List" asp-controller="Competition" asp-route-id="@ViewData["selectedCompetition"]">Back to List</a>
+</div>
