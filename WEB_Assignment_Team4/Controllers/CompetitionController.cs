@@ -174,15 +174,14 @@ namespace WEB_Assignment_Team4.Controllers
             {
                 //Update competition record to the database
                 competitionContext.Update(competition);
-                TempData["Message"] = "Records Updated Successfully. ";
                 return RedirectToAction("Index");
             }
             else
             {
                 //Input Validation fails, return to the view
                 //to display an error message
-                TempData["Message"] = "Records Update Failed. ";
-                return View(competition);
+                //ViewData["Message"] = "Competitor Has Joined the Competition, Record cannot be edit. ";
+                return RedirectToAction("Index");
             }
         }
         // POST: CompetitionController/Delete/5
@@ -194,18 +193,17 @@ namespace WEB_Assignment_Team4.Controllers
             {
                 //Delete the records from the database
                 competitionContext.Delete(Competition.CompetitionID);
-                TempData["Message"] = "No Competitor Has Joined the Competition, Record has been deleted. ";
                 return RedirectToAction("Index");
             }
             else
             {
                 //Display the error message if the records exist on another table
-                TempData["Message"] = "Competitor Has Joined the Competition, Unable to Delete.";
+                //TempData["Message"] = "Competitor Has Joined the Competition, Unable to Delete.";
                 return RedirectToAction("Index");
             }
         }
         // GET: CompetitionController/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int? id, string name)
         {
             //Stop accessing the action if not logged in
             //or account not in the "Administrator" role
