@@ -80,16 +80,18 @@ namespace WEB_Assignment_Team4.Controllers
             }
 
             SubmissionViewModel sVM = submissionsContext.GetSubmissionDetails(competitionID, competitorID);
-            ViewData["totalScore"] = criteriaContext.GetSubmissionCriteriaTotal(competitionID, competitorID);
             ViewData["appeal"] = sVM.Appeal;
+
             ViewData["competitionName"] = competitionContext.GetDetails(competitionID).Name;
-            ViewData["totalWeightage"] = criteriaContext.GetCriteriaTotal(competitionID);
+            ViewData["totalScore"] = criteriaContext.GetSubmissionCriteriaTotal(competitionID, competitorID);
+            ViewData["totalWeightage"] = criteriaContext.GetWeightageTotal(competitionID);
             ViewData["competitionID"] = competitionID;
             ViewData["competitorID"] = competitorID;
+
             return View(criteriaContext.GetSubmissionCriteria(competitionID, competitorID));
         }
 
-        public ActionResult ScoreEdit()
+        public ActionResult ScoreEdit(int? competitionID, int? competitorID, int? criteriaID)
         {
             // Stop accessing the action if not logged in
             // or account not in the "Judge" role
@@ -98,21 +100,38 @@ namespace WEB_Assignment_Team4.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-            return View();
+            if (competitionID == null || competitorID == null || criteriaID == null)
+            { //Query string parameter not provided
+              //Return to listing page, not allowed to edit
+                return RedirectToAction("Index");
+            }
+            CriteriaViewModel cVM = criteriaContext.GetSubmissionCriteriaDetail(competitionID.Value, competitorID.Value,  criteriaID.Value);
+
+            if (cVM == null)
+            {
+                return RedirectToAction("Index");
+            }
+
+            return View(cVM);
         }
 
         // POST: ScoreController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ScoreEdit(int id, IFormCollection collection)
+        public ActionResult ScoreEdit(CriteriaViewModel cVM)
         {
-            try
+            if (ModelState.IsValid)
             {
-                return RedirectToAction(nameof(Index));
+                
+                cVM.Score = criteriaContext.UpdateCriteriaScore(cVM);
+                return View(cVM);
             }
-            catch
+            else
             {
-                return View();
+                //Input validation fails, return to the Create view
+                //to display error message
+                TempData["Message"] = "";
+                return View(cVM);
             }
         }
     }

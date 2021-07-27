@@ -65,7 +65,7 @@ namespace WEB_Assignment_Team4.DAL
 
             return cList;
         }
-        public int GetCriteria(int criteriaID)
+        public int GetCriteriaWeightage(int criteriaID)
         {
             //Create a SqlCommand object from connection object 
             SqlCommand cmd = conn.CreateCommand();
@@ -89,77 +89,7 @@ namespace WEB_Assignment_Team4.DAL
 
             return count;
         }
-        public List<CriteriaViewModel> GetSubmissionCriteria(int competitionID, int competitorID)
-        {
-            //Create a SqlCommand object from connection object 
-            SqlCommand cmd = conn.CreateCommand();
-            //Specify the SELECT SQL statments to get all the Criteria Details based on the CompetitionID specified
-            cmd.CommandText = @"SELECT x.CompetitionID, x.CriteriaID, y.CriteriaName, y.Weightage, x.Score FROM CompetitionScore x 
-                                INNER JOIN Criteria y ON x.CriteriaID=y.CriteriaID 
-                                INNER JOIN CompetitionSubmission z ON x.CompetitorID=z.CompetitorID 
-                                WHERE z.CompetitorID=@competitorID AND z.CompetitionID=@competitionID";
-            cmd.Parameters.AddWithValue("@competitorID", competitorID);
-            cmd.Parameters.AddWithValue("@competitionID", competitionID);
-
-            //Open a database connection
-            conn.Open();
-            //Execute the SELECT SQL through a DataReader
-            SqlDataReader reader = cmd.ExecuteReader();
-
-            //Read all records until the end, save data into a Criteria list
-            List<CriteriaViewModel> cVMList = new List<CriteriaViewModel>();
-            while (reader.Read())
-            {
-                cVMList.Add(
-                    new CriteriaViewModel
-                    {
-                        CompetitionID = reader.GetInt32(0),
-                        CriteriaID = reader.GetInt32(1),
-                        CriteriaName = reader.GetString(2),
-                        Weightage = reader.GetInt32(3),
-                        Score = reader.GetInt32(4),
-                        CompetitorID = competitorID,
-                    }
-                );
-            }
-            //Close DataReader
-            reader.Close();
-            //Close the database connection
-            conn.Close();
-
-            return cVMList;
-        }
-        public double GetSubmissionCriteriaTotal(int competitionID, int competitorID)
-        {
-            //Create a SqlCommand object from connection object 
-            SqlCommand cmd = conn.CreateCommand();
-            //Specify the SELECT SQL statments to get all the Criteria Details based on the CompetitionID specified
-            cmd.CommandText = @"SELECT y.Weightage, x.Score FROM CompetitionScore x 
-                                INNER JOIN Criteria y ON x.CriteriaID=y.CriteriaID 
-                                INNER JOIN CompetitionSubmission z ON x.CompetitorID=z.CompetitorID 
-                                WHERE z.CompetitorID=@competitorID AND z.CompetitionID=@competitionID";
-            cmd.Parameters.AddWithValue("@competitorID", competitorID);
-            cmd.Parameters.AddWithValue("@competitionID", competitionID);
-
-            //Open a database connection
-            conn.Open();
-            //Execute the SELECT SQL through a DataReader
-            SqlDataReader reader = cmd.ExecuteReader();
-
-            //Read all records until the end, save data into a Criteria list
-            double totalScore = 0;
-            while (reader.Read())
-            {
-                totalScore += Convert.ToDouble(reader.GetInt32(0)) * Convert.ToDouble(reader.GetInt32(1))/10;
-            }
-            //Close DataReader
-            reader.Close();
-            //Close the database connection
-            conn.Close();
-
-            return totalScore;
-        }
-        public int GetCriteriaTotal(int compID)
+        public int GetWeightageTotal(int compID)
         {
             //Create a SqlCommand object from connection object 
             SqlCommand cmd = conn.CreateCommand();
@@ -318,6 +248,144 @@ namespace WEB_Assignment_Team4.DAL
             conn.Close();
             //Return number of row of Criteria record updated or deleted
             return rowAffected;
+        }
+        public CriteriaViewModel GetSubmissionCriteriaDetail(int competitionID, int competitorID, int criteriaID)
+        {
+            CriteriaViewModel cVM = new CriteriaViewModel();
+
+            //Create a SqlCommand object from connection object 
+            SqlCommand cmd = conn.CreateCommand();
+            //Specify the SELECT SQL statments to get all the Criteria Details based on the CompetitionID specified
+            cmd.CommandText = @"SELECT x.CompetitionID, x.CriteriaID, y.CriteriaName, y.Weightage, x.Score FROM CompetitionScore x 
+                                INNER JOIN Criteria y ON x.CriteriaID=y.CriteriaID 
+                                INNER JOIN CompetitionSubmission z ON x.CompetitorID=z.CompetitorID 
+                                WHERE z.CompetitorID=@competitorID AND z.CompetitionID=@competitionID AND x.CriteriaID=@criteriaID";
+            cmd.Parameters.AddWithValue("@competitorID", competitorID);
+            cmd.Parameters.AddWithValue("@competitionID", competitionID);
+            cmd.Parameters.AddWithValue("@criteriaID", criteriaID);
+
+            //Open a database connection
+            conn.Open();
+            //Execute the SELECT SQL through a DataReader
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            //Read all records until the end, save data into a Criteria object           
+            if (reader.HasRows)
+            {
+                //Read the record from database
+                while (reader.Read())
+                {
+                    cVM.CompetitionID = reader.GetInt32(0);
+                    cVM.CriteriaID = reader.GetInt32(1);
+                    cVM.CriteriaName = reader.GetString(2);
+                    cVM.Weightage = reader.GetInt32(3);
+                    cVM.Score = reader.GetInt32(4);
+                    cVM.CompetitorID = competitorID;
+                }
+            }
+            //Close DataReader
+            reader.Close();
+            //Close the database connection
+            conn.Close();
+
+            return cVM;
+        }
+        public List<CriteriaViewModel> GetSubmissionCriteria(int competitionID, int competitorID)
+        {
+            //Create a SqlCommand object from connection object 
+            SqlCommand cmd = conn.CreateCommand();
+            //Specify the SELECT SQL statments to get all the Criteria Details based on the CompetitionID specified
+            cmd.CommandText = @"SELECT x.CompetitionID, x.CriteriaID, y.CriteriaName, y.Weightage, x.Score FROM CompetitionScore x 
+                                INNER JOIN Criteria y ON x.CriteriaID=y.CriteriaID 
+                                INNER JOIN CompetitionSubmission z ON x.CompetitorID=z.CompetitorID 
+                                WHERE z.CompetitorID=@competitorID AND z.CompetitionID=@competitionID";
+            cmd.Parameters.AddWithValue("@competitorID", competitorID);
+            cmd.Parameters.AddWithValue("@competitionID", competitionID);
+
+            //Open a database connection
+            conn.Open();
+            //Execute the SELECT SQL through a DataReader
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            //Read all records until the end, save data into a Criteria list
+            List<CriteriaViewModel> cVMList = new List<CriteriaViewModel>();
+            while (reader.Read())
+            {
+                cVMList.Add(
+                    new CriteriaViewModel
+                    {
+                        CompetitionID = reader.GetInt32(0),
+                        CriteriaID = reader.GetInt32(1),
+                        CriteriaName = reader.GetString(2),
+                        Weightage = reader.GetInt32(3),
+                        Score = reader.GetInt32(4),
+                        CompetitorID = competitorID,
+                    }
+                );
+            }
+
+            //Close DataReader
+            reader.Close();
+            //Close the database connection
+            conn.Close();
+
+            return cVMList;
+        }
+        public double GetSubmissionCriteriaTotal(int competitionID, int competitorID)
+        {
+            //Create a SqlCommand object from connection object 
+            SqlCommand cmd = conn.CreateCommand();
+            //Specify the SELECT SQL statments to get all the Criteria Details based on the CompetitionID specified
+            cmd.CommandText = @"SELECT y.Weightage, x.Score FROM CompetitionScore x 
+                                INNER JOIN Criteria y ON x.CriteriaID=y.CriteriaID 
+                                INNER JOIN CompetitionSubmission z ON x.CompetitorID=z.CompetitorID 
+                                WHERE z.CompetitorID=@competitorID AND z.CompetitionID=@competitionID";
+            cmd.Parameters.AddWithValue("@competitorID", competitorID);
+            cmd.Parameters.AddWithValue("@competitionID", competitionID);
+
+            //Open a database connection
+            conn.Open();
+            //Execute the SELECT SQL through a DataReader
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            //Read all records until the end, save data into a Criteria list
+            double totalScore = 0;
+            while (reader.Read())
+            {
+                totalScore += Convert.ToDouble(reader.GetInt32(0)) * Convert.ToDouble(reader.GetInt32(1))/10;
+            }
+            //Close DataReader
+            reader.Close();
+            //Close the database connection
+            conn.Close();
+
+            return totalScore;
+        }
+        public int UpdateCriteriaScore(CriteriaViewModel cVM)
+        {
+            //Create a SqlCommand object from connection object
+            SqlCommand cmd = conn.CreateCommand();
+            //Specify an UPDATE SQL statement based on the CriteriaID specified
+            cmd.CommandText = @"UPDATE CompetitionScore SET Score = @score 
+                                WHERE CompetitionID = @competitionID
+                                AND CompetitorID = @competitorID
+                                AND CriteriaID = @criteriaID";
+
+            //Define the parameters used in SQL statement, value for each parameter
+            //is retrieved from respective class's property.
+            cmd.Parameters.AddWithValue("@competitionID", cVM.CompetitionID);
+            cmd.Parameters.AddWithValue("@competitorID", cVM.CompetitorID);
+            cmd.Parameters.AddWithValue("@criteriaID", cVM.CriteriaID);
+            cmd.Parameters.AddWithValue("@score", cVM.Score);
+
+            //Open a database connection
+            conn.Open();
+            //ExecuteNonQuery is used for UPDATE and DELETE
+            int count = cmd.ExecuteNonQuery();
+            //Close the database connection
+            conn.Close();
+
+            return count;
         }
     }
 }

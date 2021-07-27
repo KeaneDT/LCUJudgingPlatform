@@ -24,7 +24,9 @@
                         <td>@item.Score/10</td>
                         <td class="text-center">
                             <a asp-action="ScoreEdit" asp-controller="Score"
-                               asp-route-id="@item.CriteriaID"
+                               asp-route-competitionID="@item.CompetitionID"
+                               asp-route-competitorID="@item.CompetitorID"
+                               asp-route-criteriaID="@item.CriteriaID"
                                class="btn btn-warning rounded-pill mr-2">Edit Score</a>
                         </td>
                     </tr>

@@ -39,7 +39,7 @@ namespace WEB_Assignment_Team4.Controllers
             {
                 ViewData["selectedCompetitionNo"] = id.Value;
                 ViewData["competitionName"] = competitionContext.GetDetails(id.Value).Name;
-                ViewData["totalWeightage"] = criteriaContext.GetCriteriaTotal(id.Value);
+                ViewData["totalWeightage"] = criteriaContext.GetWeightageTotal(id.Value);
                 //Set the Competition ID Selected to be used in other actions
                 HttpContext.Session.SetInt32("criteriaCompNum", id.Value);
                 // Get list of Criteria for the Competition
@@ -77,7 +77,7 @@ namespace WEB_Assignment_Team4.Controllers
                 criteria.CompetitionID = Convert.ToInt32(HttpContext.Session.GetInt32("criteriaCompNum"));
 
                 //Check if the total sum of the Criteria for the competition is less than 100
-                if (criteriaContext.GetCriteriaTotal(criteria.CompetitionID) + criteria.Weightage <= 100)
+                if (criteriaContext.GetWeightageTotal(criteria.CompetitionID) + criteria.Weightage <= 100)
                 {
                     //Add the Criteria to the Criteria table for the specified Competition
                     criteria.CriteriaID = criteriaContext.Add(criteria);
@@ -140,7 +140,7 @@ namespace WEB_Assignment_Team4.Controllers
                 //Set the CompetitionID of the criteria
                 criteria.CompetitionID = Convert.ToInt32(HttpContext.Session.GetInt32("criteriaCompNum"));
                 //If the edited value of the Weightage added with the rest of the criteria weightage is less than 100
-                if (criteriaContext.GetCriteriaTotal(criteria.CompetitionID) - criteriaContext.GetCriteria(criteria.CriteriaID) + criteria.Weightage <= 100)
+                if (criteriaContext.GetWeightageTotal(criteria.CompetitionID) - criteriaContext.GetCriteriaWeightage(criteria.CriteriaID) + criteria.Weightage <= 100)
                 {
                     //Update the Values of the Criteria
                     criteria.CriteriaID = criteriaContext.Update(criteria);
