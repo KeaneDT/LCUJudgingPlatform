@@ -64,11 +64,12 @@ namespace WEB_Assignment_Team4.Controllers
             }
             ViewData["competitionName"] = competitionContext.GetDetails(competitionID).Name;
             SubmissionViewModel sVM = submissionsContext.GetSubmissionDetails(competitionID, competitorID);
+            sVM.Score = criteriaContext.GetSubmissionCriteriaTotal(competitionID, competitorID);
             return View(sVM);
         }
 
         // GET: ScoreController/Edit/5
-        public ActionResult Score(int competitionID, int competitorID, string fileName)
+        public ActionResult Score(int competitionID, int competitorID)
         {
             // Stop accessing the action if not logged in
             // or account not in the "Judge" role
@@ -79,9 +80,13 @@ namespace WEB_Assignment_Team4.Controllers
             }
 
             SubmissionViewModel sVM = submissionsContext.GetSubmissionDetails(competitionID, competitorID);
+            ViewData["totalScore"] = criteriaContext.GetSubmissionCriteriaTotal(competitionID, competitorID);
             ViewData["appeal"] = sVM.Appeal;
             ViewData["competitionName"] = competitionContext.GetDetails(competitionID).Name;
-            return View(criteriaContext.GetSubmissionCriteria(competitionID, competitorID, fileName));
+            ViewData["totalWeightage"] = criteriaContext.GetCriteriaTotal(competitionID);
+            ViewData["competitionID"] = competitionID;
+            ViewData["competitorID"] = competitorID;
+            return View(criteriaContext.GetSubmissionCriteria(competitionID, competitorID));
         }
 
         // POST: ScoreController/Edit/5

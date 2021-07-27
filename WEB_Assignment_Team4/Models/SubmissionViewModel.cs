@@ -23,7 +23,7 @@ namespace WEB_Assignment_Team4.Models
         public string Appeal { get; set; }
         [Display(Name = "Vote Count")]
         public int VoteCount { get; set; }
-        public int Score { get; set; }
+        public double Score { get; set; }
         public int? Ranking { get; set; }
     }
 }
