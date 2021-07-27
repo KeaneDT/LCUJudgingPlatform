@@ -27,8 +27,10 @@ namespace WEB_Assignment_Team4.Controllers
         }
 
         // GET: CommentController/Create
-        public ActionResult Create()
+        public ActionResult Create(int id)
         {
+            ViewData["selectedCompetitionNo"] = id;
+            ViewData["competitionList"] = competitionContext.GetAllCompetition();
             return View();
         }
 
@@ -37,9 +39,8 @@ namespace WEB_Assignment_Team4.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Comment comment, int id)
         {
-            Console.WriteLine(id);
             comment.CommentID = commentContext.Add(comment, id);
-            return RedirectToAction("List","Competition");
+            return RedirectToAction("List","Competition", new { id = id });
         }
 
         // GET: CommentController/Edit/5

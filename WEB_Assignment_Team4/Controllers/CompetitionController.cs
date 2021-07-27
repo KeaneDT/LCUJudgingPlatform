@@ -59,6 +59,7 @@ namespace WEB_Assignment_Team4.Controllers
             if (id != null)
             {
                 ViewData["selectedCompetitionNo"] = id.Value;
+                Console.WriteLine(ViewData["selectedCompetitionNo"]);
                 competitionVM.commentList = competitionContext.GetCompetitionComment(id.Value);
             }
             else
