@@ -16,9 +16,9 @@
                 <input asp-for="Name" class="form-control" required />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
-            <div class="form-group row">
+            <div class="form-group">
                 <label asp-for="AreaInterestID"
-                       class="col-sm-9 col-md-5">Type of Interest</label>
+                       class="control-label">Type of Interest</label>
                 <select asp-for="AreaInterestID"
                         asp-items="@(new SelectList(
                                    ViewData["interestList"] as List <Interest>,

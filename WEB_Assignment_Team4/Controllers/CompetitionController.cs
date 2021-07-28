@@ -120,18 +120,27 @@ namespace WEB_Assignment_Team4.Controllers
             //Get interest list for drop-down list
             //in case of the need to return to create.cshtml view
             ViewData["interestList"] = GetAllInterests();
-            
+
             try
             {
-                //Add competition records to database
-                competition.CompetitionID = competitionContext.Add(competition);
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    //Add competition records to database
+                    competition.CompetitionID = competitionContext.Add(competition);
+                    TempData["Message"] = "Competition Record Has Added Successfully. ";
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    TempData["Message"] = "Select One Interest from the list. ";
+                    return View(competition);
+                }
             }
             catch(Exception)
             {
                 //Input validation fails, return to the Competition view
                 //To display error message
-                TempData["Message"] = "Select One Interest from the list. ";
+                TempData["Message"] = "test. ";
                 return RedirectToAction("Create");
             }
         }

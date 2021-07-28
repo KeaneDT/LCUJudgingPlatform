@@ -7,7 +7,7 @@ using WEB_Assignment_Team4.DAL;
 
 namespace WEB_Assignment_Team4.Models
 {
-    public class ValidateCompetitionNamecs : ValidationAttribute
+    public class ValidateCompetitionName : ValidationAttribute
     {
         private CompetitionDAL competitionContext = new CompetitionDAL();
 
