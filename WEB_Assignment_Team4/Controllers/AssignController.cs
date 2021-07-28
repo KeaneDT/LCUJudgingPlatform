@@ -140,7 +140,7 @@ namespace WEB_Assignment_Team4.Controllers
         {
             //Delete the records from the database
             judgeContext.AssignDelete(judgeAssign.CompetitionID, judgeAssign.JudgeID);
-            TempData["Message"] = "Records Added Successfully. ";
+            TempData["Message"] = "Judge Records Deleted Successfully. ";
             return RedirectToAction("Index");
         }
     }
