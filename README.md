@@ -15,7 +15,8 @@ Lim Jun Keat (Package 4: Public)
 (Add Contributions)
 
 ## Judge (Keane):  
-Features Implemented:  
+
+### Features Implemented:  
 All Basic & Advanced Features Implemented.  
 
 ### Files Implemented:  
