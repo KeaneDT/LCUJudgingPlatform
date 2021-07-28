@@ -212,7 +212,7 @@ namespace WEB_Assignment_Team4.Controllers
             }
         }
         // GET: CompetitionController/Delete/5
-        public ActionResult Delete(int? id, string name)
+        public ActionResult Delete(int? id)
         {
             //Stop accessing the action if not logged in
             //or account not in the "Administrator" role

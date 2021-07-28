@@ -172,11 +172,11 @@ namespace WEB_Assignment_Team4.DAL
             return assign.JudgeID;
         }
 
-        public int AssignDelete(int assignId, int judgeId)
+        public int AssignDelete(int assignId,int judgeId)
         {
             SqlCommand cmd = conn.CreateCommand();
             cmd.CommandText = @"DELETE CompetitionJudge
-                                FROM Judge x INNER JOIN CompetitionJudge y
+                                FROM CompetitionJudge y INNER JOIN Judge x 
                                 ON x.JudgeID = y.JudgeID
                                 WHERE y.CompetitionID = @selectedCompetitionID
                                 AND y.JudgeID = @selectedJudgeID";

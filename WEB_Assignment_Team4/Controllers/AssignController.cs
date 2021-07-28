@@ -140,10 +140,11 @@ namespace WEB_Assignment_Team4.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AssignDelete(JudgeAssign judgeAssign)
+        public ActionResult AssignDelete(int id)
         {
+            JudgeAssign deleterecord = judgeContext.GetJudgesRole(id);
             //Delete the records from the database
-            judgeContext.AssignDelete(judgeAssign.CompetitionID, judgeAssign.JudgeID);
+            judgeContext.AssignDelete(deleterecord.CompetitionID, deleterecord.JudgeID);
             TempData["Message"] = "Judge Records Deleted Successfully. ";
             return RedirectToAction("Index");
         }
