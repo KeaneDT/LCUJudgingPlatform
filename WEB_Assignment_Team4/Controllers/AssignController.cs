@@ -135,7 +135,7 @@ namespace WEB_Assignment_Team4.Controllers
                 //Return to the index page, not allowed to edit
                 return RedirectToAction("Index");
             }
-            judgeContext.AssignDelete(role.CompetitionID, role.JudgeID);
+
             return View(role);
         }
         [HttpPost]
