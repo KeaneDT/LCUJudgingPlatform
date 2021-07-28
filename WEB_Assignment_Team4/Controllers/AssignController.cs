@@ -76,16 +76,20 @@ namespace WEB_Assignment_Team4.Controllers
             ViewData["judgeList"] = GetJudges();
             ViewData["competitionList"] = GetCompetition();
 
-            if (ModelState.IsValid)
+            try
             {
                 judgeAssign.CompetitionID = judgeContext.Assign(judgeAssign);
                 TempData["Message"] = "Judge Competition Has been assigned. ";
                 return RedirectToAction("Index");
             }
-            else
+            catch (Exception)
             {
-                TempData["Message"] = "Select One Interest from the list. ";
-                return RedirectToAction("Assign");
+                //created an error message and store to tempdata 
+                TempData["Message"] = "The Form is empty. Fill in the required blank before" +
+                                      "assigning the judges to their respective competition.";
+                //return to index page to view the interest list and display an message
+                return View(judgeAssign);
+
             }
         }
 

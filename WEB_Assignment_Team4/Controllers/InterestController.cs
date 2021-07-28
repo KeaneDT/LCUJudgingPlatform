@@ -59,7 +59,7 @@ namespace WEB_Assignment_Team4.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(Interest interest)
         {
-            //
+            //execute the code and catch an error if the user submits an empty form
             try
             {
                 interestContext.Delete(interest.AreaInterestID);
@@ -67,8 +67,10 @@ namespace WEB_Assignment_Team4.Controllers
             }
             catch(Exception)
             {
+                //created an error message and store to tempdata 
                 TempData["Message"] = "The competition records still exist." +
                     "                  Please delete the records and retry again.";
+                //return to index page to view the interest list and display an message
                 return RedirectToAction("Index");
                 
             }

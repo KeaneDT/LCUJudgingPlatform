@@ -164,7 +164,7 @@ namespace WEB_Assignment_Team4.DAL
             conn.Open();
 
             //Assign the JudgeID from outputed int
-            assign.JudgeID = (int)cmd.ExecuteNonQuery();
+            assign.JudgeID = cmd.ExecuteNonQuery();
             
             //Close database connection
             conn.Close();
@@ -308,6 +308,38 @@ namespace WEB_Assignment_Team4.DAL
             conn.Close();
 
             return role;
+        }
+        public bool IsCompetitionJudgeExist(int name, int competitonId)
+        {
+            bool nameFound = false;
+            //Create a SqlCommand object and specify the SQL Statment
+            //to get a competition record with the name to be validated
+            SqlCommand cmd = conn.CreateCommand();
+            cmd.CommandText = @"SELECT CompetitionID From CompetitionJudge
+                                WHERE JudgeId=@selectedCompetitionName";
+            cmd.Parameters.AddWithValue(@"selectedCompetitionName", name);
+
+            //Open a database connection and execute the SQL statment
+            conn.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+            if (reader.HasRows) //Records Found
+            {
+                while (reader.Read())
+                {
+                    if (reader.GetInt32(0) != name)
+                        // The competition name is used by another competition record.
+                        nameFound = true;
+                }
+            }
+            else // No records Found
+            {
+                nameFound = false; // The name given does not exist
+            }
+            reader.Close();
+            conn.Close();
+
+            return nameFound;
+
         }
     }
 }
