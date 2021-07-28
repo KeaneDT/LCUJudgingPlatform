@@ -3,7 +3,7 @@ https://bitbucket.org/toyocrabs/web_assignment_team4/src/master/
 
 # WEB_Assignment_Team4
 Group Members: 
-Lim Jin Hui (Package 1: Admin), 
+Lim Jin Hui (Package 1: Admin),   
 Pranav Venu Matheril (Package 2: Competitor),
 Keane Dominic Travasso (Package 3: Judge),
 Lim Jun Keat (Package 4: Public)
