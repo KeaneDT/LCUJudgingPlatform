@@ -138,6 +138,35 @@ namespace WEB_Assignment_Team4.DAL
             conn.Close();
             return submissionsList;
         }
+        public int GetCompetitionSubmissionsCount(int competitionID)
+        {
+            SqlCommand cmd = conn.CreateCommand();
+            //Specify the SQL statement that select all branches
+            cmd.CommandText = @"SELECT * FROM CompetitionSubmission WHERE CompetitionID = @competitionID AND FileSubmitted IS NOT NULL";
+            //Define the parameter used in SQL statement, value for the
+            //parameter is retrieved from the method parameter “branchNo”.
+            cmd.Parameters.AddWithValue("@competitionID", competitionID);
+
+            //Open a database connection
+            conn.Open();
+            //Execute SELCT SQL through a DataReader
+            SqlDataReader reader = cmd.ExecuteReader();
+            int count = 0;
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    count += 1;
+                }
+            }
+            
+            //Close DataReader
+            reader.Close();
+            //Close database connection
+            conn.Close();
+
+            return count;
+        }
 
         public List<Submissions> GetCompetitionSubmissionsLeaderboard(int competitionID)
         {

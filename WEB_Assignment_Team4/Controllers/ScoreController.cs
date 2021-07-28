@@ -17,7 +17,9 @@ namespace WEB_Assignment_Team4.Controllers
         //Declare DAL Objects to use SQL Commands in the Actions
         CriteriaDAL criteriaContext = new CriteriaDAL();
         CompetitionDAL competitionContext = new CompetitionDAL();
+        CompetitorDAL competitorContext = new CompetitorDAL();
         SubmissionsDAL submissionsContext = new SubmissionsDAL();
+        private List<SelectListItem> submissionsCount = new List<SelectListItem>();
 
         public ActionResult Index(int? id)
         {
@@ -142,6 +144,117 @@ namespace WEB_Assignment_Team4.Controllers
                 //to display error message
                 TempData["Message"] = "";
                 return View(cVM);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult Rank(int? competitionID, int? competitorID)
+        {
+            // Stop accessing the action if not logged in
+            // or account not in the "Judge" role
+            if ((HttpContext.Session.GetString("Role") == null) ||
+            (HttpContext.Session.GetString("Role") != "Judge"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            if (competitionID == null || competitorID == null)
+            { //Query string parameter not provided
+              //Return to listing page, not allowed to edit
+                return RedirectToAction("Index");
+            }
+
+            ViewData["competitionName"] = competitionContext.GetDetails(competitionID.Value).Name;
+            SubmissionViewModel sVM = submissionsContext.GetSubmissionDetails(competitionID.Value, competitorID.Value);
+            sVM.Score = criteriaContext.GetSubmissionCriteriaTotal(competitionID.Value, competitorID.Value);
+
+            if (sVM == null)
+            {
+                return RedirectToAction("Details", new
+                {
+                    competitionID = competitionID,
+                    competitorID = competitorID
+                });
+            }
+
+            for (int i = 1; i <= submissionsContext.GetCompetitionSubmissionsCount(competitionID.Value); i++)
+            {
+                submissionsCount.Add(
+                new SelectListItem
+                {
+                    Value = i.ToString(),
+                    Text = i.ToString(),
+                });
+            }
+            submissionsCount.Add(
+                new SelectListItem
+                {
+                    Value = "0",
+                    Text = "NULL",
+                });
+
+            ViewData["submissionsCountList"] = submissionsCount;
+
+            return View(sVM);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Rank(SubmissionViewModel sVM)
+        {
+            for (int i = 1; i <= submissionsContext.GetCompetitionSubmissionsCount(sVM.CompetitionID); i++)
+            {
+                submissionsCount.Add(
+                new SelectListItem
+                {
+                    Value = i.ToString(),
+                    Text = i.ToString(),
+                });
+            }
+            submissionsCount.Add(
+                new SelectListItem
+                {
+                    Value = null,
+                    Text = "NULL",
+                });
+
+            ViewData["submissionsCountList"] = submissionsCount;
+            ViewData["competitionName"] = competitionContext.GetDetails(sVM.CompetitionID).Name;
+
+            if (ModelState.IsValid)
+            {
+                if (sVM.Ranking == null)
+                {
+                    competitorContext.UpdateCompetitorRanking(sVM);
+                    return RedirectToAction("Details", new
+                    {
+                        competitionID = sVM.CompetitionID,
+                        competitorID = sVM.CompetitorID
+                    });
+                }
+                else
+                {
+                    if (competitorContext.CheckRankingUnique(sVM) != true)
+                    {
+                        competitorContext.UpdateCompetitorRanking(sVM);
+                        return RedirectToAction("Details", new
+                        {
+                            competitionID = sVM.CompetitionID,
+                            competitorID = sVM.CompetitorID
+                        });
+                    }
+                    else
+                    {
+                        TempData["Message"] = "Ranking Already Exists!";
+                        return View(sVM);
+                    }
+                }
+            }
+            else
+            {
+                //Input validation fails, return to the Create view
+                //to display error message
+                TempData["Message"] = "";
+                return View(sVM);
             }
         }
     }

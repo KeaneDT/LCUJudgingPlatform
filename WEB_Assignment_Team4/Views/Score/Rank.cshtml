@@ -1,0 +1,112 @@
+﻿@model WEB_Assignment_Team4.Models.SubmissionViewModel
+
+@{
+    ViewData["Title"] = "Rank";
+}
+<br />
+<h3 class="text-center">Rank @ViewData["competitionName"] Submission</h3>
+<hr />
+<form asp-action="Rank">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input asp-for="CompetitorID" class="form-control" type="hidden" readonly />
+    <input asp-for="Salutation" class="form-control" type="hidden" readonly />
+    <input asp-for="CompetitorName" class="form-control" type="hidden" readonly />
+    <input asp-for="EmailAddr" class="form-control" type="hidden" readonly />
+    <input asp-for="CompetitionID" class="form-control" type="hidden" readonly />
+    <input asp-for="FileName" class="form-control" type="hidden" readonly />
+    <input asp-for="UploadDateTime" class="form-control" type="hidden" readonly />
+    <input asp-for="Appeal" class="form-control" type="hidden" readonly />
+    <input asp-for="VoteCount" class="form-control" type="hidden" readonly />
+    <input asp-for="Score" class="form-control" type="hidden" readonly />
+    <div class="container">
+        <div class="row gutters-sm">
+            <div class="col-md-5">
+                <div class="card h-100">
+                    <h5 class="card-header text-white" style="background-color: #007bff; ">👤 Competitor Details</h5>
+                    <div class="card-body">
+                        <div class="d-flex flex-column">
+                            <div class="align-items-center text-center">
+                                <h5 class="text-center">Submission By Competitor @Model.CompetitorID</h5>
+                                <br />
+                                <img src="~/images/profile-photo-placeholder.jpg" alt="profile_placeholder" class="rounded-circle" width="165">
+                                <h4 class="text-center"><br /><br />@Html.DisplayFor(model => model.Salutation). @Html.DisplayFor(model => model.CompetitorName)</h4>
+                                <p class="text-primary text-center">@Html.DisplayFor(model => model.EmailAddr)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br /><br /><br />
+            <div class="col-md-7">
+                <div class="card">
+                    <h5 class="card-header text-white" style="background-color: #007bff; ">📋 Submission Details</h5>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6>@Html.DisplayNameFor(model => model.Ranking):</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                <select asp-for="Ranking" asp-items="@ViewData["submissionsCountList"] as List<SelectListItem>"></select>
+                                <span style="color:red  ;">&nbsp;&nbsp;@TempData["Message"]</span>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6>@Html.DisplayNameFor(model => model.FileName):</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">@Html.DisplayFor(model => model.FileName)</div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6>@Html.DisplayNameFor(model => model.UploadDateTime):</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">@Html.DisplayFor(model => model.UploadDateTime)</div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6>@Html.DisplayNameFor(model => model.Score):</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">@Html.DisplayFor(model => model.Score)</div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6>@Html.DisplayNameFor(model => model.VoteCount):</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">@Html.DisplayFor(model => model.VoteCount)</div>
+                        </div>
+                        <hr>
+                        <div class="form-group">
+                            <input type="submit" value="Save Changes" class="btn btn-warning text-black rounded-pill" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+@if (Model.Appeal != null)
+{
+    <br />
+    <div class="container">
+        <div class="row gutters-sm">
+            <div class="col-md-12">
+                <div class="card">
+                    <h5 class="card-header text-white" style="background-color: #FF4500; ">🛑 Appeal</h5>
+                    <div class="card-body">
+                        <div class="d-flex flex-column align-items-center text-center">
+                            <p>@Html.DisplayFor(model => model.Appeal)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<br />
+<div class="text-center">
+    <a class="btn btn-primary text-white rounded-pill mr-2" asp-action="Details" asp-route-competitionID="@Model.CompetitionID" asp-route-competitorID="@Model.CompetitorID">Back To Details</a>
+</div>

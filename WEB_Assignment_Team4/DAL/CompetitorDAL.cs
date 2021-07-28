@@ -174,5 +174,67 @@ namespace WEB_Assignment_Team4.DAL
             return competitor.CompetitorID;
         }
 
+        public int UpdateCompetitorRanking(SubmissionViewModel sVM)
+        {
+            //Create a SqlCommand object from connection object
+            SqlCommand cmd = conn.CreateCommand();
+            //Specify an UPDATE SQL statement based on the CriteriaID specified
+            cmd.CommandText = @"UPDATE CompetitionSubmission SET Ranking = @rank WHERE CompetitionID = @competitionID AND CompetitorID = @competitorID";
+
+            //Define the parameters used in SQL statement, value for each parameter
+            //is retrieved from respective class's property.
+            cmd.Parameters.AddWithValue("@competitionID", sVM.CompetitionID);
+            cmd.Parameters.AddWithValue("@competitorID", sVM.CompetitorID);
+            if (sVM.Ranking == 0)
+            {
+                cmd.Parameters.AddWithValue("@rank", DBNull.Value);
+            }
+            else
+            {
+                cmd.Parameters.AddWithValue("@rank", sVM.Ranking);
+            }
+
+            //Open a database connection
+            conn.Open();
+            //ExecuteNonQuery is used for UPDATE and DELETE
+            int count = cmd.ExecuteNonQuery();
+            //Close the database connection
+            conn.Close();
+
+            return count;
+        }
+
+        public bool CheckRankingUnique(SubmissionViewModel sVM)
+        {
+            SqlCommand cmd = conn.CreateCommand();
+            //Specify an UPDATE SQL statement based on the CriteriaID specified
+            cmd.CommandText = @"SELECT Ranking FROM CompetitionSubmission WHERE CompetitionID = @competitionID AND Ranking IS NOT NULL";
+
+            //Define the parameters used in SQL statement, value for each parameter
+            //is retrieved from respective class's property.
+            cmd.Parameters.AddWithValue("@competitionID", sVM.CompetitionID);
+
+            conn.Open();
+
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            bool rankingExists = false;
+            if (reader.HasRows) //Records Found
+            {
+                while (reader.Read())
+                {
+                    if (reader.GetInt32(0) == sVM.Ranking)
+                    {
+                        rankingExists = true;
+                    }
+                }
+            }
+            
+            reader.Close();
+            conn.Close();
+
+            return rankingExists;
+        }
+
     }
 }
