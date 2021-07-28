@@ -8,19 +8,19 @@ Pranav Venu Matheril (Package 2: Competitor),
 Keane Dominic Travasso (Package 3: Judge),  
 Lim Jun Keat (Package 4: Public)  
 
-## Admin (Jin Hui):  
+### Admin (Jin Hui):  
 (Add Contributions)
 
-## Competitor (Pranav):  
+### Competitor (Pranav):  
 (Add Contributions)
 
-## Judge (Keane):  
+### Judge (Keane):  
 
-### Features Implemented:  
+#### Features Implemented:  
 All Basic & Advanced Features Implemented.  
 
-### Files Implemented:  
-#### Models:  
+#### Files Implemented:  
+##### Models:  
 CompetitionCriteriaViewModel.cs  
 CompetitionScore.cs  
 CometitionSubmissionViewModel.cs  
@@ -30,7 +30,7 @@ Judge.cs
 SubmissionViewModel.cs  
 ValidateJudgeExists.cs  
   
-#### Views:  
+##### Views:  
 Judge/Create.cshtml  
 Criteria/Index.cshtml  
 Criteria/_ViewCriteria.cshtml  
@@ -45,21 +45,21 @@ Score/_ViewCriteriaVM.cshtml
 Score/ScoreEdit.cshtml  
 Score/Rank.cshtml  
   
-#### Controllers:  
+##### Controllers:  
 JudgeController.cs  
 CriteriaController.cs  
 ScoreController.cs  
   
-#### DAL:  
+##### DAL:  
 JudgeDAL.cs (Most Functions)  
 CriteriaDAL.cs (Most Functions)  
 SubmissionsDAL.cs (Some Functions)  
 CompetitorDAL.cs (Some Functions)  
   
-# Public (Jun Keat):  
+### Public (Jun Keat):  
 (Add Contributions)  
 
-# Media 
+## Media 
 How to Start Coding The Ultimate Guide for Beginner Programmers.jpeg : https://softwarestrategiesblog.com/2021/04/07/the-top-20-machine-learning-startups-to-watch-in-2021/
 hp-toptile2-hybrid-03152021-large.jpg : https://paintyourwish.com/collections/baron
 images.jpg : https://www.amtonline.org/article/why-you-should-study-robotics-today
