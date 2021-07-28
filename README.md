@@ -60,8 +60,8 @@ CompetitorDAL.cs (Some Functions)
 (Add Contributions)  
 
 ## Media 
-How to Start Coding The Ultimate Guide for Beginner Programmers.jpeg : https://softwarestrategiesblog.com/2021/04/07/the-top-20-machine-learning-startups-to-watch-in-2021/
-hp-toptile2-hybrid-03152021-large.jpg : https://paintyourwish.com/collections/baron
-images.jpg : https://www.amtonline.org/article/why-you-should-study-robotics-today
-michal-dziekan-03-spacetime-det-01.jpg : https://www.artstation.com/artwork/PLqZZ
-profile-photo-placeholder.jpg : https://frodsham.gov.uk/wp-content/uploads/2019/05/profile-photo-placeholder.jpg
+How to Start Coding The Ultimate Guide for Beginner Programmers.jpeg : https://softwarestrategiesblog.com/2021/04/07/the-top-20-machine-learning-startups-to-watch-in-2021/  
+hp-toptile2-hybrid-03152021-large.jpg : https://paintyourwish.com/collections/baron  
+images.jpg : https://www.amtonline.org/article/why-you-should-study-robotics-today  
+michal-dziekan-03-spacetime-det-01.jpg : https://www.artstation.com/artwork/PLqZZ  
+profile-photo-placeholder.jpg : https://frodsham.gov.uk/wp-content/uploads/2019/05/profile-photo-placeholder.jpg  
