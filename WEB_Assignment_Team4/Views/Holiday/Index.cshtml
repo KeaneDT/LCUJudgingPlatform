@@ -1,0 +1,39 @@
+﻿@model IEnumerable<WEB_Assignment_Team4.Models.Holiday>
+<br />
+<h3 class="text-center">Holidays Today</h3>
+<hr />
+@if (Model.ToList().Count > 0)
+{
+    <div class="table-responsive">
+        <table id="viewBook" class="table table-striped table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Name)</th>
+                    <th>@Html.DisplayNameFor(model => model.Location)</th>
+                    <th>@Html.DisplayNameFor(model => model.Date_day)</th>
+                    <th>@Html.DisplayNameFor(model => model.Date_month)</th>
+                    <th>@Html.DisplayNameFor(model => model.Date_year)</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Name</td>
+                        <td>@item.Location</td>
+                        <td>@item.Date_day</td>
+                        <td>@item.Date_month</td>
+                        <td>@item.Date_year</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <span style="color:red">No Holidays Today!</span>
+}
+@DateTime.Today.Year.ToString();
+@DateTime.Today.Month.ToString();
+@DateTime.Today.Day.ToString();
