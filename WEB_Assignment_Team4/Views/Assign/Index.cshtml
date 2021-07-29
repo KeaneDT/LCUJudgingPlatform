@@ -32,10 +32,8 @@
                 @Html.DisplayFor(modelItem => item.JudgeID)
             </td>
             <td>
-                <a asp-action="Details" asp-controller="Competition"
-                   asp-route-id="@item.CompetitionID">Details</a> |
                 <a asp-action="AssignDelete" asp-controller="Assign"
-                   asp-route-id="@item.CompetitionID">Delete</a> |
+                   asp-route-id="@item.CompetitionID" >Delete</a> 
             </td>
         </tr>
 }

@@ -245,7 +245,8 @@ namespace WEB_Assignment_Team4.DAL
             //Create a SqlCommand object from connection object 
             SqlCommand cmd = conn.CreateCommand();
             //Specify the SELECT SQL statments
-            cmd.CommandText = @"SELECT * FROM CompetitionJudge ORDER BY CompetitionID ASC";
+            cmd.CommandText = @"SELECT * FROM CompetitionJudge 
+                               Group by CompetitionID, JudgeID";
             //Open a database connection
             conn.Open();
             //Execute the SELECT SQL through a DataReader
