@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<WEB_Assignment_Team4.Models.Holiday>
 <br />
-<h3 class="text-center">Holidays Today</h3>
+<h3 class="text-center">Contact Us</h3>
 <hr />
 @if (Model.ToList().Count > 0)
 {
@@ -32,8 +32,30 @@
 }
 else
 {
-    <span style="color:red">No Holidays Today!</span>
+    <h3>No Holidays Today, Offices are open!</h3>
 }
-@DateTime.Today.Year.ToString();
-@DateTime.Today.Month.ToString();
-@DateTime.Today.Day.ToString();
+<hr />
+<div class="title">
+    <h2>Send us a Message</h2>
+</div>
+<hr />
+<div class="content">
+    <form method="post" action="~/Home/ContactForm">
+        <fieldset class="loginFieldset">
+            <label for="txtName">Name:</label>
+            <input type="text" name="txtName" id="txtName" required
+                   placeholder="Your Name" />
+            <br />
+            <label for="txtTitle">Title:</label>
+            <input type="text" name="txttext" id="txttext" required
+                   placeholder="Your Subject" />
+            <br />
+            <label for="txtMessage">Message:</label>
+            <input type="text" name="txtMessage" id="txtMessage" required
+                   placeholder="Your Message" />
+            <br />
+            <input type="submit" id="btnStaffLogin" class="myButton" value="Submit" />
+            <br />
+        </fieldset>
+    </form>
+</div>

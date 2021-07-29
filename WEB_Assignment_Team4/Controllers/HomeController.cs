@@ -136,10 +136,6 @@ namespace WEB_Assignment_Team4.Controllers
             // Call the Index action of Home controller
             return RedirectToAction("PublicMain");
         }
-        public IActionResult Contact()
-        {
-            return View();
-        }
 
         public IActionResult Voting()
         {

@@ -19,7 +19,8 @@ namespace WEB_Assignment_Team4.Controllers
             string year = DateTime.Today.Year.ToString("YYYY");
             string month = DateTime.Today.Month.ToString("MM");
             string day = DateTime.Today.Day.ToString("dd");
-            client.BaseAddress = new Uri("https://holidays.abstractapi.com/v1/?api_key=bd9022d26baf47dd8ddba77582ba3e24&country=SG&year=2021&month=12&day=25");
+
+            client.BaseAddress = new Uri("https://holidays.abstractapi.com/v1/?api_key=bd9022d26baf47dd8ddba77582ba3e24&country=SG&year="+year+"&month="+month+"&day="+day);
             HttpResponseMessage response = await client.GetAsync("");
             if (response.IsSuccessStatusCode)
             {
