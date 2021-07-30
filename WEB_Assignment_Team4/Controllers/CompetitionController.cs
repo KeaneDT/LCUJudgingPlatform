@@ -78,10 +78,10 @@ namespace WEB_Assignment_Team4.Controllers
                 List<Interest> interestList = interestContext.GetAllInterest();
                 foreach (Interest interest in interestList)
                 {
-                    if(interest.AreaInterestID == competition.AreaInterestID.Value)
+                    if (interest.AreaInterestID == competition.AreaInterestID.Value)
                     {
-                       areaInterestName = interest.Name;
-                       break;
+                        areaInterestName = interest.Name;
+                        break;
                     }
                 }
             }
@@ -136,7 +136,7 @@ namespace WEB_Assignment_Team4.Controllers
                     return View(competition);
                 }
             }
-            catch(Exception)
+            catch (Exception)
             {
                 //Input validation fails, return to the Competition view
                 //To display error message
@@ -155,14 +155,14 @@ namespace WEB_Assignment_Team4.Controllers
             {
                 return RedirectToAction("Index", "Competition");
             }
-            if(id == null) //Query string parameter not provided 
+            if (id == null) //Query string parameter not provided 
             {
                 //Return the listing page, not allowed to edit
                 return RedirectToAction("Index");
             }
             ViewData["interestList"] = GetAllInterests();
             Competition competition = competitionContext.GetDetails(id.Value);
-            if( competition == null)
+            if (competition == null)
             {
                 //Return the listing page, not allowed to edit
                 return RedirectToAction("Index");
@@ -196,21 +196,14 @@ namespace WEB_Assignment_Team4.Controllers
         // POST: CompetitionController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(Competition Competition)
+        public ActionResult Delete(Competition competition, int? id)
         {
-            if (ModelState.IsValid)
-            {
-                //Delete the records from the database
-                competitionContext.Delete(Competition.CompetitionID);
-                return RedirectToAction("Index");
-            }
-            else
-            {
-                //Display the error message if the records exist on another table
-                //TempData["Message"] = "Competitor Has Joined the Competition, Unable to Delete.";
-                return RedirectToAction("Index");
-            }
+            competition = competitionContext.GetDetails(id.Value);
+            //Delete the records from the database
+            competitionContext.Delete(competition.CompetitionID);
+            return RedirectToAction("Index");
         }
+    
         // GET: CompetitionController/Delete/5
         public ActionResult Delete(int? id)
         {
@@ -232,7 +225,7 @@ namespace WEB_Assignment_Team4.Controllers
                 //Return to the index page, not allowed to edit
                 return RedirectToAction("Index");
             }
-            competitionContext.Delete(competition.CompetitionID);
+            //competitionContext.Delete(competition.CompetitionID);
             return View(competition);
         }
     }

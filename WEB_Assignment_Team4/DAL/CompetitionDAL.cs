@@ -297,7 +297,7 @@ namespace WEB_Assignment_Team4.DAL
 
             return count;
         }
-        public int Delete(int CompetitionID)
+        public int Delete(int competitionID)
         {
             SqlCommand cmd = conn.CreateCommand();
            
@@ -305,7 +305,7 @@ namespace WEB_Assignment_Team4.DAL
                                 FROM Competition c
                                 INNER JOIN CompetitionSubmission cs
                                 ON c.CompetitionID = cs.CompetitionID
-                                where cs.CompetitionID = @selectCompetitionID)
+                                where cs.CompetitionID = @selectcompetitionId)
                                 BEGIN
                                 PRINT ('Records Found') 
                                 END
@@ -313,9 +313,9 @@ namespace WEB_Assignment_Team4.DAL
                                 DELETE Competition
                                 FROM AreaInterest x INNER JOIN Competition y
                                 ON x.AreaInterestID = y.AreaInterestID
-                                WHERE y.CompetitionID = @selectCompetitionID";
+                                WHERE y.CompetitionID = @selectcompetitionId";
             
-            cmd.Parameters.AddWithValue("@selectCompetitionID", CompetitionID);
+            cmd.Parameters.AddWithValue("@selectCompetitionId", competitionID);
             
             //Open a database connection
             conn.Open();
