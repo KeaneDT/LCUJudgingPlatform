@@ -4,8 +4,8 @@
 @if (Model.submissionsList.Count > 0)
 {
     <div class="table-responsive">
-        <table id="viewSubmission" class="table table-striped table-bordered">
-            <thead class="thead-dark">
+        <table id="viewSubmission" class="table">
+            <thead>
                 <tr>
                     <th>CompetitorID</th>
                     <th>Upload Date</th>
@@ -25,17 +25,19 @@
 
                         <td>
                             @{
-                                string votingStatus = "";
-                                if (@TempData["message"] != null)
+                                string voteStatus = Context.Session.GetString("voteStatus");
+                                if (voteStatus == null)
                                 {
-                                    votingStatus = @TempData["message"].ToString();
+                                    <a asp-action="Edit" asp-controller="Submissions"
+                                       asp-route-competitionID="@items.CompetitionID"
+                                       asp-route-competitorID="@items.CompetitorID"
+                                       class="btn btn-warning rounded-pill mr-2">Vote</a>
+                                }
+                                else
+                                {
+                                    <span style="color:red;">@TempData["Message"]</span>
                                 }
                             }
-                            <a asp-action="Edit" asp-controller="Submissions"
-                               asp-route-competitionID="@items.CompetitionID"
-                               asp-route-competitorID="@items.CompetitorID"
-                               class="btn btn-warning rounded-pill mr-2">Vote</a>
-
                         </td>
                     </tr>
                 }
@@ -50,3 +52,4 @@ else
 <div>
     <a asp-action="List" asp-controller="Competition" asp-route-id="@ViewData["selectedCompetition"]">Back to List</a>
 </div>
+

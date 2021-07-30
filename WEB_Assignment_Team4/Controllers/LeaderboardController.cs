@@ -23,7 +23,6 @@ namespace WEB_Assignment_Team4.Controllers
                 ViewData["selectedCompetition"] = id.Value;
                 // Get list of staff working in the branch
                 submissions.submissionsList = submissionContext.GetCompetitionSubmissionsLeaderboard(id.Value);
-                Console.WriteLine("LOL");
             }
             else
             {

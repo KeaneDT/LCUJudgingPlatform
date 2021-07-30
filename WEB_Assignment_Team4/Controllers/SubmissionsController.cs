@@ -24,17 +24,27 @@ namespace WEB_Assignment_Team4.Controllers
             Submissions submissions = new Submissions();
             submissions.submissionsList = submissionContext.GetAllSubmissions();
             // Check if BranchNo (id) presents in the query string
-            if (id != null)
+            string voteStatus = HttpContext.Session.GetString("voteStatus");
+            if (voteStatus == null)
             {
-                ViewData["selectedCompetition"] = id.Value;
-                // Get list of staff working in the branch
-                submissions.submissionsList = submissionContext.GetCompetitionSubmissions(id.Value);
+                if (id != null)
+                {
+                    ViewData["selectedCompetition"] = id.Value;
+                    // Get list of staff working in the branch
+                    submissions.submissionsList = submissionContext.GetCompetitionSubmissions(id.Value);
+                }
+                else
+                {
+                    ViewData["selectedCompetition"] = "";
+                }
+                return View(submissions);
             }
             else
             {
-                ViewData["selectedCompetition"] = "";
+                ViewData["selectedCompetition"] = id.Value;
+                TempData["Message"] = "Thank you for voting! Vote again next time";
+                return View(submissions);
             }
-            return View(submissions);
         }
 
         // GET: SubmissionsController/Details/5
@@ -74,18 +84,28 @@ namespace WEB_Assignment_Team4.Controllers
 
         public ActionResult Edit(int competitionID, int competitorID)
         {
-            ViewData["SubmissionList"] = submissionContext.GetAllSubmissions();
-            if (ModelState.IsValid)
+            string voteStatus = HttpContext.Session.GetString("voteStatus");
+            if(voteStatus == null)
             {
-                //Update staff record to database
-                submissionContext.IncreaseCount(competitionID, competitorID);
-                return RedirectToAction("Index");
+                ViewData["SubmissionList"] = submissionContext.GetAllSubmissions();
+                if (ModelState.IsValid)
+                {
+                    //Update staff record to database
+                    submissionContext.IncreaseCount(competitionID, competitorID);
+                    HttpContext.Session.SetString("voteStatus", "Voted");
+                    TempData["Message"] = "Thank you for voting! Vote again next time";
+                    return RedirectToAction("Index", new { id = competitionID });
+                }
+                else
+                {
+                    //Input validation fails, return to the view
+                    //to display error message
+                    return RedirectToAction("Index", new { id = competitionID });
+                }
             }
             else
             {
-                //Input validation fails, return to the view
-                //to display error message
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { id = competitionID });
             }
         }
 
