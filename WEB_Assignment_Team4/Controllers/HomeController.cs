@@ -8,6 +8,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using WEB_Assignment_Team4.DAL;
 using WEB_Assignment_Team4.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Google.Apis.Auth.OAuth2;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using Google.Apis.Auth;
+using static Google.Apis.Auth.GoogleJsonWebSignature;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication;
 
 namespace WEB_Assignment_Team4.Controllers
 {
@@ -129,8 +136,14 @@ namespace WEB_Assignment_Team4.Controllers
             }
             return View();
         }
-        public ActionResult LogOut()
+        public IActionResult Privacy()
         {
+            return View();
+        }
+
+        public async Task<ActionResult> LogOut()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             // Clear all key-values pairs stored in session state
             HttpContext.Session.Clear();            
             // Call the Index action of Home controller
@@ -140,6 +153,36 @@ namespace WEB_Assignment_Team4.Controllers
         public IActionResult Voting()
         {
             return View();
+        }
+        [Authorize]
+        public async Task<ActionResult> StudentLogin()
+        {
+            // The user is already authenticated, so this call won't
+            // trigger login, but it allows us to access token related values.
+            AuthenticateResult auth = await HttpContext.AuthenticateAsync();
+            string idToken = auth.Properties.GetTokenValue(
+             OpenIdConnectParameterNames.IdToken);
+            try
+            {
+                // Verify the current user logging in with Google server
+                // if the ID is invalid, an exception is thrown
+                Payload currentUser = await
+                GoogleJsonWebSignature.ValidateAsync(idToken);
+                string userName = currentUser.Name;
+                string eMail = currentUser.Email;
+                HttpContext.Session.SetString("LoginID", userName + " / "
+                + eMail);
+                HttpContext.Session.SetString("Role", "Competitor");
+                HttpContext.Session.SetString("LoggedInTime",
+                 DateTime.Now.ToString());
+                return RedirectToAction("Index", "Home");
+            }
+            catch (Exception e)
+            {
+                // Token ID is may be tempered with, force user to logout
+                return RedirectToAction("LogOut");
+            }
+
         }
     }
 }
