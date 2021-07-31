@@ -22,7 +22,7 @@ namespace WEB_Assignment_Team4.Models
 
             if (JudgeContext.IsCompetitionJudgeExist(name, competitionID))
                 //
-                return new ValidationResult("Competition Name already exists");
+                return new ValidationResult("Judge Assigned Competition record already exists");
             else
                 //
                 return ValidationResult.Success;

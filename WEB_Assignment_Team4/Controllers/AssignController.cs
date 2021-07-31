@@ -86,7 +86,7 @@ namespace WEB_Assignment_Team4.Controllers
             {
                 //created an error message and store to tempdata 
                 TempData["Message"] = "The Form is empty. Fill in the required blank before" +
-                                      "assigning the judges to their respective competition.";
+                                      " assigning the judges to their respective competition.";
                 //return to index page to view the interest list and display an message
                 return View(judgeAssign);
 
@@ -122,29 +122,29 @@ namespace WEB_Assignment_Team4.Controllers
             if ((HttpContext.Session.GetString("Role") == null) ||
               (HttpContext.Session.GetString("Role") != "Administrator"))
             {
-                return RedirectToAction("Index", "Competition");
+                return RedirectToAction("Index", "Home");
             }
             if (id == null)
             {
                 //Return to the index page, not allowed to edit
                 return RedirectToAction("Index");
             }
-            JudgeAssign role = judgeContext.GetJudgesRole(id.Value);
-            if (role == null)
+            JudgeAssign judgeAssign = judgeContext.GetJudgesRole(id.Value);
+            if (judgeAssign == null)
             {
                 //Return to the index page, not allowed to edit
                 return RedirectToAction("Index");
             }
 
-            return View(role);
+            return View(judgeAssign);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AssignDelete(int id)
+        public ActionResult AssignDelete(JudgeAssign judgeAssign,int? id)
         {
-            JudgeAssign deleterecord = judgeContext.GetJudgesRole(id);
+            judgeAssign = judgeContext.GetJudgesRole(id.Value);
             //Delete the records from the database
-            judgeContext.AssignDelete(deleterecord.CompetitionID, deleterecord.JudgeID);
+            judgeContext.AssignDelete(judgeAssign.CompetitionID, judgeAssign.JudgeID);
             TempData["Message"] = "Judge Records Deleted Successfully. ";
             return RedirectToAction("Index");
         }

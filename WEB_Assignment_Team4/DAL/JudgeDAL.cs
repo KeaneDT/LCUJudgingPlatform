@@ -177,12 +177,12 @@ namespace WEB_Assignment_Team4.DAL
             SqlCommand cmd = conn.CreateCommand();
             cmd.CommandText = @"DELETE CompetitionJudge
                                 FROM CompetitionJudge y INNER JOIN Judge x 
-                                ON x.JudgeID = y.JudgeID
-                                WHERE y.CompetitionID = @selectedCompetitionID
-                                AND y.JudgeID = @selectedJudgeID";
+                                ON y.JudgeID = x.JudgeID
+                                WHERE y.JudgeID = @selectJudgeId
+                                AND y.CompetitionID = @selectCompetitionId";
             
-            cmd.Parameters.AddWithValue("@selectedCompetitionID", assignId);
-            cmd.Parameters.AddWithValue("@selectedJudgeID", judgeId);
+            cmd.Parameters.AddWithValue("@selectCompetitionId", assignId);
+            cmd.Parameters.AddWithValue("@selectJudgeId", judgeId);
 
             // Open a database connection
             conn.Open();
@@ -192,7 +192,7 @@ namespace WEB_Assignment_Team4.DAL
             //Execute the DELETE SQL to remove the interest record
             rowAffected += cmd.ExecuteNonQuery();
 
-            //
+            // Close a databse connection
             conn.Close();
             //Return number of row of interest record updated or deleted
             return rowAffected;
@@ -272,9 +272,9 @@ namespace WEB_Assignment_Team4.DAL
             return competitionList;
         }
 
-        public JudgeAssign GetJudgesRole(int roleId)
+        public JudgeAssign GetJudgesRole(int assignId)
         {
-            JudgeAssign role = new JudgeAssign();
+            JudgeAssign judgeAssign = new JudgeAssign();
 
             //Create a SqlCommand object from connection object
             SqlCommand cmd = conn.CreateCommand();
@@ -286,7 +286,7 @@ namespace WEB_Assignment_Team4.DAL
 
             //Define the parameter used in SQL statement, value for the   
             //parameter is retrieved from the method parameter “staffId”.
-            cmd.Parameters.AddWithValue("@selectedCompetitionID", roleId);
+            cmd.Parameters.AddWithValue("@selectedCompetitionID", assignId);
 
             //Open a database connection
             conn.Open();
@@ -299,8 +299,8 @@ namespace WEB_Assignment_Team4.DAL
                 while (reader.Read())
                 {
                     // Fill staff object with values from the data reader
-                    role.CompetitionID = roleId;
-                    role.JudgeID= reader.GetInt32(1);
+                    judgeAssign.CompetitionID = assignId;
+                    judgeAssign.JudgeID= reader.GetInt32(1);
                 }
             }
             //Close data reader
@@ -308,7 +308,7 @@ namespace WEB_Assignment_Team4.DAL
             //Close database connection
             conn.Close();
 
-            return role;
+            return judgeAssign;
         }
         public bool IsCompetitionJudgeExist(int name, int competitonId)
         {
