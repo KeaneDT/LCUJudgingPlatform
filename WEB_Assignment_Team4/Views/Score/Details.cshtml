@@ -7,7 +7,7 @@
 <h3 class="text-center">@ViewData["competitionName"].ToString() Submission</h3>
 <hr />
 <div class="container">
-    @if (DateTime.Today > Convert.ToDateTime(ViewData["resultsDate"]) || ViewData["resultsDate"]!=null)
+    @if (DateTime.Today > Convert.ToDateTime(ViewData["resultsDate"]) && ViewData["resultsDate"]!=null)
     {
         <div class="row gutters-sm">
             <div class="col-md-12">
