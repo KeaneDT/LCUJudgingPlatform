@@ -36,7 +36,8 @@ namespace WEB_Assignment_Team4.Models
 
         //Password
         //Default value set
+        [Required(ErrorMessage = "Password Required!")]
         [StringLength(255)]
-        public string Password { get; set; } = "p@55Judge";
+        public string Password { get; set; }
     }
 }
