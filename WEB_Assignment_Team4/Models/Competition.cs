@@ -12,7 +12,7 @@ namespace WEB_Assignment_Team4.Models
         public int CompetitionID { get; set; }
 
         [Display(Name = "Interest ID")]
-        [Required(ErrorMessage = "test")]
+        [Required(ErrorMessage = "Select One interest from the list")]
         public int? AreaInterestID { get; set; }
 
         [Display(Name = "Competition Name")]

@@ -33,7 +33,7 @@ namespace WEB_Assignment_Team4.Controllers
             interestList.Insert(0, new Interest
             {
                 AreaInterestID = 0,
-                Name = "--Select--"
+                Name = "Select Interest"
             });
             return interestList;
         }
@@ -120,28 +120,17 @@ namespace WEB_Assignment_Team4.Controllers
             //Get interest list for drop-down list
             //in case of the need to return to create.cshtml view
             ViewData["interestList"] = GetAllInterests();
-
             try
             {
-                if (ModelState.IsValid)
-                {
-                    //Add competition records to database
-                    competition.CompetitionID = competitionContext.Add(competition);
-                    TempData["Message"] = "Competition Record Has Added Successfully. ";
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    TempData["Message"] = "Select One Interest from the list. ";
-                    return View(competition);
-                }
+                //Add competition records to database
+                competition.CompetitionID = competitionContext.Add(competition);
+                TempData["Message"] = "Competition Record Has Added Successfully. ";
+                return RedirectToAction("Index");
             }
-            catch (Exception)
+            catch(Exception)
             {
-                //Input validation fails, return to the Competition view
-                //To display error message
-                TempData["Message"] = "test. ";
-                return RedirectToAction("Create");
+                TempData["Message"] = "Select One Interest From the List. ";
+                return View(competition);
             }
         }
 
@@ -181,16 +170,18 @@ namespace WEB_Assignment_Team4.Controllers
 
             if (ModelState.IsValid)
             {
+                
                 //Update competition record to the database
                 competitionContext.Update(competition);
+                TempData["Message"] = "Competitor Has Joined the Competition, Record has been updated. ";
                 return RedirectToAction("Index");
             }
             else
             {
                 //Input Validation fails, return to the view
                 //to display an error message
-                //ViewData["Message"] = "Competitor Has Joined the Competition, Record cannot be edit. ";
-                return RedirectToAction("Index");
+                TempData["Message"] = "Competitor Has Joined the Competition, Record cannot be edit. ";
+                return View(competition);
             }
         }
         // POST: CompetitionController/Delete/5
