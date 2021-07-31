@@ -17,11 +17,13 @@
             <tbody>
                 @foreach (var item in Model)
                 {
-                    <tr>
-                        <td>@item.CriteriaID</td>
-                        <td>@item.CriteriaName.ToString()</td>
-                        <td>@item.Weightage%</td>
-                        <td>@item.Score/10</td>
+                <tr>
+                    <td>@item.CriteriaID</td>
+                    <td>@item.CriteriaName.ToString()</td>
+                    <td>@item.Weightage%</td>
+                    <td>@item.Score/10</td>
+                    @if (DateTime.Today < Convert.ToDateTime(ViewData["resultsDate"]))
+                    {
                         <td class="text-center">
                             <a asp-action="ScoreEdit" asp-controller="Score"
                                asp-route-competitionID="@item.CompetitionID"
@@ -29,7 +31,13 @@
                                asp-route-criteriaID="@item.CriteriaID"
                                class="btn btn-warning rounded-pill mr-2">Edit Score</a>
                         </td>
-                    </tr>
+                    }
+                    else
+                    {
+                        <td class="text-primary text-center">Results Have been Released!</td>
+                    }
+
+                </tr>
                 }
                 <tr class="bg-primary">
                     <td></td>

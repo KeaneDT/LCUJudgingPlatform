@@ -65,6 +65,7 @@ namespace WEB_Assignment_Team4.Controllers
                 return RedirectToAction("Index", "Home");
             }
             ViewData["competitionName"] = competitionContext.GetDetails(competitionID).Name;
+            ViewData["resultsDate"] = competitionContext.GetDetails(competitionID).ResultReleaseDate;
             SubmissionViewModel sVM = submissionsContext.GetSubmissionDetails(competitionID, competitorID);
             sVM.Score = criteriaContext.GetSubmissionCriteriaTotal(competitionID, competitorID);
             return View(sVM);
@@ -87,6 +88,7 @@ namespace WEB_Assignment_Team4.Controllers
             ViewData["competitionName"] = competitionContext.GetDetails(competitionID).Name;
             ViewData["totalScore"] = criteriaContext.GetSubmissionCriteriaTotal(competitionID, competitorID);
             ViewData["totalWeightage"] = criteriaContext.GetWeightageTotal(competitionID);
+            ViewData["resultsDate"] = competitionContext.GetDetails(competitionID).ResultReleaseDate;
             ViewData["competitionID"] = competitionID;
             ViewData["competitorID"] = competitorID;
 
@@ -106,6 +108,10 @@ namespace WEB_Assignment_Team4.Controllers
             if (competitionID == null || competitorID == null || criteriaID == null)
             { //Query string parameter not provided
               //Return to listing page, not allowed to edit
+                return RedirectToAction("Index");
+            }
+            if (DateTime.Now > competitionContext.GetDetails(competitionID.Value).ResultReleaseDate)
+            {
                 return RedirectToAction("Index");
             }
             CriteriaViewModel cVM = criteriaContext.GetSubmissionCriteriaDetail(competitionID.Value, competitorID.Value,  criteriaID.Value);
@@ -161,6 +167,15 @@ namespace WEB_Assignment_Team4.Controllers
             { //Query string parameter not provided
               //Return to listing page, not allowed to edit
                 return RedirectToAction("Index");
+            }
+
+            if (DateTime.Now > competitionContext.GetDetails(competitionID.Value).ResultReleaseDate)
+            {
+                return RedirectToAction("Details", new
+                {
+                    competitionID = competitionID.Value,
+                    competitorID = competitorID.Value
+                });
             }
 
             ViewData["competitionName"] = competitionContext.GetDetails(competitionID.Value).Name;

@@ -7,6 +7,22 @@
 <h3 class="text-center">@ViewData["competitionName"].ToString() Submission</h3>
 <hr />
 <div class="container">
+    @if (DateTime.Today > Convert.ToDateTime(ViewData["resultsDate"]) || ViewData["resultsDate"]!=null)
+    {
+        <div class="row gutters-sm">
+            <div class="col-md-12">
+                <div class="card">
+                    <h5 class="card-header text-white" style="background-color: #007bff; ">🔒 Editing Locked!</h5>
+                    <div class="card-body">
+                        <div class="d-flex flex-column align-items-center text-center">
+                            <p>The Results have been released to the public on the @ViewData["resultsDate"].ToString()!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+    }
     <div class="row gutters-sm">
         <div class="col-md-5">
             <div class="card h-100">

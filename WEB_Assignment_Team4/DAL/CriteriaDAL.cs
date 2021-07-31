@@ -167,12 +167,14 @@ namespace WEB_Assignment_Team4.DAL
             cmd1.Parameters.AddWithValue("@weightage", criteria.Weightage);
 
             //Specify the SELECT SQL Statement to get the CompetitiorID's of those who are in the same competition as the criteria competition & has a valid file submission
-            cmd2.CommandText = @"SELECT Competitor.CompetitorID FROM Competitor
-                                INNER JOIN CompetitionSubmission ON Competitor.CompetitorID=CompetitionSubmission.CompetitorID
-                                WHERE CompetitionSubmission.FileSubmitted IS NOT NULL";
+            cmd2.CommandText = @"SELECT x.CompetitorID FROM Competitor x
+                                INNER JOIN CompetitionSubmission y ON x.CompetitorID=y.CompetitorID
+                                WHERE y.FileSubmitted IS NOT NULL AND y.CompetitionID=@competitionID";
+            cmd2.Parameters.AddWithValue("@competitionID", criteria.CompetitionID);
 
             //Specify the INSERT SQL Statement to Insert the new CriteriaID along with the many CompetitorID's, the CompetitionID and the default Score of 0
             cmd3.CommandText = @"INSERT INTO CompetitionScore (CriteriaID, CompetitorID, CompetitionID, Score) VALUES (@criteriaID,@competitorID,@competitionID,@score)";
+
             //Open a database connection
             conn.Open();
             int rowAffected = 0;
@@ -260,6 +262,7 @@ namespace WEB_Assignment_Team4.DAL
                                 INNER JOIN Criteria y ON x.CriteriaID=y.CriteriaID 
                                 INNER JOIN CompetitionSubmission z ON x.CompetitorID=z.CompetitorID 
                                 WHERE z.CompetitorID=@competitorID AND z.CompetitionID=@competitionID AND x.CriteriaID=@criteriaID";
+
             cmd.Parameters.AddWithValue("@competitorID", competitorID);
             cmd.Parameters.AddWithValue("@competitionID", competitionID);
             cmd.Parameters.AddWithValue("@criteriaID", criteriaID);
