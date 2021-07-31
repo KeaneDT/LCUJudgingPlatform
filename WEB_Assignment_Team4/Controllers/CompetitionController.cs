@@ -198,10 +198,20 @@ namespace WEB_Assignment_Team4.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(Competition competition, int? id)
         {
-            competition = competitionContext.GetDetails(id.Value);
-            //Delete the records from the database
-            competitionContext.Delete(competition.CompetitionID);
-            return RedirectToAction("Index");
+            try
+            {
+                competition = competitionContext.GetDetails(id.Value);
+                //Delete the records from the database
+                competitionContext.Delete(competition.CompetitionID);
+                TempData["Message"] = "No Competitor Has Joined the competition, Record Deleted Successfully.";
+                return RedirectToAction("Index");
+            }
+            catch(Exception)
+            {
+                TempData["Message"] = "Competitor Has Joined the competition, Record unable to delete.";
+                return RedirectToAction("Index");
+            }
+           
         }
     
         // GET: CompetitionController/Delete/5

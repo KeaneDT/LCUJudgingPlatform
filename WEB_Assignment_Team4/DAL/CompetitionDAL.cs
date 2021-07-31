@@ -301,16 +301,7 @@ namespace WEB_Assignment_Team4.DAL
         {
             SqlCommand cmd = conn.CreateCommand();
            
-            cmd.CommandText = @"IF EXISTS(SELECT c.*
-                                FROM Competition c
-                                INNER JOIN CompetitionSubmission cs
-                                ON c.CompetitionID = cs.CompetitionID
-                                where cs.CompetitionID = @selectcompetitionId)
-                                BEGIN
-                                PRINT ('Records Found') 
-                                END
-                                ELSE
-                                DELETE Competition
+            cmd.CommandText = @"DELETE Competition
                                 FROM AreaInterest x INNER JOIN Competition y
                                 ON x.AreaInterestID = y.AreaInterestID
                                 WHERE y.CompetitionID = @selectcompetitionId";
