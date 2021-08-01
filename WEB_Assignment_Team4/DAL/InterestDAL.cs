@@ -33,10 +33,7 @@ namespace WEB_Assignment_Team4.DAL
         {
             //Create a SqlCommand object from connection object
             SqlCommand cmd = conn.CreateCommand();
-            //Specify the SQL statement that select all branches
             cmd.CommandText = @"SELECT * FROM Competition WHERE AreaInterestID = @selectedInterest";
-            //Define the parameter used in SQL statement, value for the
-            //parameter is retrieved from the method parameter “branchNo”.
             cmd.Parameters.AddWithValue("@selectedInterest", areaInterestID);
 
             //Open a database connection
@@ -77,7 +74,6 @@ namespace WEB_Assignment_Team4.DAL
             //Execute the SELECT SQL through a DataReader
             SqlDataReader reader = cmd.ExecuteReader();
 
-            //Read all records until the end, save data into a staff list
             List<Interest> interestList = new List<Interest>();
             while (reader.Read())
             {

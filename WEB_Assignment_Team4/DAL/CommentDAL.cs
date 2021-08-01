@@ -44,7 +44,6 @@ namespace WEB_Assignment_Team4.DAL
             //Execute the SELECT SQL through a DataReader
             SqlDataReader reader = cmd.ExecuteReader();
 
-            //Read all records until the end, save data into a staff list
             List<Comment> commentList = new List<Comment>();
             while (reader.Read())
             {
@@ -71,8 +70,6 @@ namespace WEB_Assignment_Team4.DAL
             //Create a SqlCommand Object object from connection object
             SqlCommand cmd = conn.CreateCommand();
 
-            //Specifiy an INSERT SQL statment which will 
-            //return an auto-generated CompetitionID after insertion
             cmd.CommandText = @"INSERT INTO Comment (CompetitionID, Description,
                                 DateTimePosted)
                                 OUTPUT INSERTED.CommentID
