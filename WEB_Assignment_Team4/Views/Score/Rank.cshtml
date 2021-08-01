@@ -46,7 +46,7 @@
                                 <h6>@Html.DisplayNameFor(model => model.Ranking):</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                <select asp-for="Ranking" asp-items="@ViewData["submissionsCountList"] as List<SelectListItem>"></select>
+                                <select asp-for="Ranking" asp-items="@ViewData["submissionsCountList"] as List<SelectListItem>" class="rounded-pill border-3 border-warning"></select>
                                 <span style="color:red  ;">&nbsp;&nbsp;@TempData["Message"]</span>
                             </div>
                         </div>

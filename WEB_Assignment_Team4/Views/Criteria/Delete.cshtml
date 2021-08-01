@@ -8,56 +8,65 @@
 <br />
 <form asp-action="Delete">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <div class="container-fluid">
-        <div class="row justify-content-center">
-            <div class="form-group col-6">
-                <div class="form-group row">
-                    <label asp-for="CriteriaID"
-                           class="col-sm-3 col-form-label"><h6>Criteria ID:</h6></label>
-                    <div class="col-sm-9 col-md-5">
-                        <input asp-for="CriteriaID" readonly
-                               class="form-control-plaintext" />
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex flex-column align-items-center">
+                    <div class="container-fluid">
+                        <div class="row justify-content-center">
+                            <div class="form-group col-md-6">
+                                <div class="form-group row align-items-center">
+                                    <label asp-for="CriteriaID"
+                                           class="col-sm-3 col-form-label mt-2"><h6>Criteria ID:</h6></label>
+                                    <div class="col-sm-9 col-md-5">
+                                        <input asp-for="CriteriaID" readonly
+                                               class="form-control-plaintext" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-fluid">
+                        <div class="row justify-content-center">
+                            <div class="form-group col-md-6">
+                                <h6>Criteria Name:</h6>
+                                <input asp-for="CriteriaName" class="form-control rounded-pill border-3 border-warning" placeholder="Criteria Name" readonly />
+                                <span asp-validation-for="CriteriaName" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-fluid">
+                        <div class="row justify-content-center">
+                            <div class="form-group col-md-6">
+                                <h6>Weightage(%):</h6>
+                                <input asp-for="Weightage" class="form-control rounded-pill border-3 border-warning" min="1" max="100" placeholder="Weightage" readonly />
+                                <span style="color:red  ;">@TempData["Message"]</span>
+                                <span asp-validation-for="Weightage" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="container-fluid">
+                        <div class="row justify-content-center">
+                            <span class="text-danger">Are you sure you want to delete this Criteria?</span>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="container-fluid">
+                        <div class="row justify-content-center">
+                            <div class="form-group">
+                                <input type="submit" value="Delete" class="btn btn-danger text-white rounded-pill" />
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-    <div class="container-fluid">
-        <div class="row justify-content-center">
-            <div class="form-group col-6">
-                <h6>Criteria Name:</h6>
-                <input asp-for="CriteriaName" class="form-control rounded-pill border-3 border-danger" placeholder="Criteria Name" readonly />
-                <span asp-validation-for="CriteriaName" class="text-danger"></span>
-            </div>
-        </div>
-    </div>
-    <div class="container-fluid">
-        <div class="row justify-content-center">
-            <div class="form-group col-6">
-                <h6>Weightage(%):</h6>
-                <input asp-for="Weightage" class="form-control rounded-pill border-3 border-danger" min="1" max="100" placeholder="Weightage" readonly />
-                <span style="color:red  ;">@TempData["Message"]</span>
-                <span asp-validation-for="Weightage" class="text-danger"></span>
-            </div>
-        </div>
-    </div>
-    <div class="container-fluid">
-        <div class="row justify-content-center">
-            <span class="text-danger">Are you sure you want to delete this Criteria?</span>
-        </div>
-    </div>
-    <br />
-    <div class="container-fluid">
-        <div class="row justify-content-center">
-            <div class="form-group">
-                <input type="submit" value="Delete" class="btn btn-danger text-white rounded-pill" />
             </div>
         </div>
     </div>
 </form>
 <br />
 <div class="container-fluid">
-    <div class="row justify-content-center">
+    <div class="row justify-content-center text-center">
         <a asp-action="Index" asp-route-id="@ViewData["selectedCompetitionNo"]">Back to Criteria</a>
     </div>
 </div>

@@ -16,43 +16,65 @@
     <div class="heading">
         <br />
         <h3 class="text-center">Login to<br />LCU Judging Platform</h3>
+        <hr />
     </div>
-    <div>
-        <form method="post" action="~/Home/Login">
-            <fieldset class="loginFieldset">
-                <br />
-                <div class="container-fluid">
-                    <div class="row justify-content-center">
-                        <div class="form-group col-4">
-                            <h6>Email:</h6>
-                            <input class="form-control rounded-pill border-3 border-warning" placeholder="Email" type="email" name="txtLoginID" id="txtLoginID" required />
+    <div class="container">
+        <div class="row gutters-sm">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex flex-column align-items-center">
+                            <form method="post" action="~/Home/Login">
+                                <fieldset class="loginFieldset">
+                                    <br />
+                                    <div class="container-fluid">
+                                        <div class="row justify-content-center">
+                                            <div class="form-group">
+                                                <h6>Email:</h6>
+                                                <input class="form-control rounded-pill border-3 border-warning" placeholder="Email" type="email" name="txtLoginID" id="txtLoginID" required />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="container-fluid">
+                                        <div class="row justify-content-center">
+                                            <div class="form-group col-md-12">
+                                                <h6>Password:</h6>
+                                                <input class="form-control rounded-pill border-3 border-warning" placeholder="Password" type="password" name="txtPassword" id="txtPassword" required />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="container-fluid">
+                                        <div class="row justify-content-center">
+                                            <div class="form-group">
+                                                <input type="submit" id="btnLogin" value="Login" class="btn btn-primary rounded-pill" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="container-fluid">
+                                        <div class="row justify-content-center">
+                                            <span style="color:red  ;">@TempData["Message"]</span>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </form>
+                            <br />
+                            <br />
+                            <div class="container-fluid">
+                                <div class="text-center">
+                                    <h6>Competitor Login</h6>
+                                    <p>
+                                        <a href="~/Home/StudentLogin" class="btn btn-primary rounded-pill">Sign in with Google</a>
+                                    </p>
+                                    <a href="~/Home/Privacy">Privacy Policy</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="container-fluid">
-                    <div class="row justify-content-center">
-                        <div class="form-group col-4">
-                            <h6>Password:</h6>
-                            <input class="form-control rounded-pill border-3 border-warning" placeholder="Password" type="password" name="txtPassword" id="txtPassword" required />
-                        </div>
-                    </div>
-                </div>
-                <br />
-                <div class="container-fluid">
-                    <div class="row justify-content-center">
-                        <div class="form-group">
-                            <input type="submit" id="btnLogin" value="Login" class="btn btn-primary rounded-pill" />
-                        </div>
-                    </div>
-                </div>
-                <br />
-                <div class="container-fluid">
-                    <div class="row justify-content-center">
-                        <span style="color:red  ;">@TempData["Message"]</span>
-                    </div>
-                </div>
-            </fieldset>
-        </form>
+            </div>
+        </div>
     </div>
     <br />
     <div class="container-fluid">
@@ -64,18 +86,6 @@
             <a href="~/Judge/Create">Create a Judge Account</a>
         </div>
     </div>
-    <br/>
-
-    <div class="container-fluid">
-        <div class="text-center">
-            <h6>Competitor Login</h6>
-            <p>
-                <a href="~/Home/StudentLogin" class="btn btn-primary rounded-pill">Sign in with Google</a>
-            </p>
-            <a href="~/Home/Privacy">Privacy Policy</a>
-
-        </div>
-    </div class="container-fluid">
 
 </body>
 </html>
