@@ -95,7 +95,44 @@ SubmissionsDAL.cs (Some Functions)
 CompetitorDAL.cs (Some Functions)  
   
 ### Public (Jun Keat):  
-(Add Contributions)  
+Implemented all basic and advanced features
+
+#### Files Implemented:
+##### Views:
+_ViewSubmissions.cshtml
+Index.cshtml
+_SelectCompetition.cshtml
+_ViewSubmissionRanking.cshtml
+Index.cshtml
+Select.cshtml
+Interest/Select.cshtml
+Interest/_ViewInterest.cshtml
+Competition/_SelectCompetition.cshtml
+Competition/List.cshtml
+Comment/_ViewComment.cshtml
+Comment/Create.cshtml
+Comment/Index.cshtml
+
+##### Models:
+Comment.cs
+CompetitionSubmissionViewModel.cs
+InterestViewModel.cs
+Submissions.cs
+
+##### DAL:
+CommentDAL.cs
+CompetitionDAL.cs(some fucntions)
+SubmissionsDAL.cs(some functions)
+InterestDAL.cs(some functions)
+
+##### Controllers:
+CommentController.cs
+CompetitionController.cs(some fucntions)
+SubmissionsController.cs(some fucntions)
+InterestController.cs(some fucntions)
+LeaderboardController.cs
+SelectionController.cs
+
 
 ## Media 
 How to Start Coding The Ultimate Guide for Beginner Programmers.jpeg : https://softwarestrategiesblog.com/2021/04/07/the-top-20-machine-learning-startups-to-watch-in-2021/  
