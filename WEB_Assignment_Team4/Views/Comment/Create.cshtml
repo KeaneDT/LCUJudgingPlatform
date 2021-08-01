@@ -3,28 +3,29 @@
 @{
     ViewData["Title"] = "Create";
 }
+<br />
+<h3>Post comments</h3>
 
-<h1>Create</h1>
-
-<h4>Comment</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" required />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Post Comment" class="btn btn-warning rounded-pill mr-2" />
-            </div>
-        </form>
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="form-group col-md-12">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label"></label>
+                    <input asp-for="Description" class="form-control rounded-pill border-3 border-warning" required />
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Post Comment" class="btn btn-warning rounded-pill mr-2" />
+                </div>
+            </form>
+        </div>
     </div>
-</div>
 
-<div>
-    <a asp-action="List" asp-controller="Competition" asp-route-id="@ViewData["selectedCompetitionNo"]">Back to List</a>
+    <div>
+        <a asp-action="List" asp-controller="Competition" asp-route-id="@ViewData["selectedCompetitionNo"]">Back to List</a>
+    </div>
 </div>
 

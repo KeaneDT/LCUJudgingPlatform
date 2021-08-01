@@ -5,6 +5,11 @@
 }
 <title>View Ranking</title>
 
-<h4 class="PageTitle">View Ranking of Submissions</h4>
-<h5>Here can view ranking of submissions</h5>
+<br />
+<h4 class="PageTitle">Ranking</h4>
+<h5>View ranking of submissions</h5>
+<div>
+    <a asp-action="Select" asp-controller="Leaderboard">Back to List</a>
+</div>
+<br />
 <partial name="~/Views/Leaderboard/_ViewSubmissionRanking.cshtml" model="@Model" />
