@@ -16,7 +16,7 @@ Competition.cs
 CompetitionViewModel.cs
 ValidateCompetitionName.cs
 ValidateCompetitionJudge.cs
-Interest
+Interest.cs
 InterestViewModel
 ValidateInterestName
 JudgeAssign.cs
