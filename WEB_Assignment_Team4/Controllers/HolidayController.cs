@@ -16,11 +16,11 @@ namespace WEB_Assignment_Team4.Controllers
         public async Task<ActionResult> Index()
         {
             HttpClient client = new HttpClient();
-            string year = DateTime.Today.Year.ToString("YYYY");
-            string month = DateTime.Today.Month.ToString("MM");
-            string day = DateTime.Today.Day.ToString("dd");
+            string year = DateTime.Today.Year.ToString();
+            string month = DateTime.Today.Month.ToString();
+            string day = DateTime.Today.Day.ToString();
             
-            client.BaseAddress = new Uri("https://holidays.abstractapi.com/v1/?api_key=bd9022d26baf47dd8ddba77582ba3e24&country=SG&year="+year+"&month="+month+"&day="+day);
+            client.BaseAddress = new Uri("https://holidays.abstractapi.com/v1/?api_key=bd9022d26baf47dd8ddba77582ba3e24&country=SG&year="+year+"&month="+"1"+"&day="+day);
             HttpResponseMessage response = await client.GetAsync("");
             if (response.IsSuccessStatusCode)
             {
