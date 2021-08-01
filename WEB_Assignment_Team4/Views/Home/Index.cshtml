@@ -29,7 +29,7 @@
                       <span style="color:goldenrod;">@userRole</span> &nbsp;
                   </h2>
               }
-              else
+              @if (Context.Session.GetString("Role") == null)
               {
                   <h2>Welcome!</h2>
               }
