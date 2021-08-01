@@ -47,9 +47,21 @@
 @{
     if (Model.competitionList.Count == 0)
     {
-        <p class="text-danger">
-            You are not in any Competitions! Send a message to an Admin to be added!
-        </p>
+        <br />
+        <div class="row gutters-sm">
+            <div class="col-md-12">
+                <div class="card">
+                    <h5 class="card-header text-white" style="background-color: #FF4500; ">⚠️ Warning!</h5>
+                    <div class="card-body">
+                        <div class="d-flex flex-column align-items-center text-center">
+                            <p>
+                                You are not in any Competitions! Send a message to an Admin to be added!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     }
 }
 
@@ -71,6 +83,18 @@
     }
     else
     {
-        <p class="text-danger">No Criteria for this Competition!</p>
+        <br />
+        <div class="row gutters-sm">
+            <div class="col-md-12">
+                <div class="card">
+                    <h5 class="card-header text-white" style="background-color: #FF4500; ">⚠️ Warning!</h5>
+                    <div class="card-body">
+                        <div class="d-flex flex-column align-items-center text-center">
+                            <p>No Criteria for this Competition!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     }
 }
