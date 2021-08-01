@@ -13,28 +13,73 @@
 <body>
     <br /><br />
     <div class="title">
-        <h1>Welcome!</h1>
+        @if (Context.Session.GetString("Role") != null && Context.Session.GetString("Role") == "Judge")
+        {
+            string userRole = Context.Session.GetString("Role");
+            <h2>
+                Welcome,
+                <span style="color:goldenrod;">@userRole</span> &nbsp;
+            </h2>
+        }
+        else
+        {
+            <h2>Welcome!</h2>
+        }
     </div>
     <br />
-    <div class="row">
-        <div class="col-5">
-            <div class="content">
-                <h2 class="font-weight-light">A platform for competitions by Lion City University.</h2>
-                <br />
-                <p>
-                    LCU Judging Platform is a competition judging
-                    platform developed and opearated by Lion City
-                    University.
-                    <br /><br />
-                    This platform is used for the many competition
-                    organized by the faculties of LCU.
-                </p>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5 col-sm-7">
+                <div class="content">
+                    <h2 class="font-weight-light">A platform for competitions by Lion City University.</h2>
+                    <br />
+                    <p>
+                        LCU Judging Platform is a competition judging
+                        platform developed and opearated by Lion City
+                        University.
+                        <br /><br />
+                        This platform is used for the many competition
+                        organized by the faculties of LCU.
+                    </p>
+                    <br />
+                    @if (Context.Session.GetString("Role") != null && Context.Session.GetString("Role") == "Judge")
+                    {
+                        <hr />
+                        <p class="tpbutton btn-toolbar text-center">
+                            <a href="~/Criteria/Index"
+                               class="btn btn-warning rounded-pill mr-2 nav-link">Edit Criteria</a>
+                            <a href="~/Score/Index"
+                               class="btn btn-warning rounded-pill mr-2 nav-link">Judge Submission</a>
+                        </p>
+                        <br />
+                        string userId = "Anonymous";
+                        string userRole = "Unknown";
+                        string datetime = "";
+                        if (Context.Session.GetString("LoginID") != null)
+                        {
+                            userId = Context.Session.GetString("LoginID");
+                        }
+                        if (Context.Session.GetString("Role") != null)
+                        {
+                            userRole = Context.Session.GetString("Role");
+                        }
+                        if (Context.Session.GetString("DateTiming") != null)
+                        {
+                            datetime = Context.Session.GetString("DateTiming");
+                        }
+                        <div>
+                            Currently Logged in as <span style="color:green;">@userId.</span> <br />
+                            You have been logged in since @datetime
+                        </div>
+                    }
+                </div>
             </div>
-        </div>
-        <div class="col-2"> </div>
-        <div class="col-5 content-image">
-            <img class="img-fluid" src="~/images/LCU.png" alt="LCU" />
+            <div class="col-md-2 col-sm-0"> </div>
+            <div class="col-md-5 col-sm-7 content-image">
+                <img class="img-fluid" src="~/images/LCU.png" alt="LCU" />
+            </div>           
         </div>
     </div>
 </body>
+
 </html>

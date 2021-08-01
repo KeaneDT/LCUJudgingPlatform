@@ -81,7 +81,7 @@ namespace WEB_Assignment_Team4.Controllers
                 // Store date and time of the user when it has logged in
                 HttpContext.Session.SetString("DateTiming", DateTiming.ToString());
 
-                return RedirectToAction("JudgeMain");
+                return RedirectToAction("Index");
             }
             //Competitor Login
             else if (competitorContext.ValidCompetitorLogin(userID, password) == true)
@@ -109,17 +109,6 @@ namespace WEB_Assignment_Team4.Controllers
             //or account not in the "Administrator" role
             if (HttpContext.Session.GetString("Role") == null ||
               (HttpContext.Session.GetString("Role") != "Administrator"))
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            return View();
-        }
-        public ActionResult JudgeMain()
-        {
-            //Stop Accessing the action if not logged in
-            //or account not in the "Judge" role
-            if (HttpContext.Session.GetString("Role") == null ||
-               (HttpContext.Session.GetString("Role") != "Judge"))
             {
                 return RedirectToAction("Index", "Home");
             }
