@@ -1,9 +1,10 @@
 ﻿@model WEB_Assignment_Team4.Models.Submissions
 
+<h4 class="PageTitle">Submissions</h4>
 @if (Model.submissionsList.Count > 0)
 {
     <div class="table-responsive">
-        <table id="viewRanking" class="table">
+        <table id="viewRanking" class="table table-striped table-bordered table-hover">
             <thead>
                 <tr>
                     <th>CompetitorID</th>
@@ -28,7 +29,7 @@
 }
 else
 {
-    <span style="color:red;">No Records Found!</span>
+    <span style="color:red;">No submissions Found!</span>
 }
 <div>
     <a asp-action="Select" asp-controller="Leaderboard">Back to List</a>
