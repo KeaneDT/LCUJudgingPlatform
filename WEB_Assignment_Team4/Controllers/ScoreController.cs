@@ -146,7 +146,7 @@ namespace WEB_Assignment_Team4.Controllers
             }
             else
             {
-                //Input validation fails, return to the Create view
+                //Input validation fails, return to the ScoreEdit view
                 //to display error message
                 TempData["Message"] = "";
                 return View(cVM);
@@ -266,7 +266,7 @@ namespace WEB_Assignment_Team4.Controllers
             }
             else
             {
-                //Input validation fails, return to the Create view
+                //Input validation fails, return to the Rank view
                 //to display error message
                 TempData["Message"] = "";
                 return View(sVM);

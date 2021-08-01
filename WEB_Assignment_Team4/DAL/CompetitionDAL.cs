@@ -44,7 +44,7 @@ namespace WEB_Assignment_Team4.DAL
             //Execute the SELECT SQL through a DataReader
             SqlDataReader reader = cmd.ExecuteReader();
 
-            //Read all records until the end, save data into a staff list
+            //Read all records until the end, save data into a competition list
             List<Competition> competitionList = new List<Competition>();
             while (reader.Read())
             {
@@ -217,12 +217,12 @@ namespace WEB_Assignment_Team4.DAL
             SqlCommand cmd = conn.CreateCommand();
 
             //Specify the SELECT SQL statement that     
-            //retrieves all attributes of a staff record.
+            //retrieves all attributes of a competiiton record.
             cmd.CommandText = @"SELECT * FROM Competition                         
                                 WHERE CompetitionID = @selectedCompetitionID";
 
             //Define the parameter used in SQL statement, value for the   
-            //parameter is retrieved from the method parameter “staffId”.
+            //parameter is retrieved from the method parameter “competitionId”.
             cmd.Parameters.AddWithValue("@selectedCompetitionID", competitionId);
 
             //Open a database connection
@@ -234,7 +234,7 @@ namespace WEB_Assignment_Team4.DAL
                 //Read the record from database
                 while (reader.Read())
                 {
-                    // Fill staff object with values from the data reader
+                    // Fill competition object with values from the data reader
                     competition.CompetitionID= competitionId;
                     competition.AreaInterestID = reader.GetInt32(1);
                     competition.Name = !reader.IsDBNull(2) ? reader.GetString(2) : null;
@@ -335,7 +335,7 @@ namespace WEB_Assignment_Team4.DAL
             //Execute the SELECT SQL through a DataReader
             SqlDataReader reader = cmd.ExecuteReader();
 
-            //Read all records until the end, save data into a staff list
+            //Read all records until the end, save data into a competition list
             List<Competition> competitionList = new List<Competition>();
             while (reader.Read())
             {

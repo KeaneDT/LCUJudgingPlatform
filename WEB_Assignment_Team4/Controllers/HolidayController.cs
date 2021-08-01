@@ -20,7 +20,7 @@ namespace WEB_Assignment_Team4.Controllers
             string month = DateTime.Today.Month.ToString();
             string day = DateTime.Today.Day.ToString();
             
-            client.BaseAddress = new Uri("https://holidays.abstractapi.com/v1/?api_key=bd9022d26baf47dd8ddba77582ba3e24&country=SG&year="+year+"&month="+"1"+"&day="+day);
+            client.BaseAddress = new Uri("https://holidays.abstractapi.com/v1/?api_key=bd9022d26baf47dd8ddba77582ba3e24&country=SG&year="+year+"&month="+month+"&day="+day);
             HttpResponseMessage response = await client.GetAsync("");
             if (response.IsSuccessStatusCode)
             {

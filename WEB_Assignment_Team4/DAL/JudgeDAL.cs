@@ -206,12 +206,12 @@ namespace WEB_Assignment_Team4.DAL
             SqlCommand cmd = conn.CreateCommand();
 
             //Specify the SELECT SQL statement that     
-            //retrieves all attributes of a staff record.
+            //retrieves all attributes of a judge record.
             cmd.CommandText = @"SELECT * FROM Judge                       
                                 WHERE JudgeID = @selectedJudgeID";
 
             //Define the parameter used in SQL statement, value for the   
-            //parameter is retrieved from the method parameter “staffId”.
+            //parameter is retrieved from the method parameter “judgeId”.
             cmd.Parameters.AddWithValue("@selectedJudgeID", JudgeId);
 
             //Open a database connection
@@ -223,7 +223,7 @@ namespace WEB_Assignment_Team4.DAL
                 //Read the record from database
                 while (reader.Read())
                 {
-                    // Fill staff object with values from the data reader
+                    // Fill judge object with values from the data reader
                     Judge.JudgeID = JudgeId;
                     Judge.JudgeName = !reader.IsDBNull(1) ? reader.GetString(1) : null;
                     Judge.Salutation = !reader.IsDBNull(2) ? reader.GetString(2) : null;
@@ -252,7 +252,7 @@ namespace WEB_Assignment_Team4.DAL
             //Execute the SELECT SQL through a DataReader
             SqlDataReader reader = cmd.ExecuteReader();
 
-            //Read all records until the end, save data into a staff list
+            //Read all records until the end, save data into a judge list
             List<JudgeAssign> competitionList = new List<JudgeAssign>();
             while (reader.Read())
             {
@@ -280,7 +280,7 @@ namespace WEB_Assignment_Team4.DAL
             SqlCommand cmd = conn.CreateCommand();
 
             //Specify the SELECT SQL statement that     
-            //retrieves all attributes of a Competition record.
+            //retrieves all attributes of a judgeassign record.
             cmd.CommandText = @"SELECT * FROM CompetitionJudge                         
                                 WHERE CompetitionID = @selectedCompetitionID";
 
@@ -298,7 +298,7 @@ namespace WEB_Assignment_Team4.DAL
                 //Read the record from database
                 while (reader.Read())
                 {
-                    // Fill judgeAssign object with values from the data reader
+                    // Fill judgeassign object with values from the data reader
                     judgeAssign.CompetitionID = assignId;
                     judgeAssign.JudgeID= reader.GetInt32(1);
                 }
