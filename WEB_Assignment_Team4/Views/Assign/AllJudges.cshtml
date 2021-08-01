@@ -1,0 +1,37 @@
+﻿@model IEnumerable<WEB_Assignment_Team4.Models.Judge>
+
+@{
+    ViewData["Title"] = "AllJudges";
+}
+
+<h1>All Judges List</h1>
+<h4>Here you can view the details of the judges profile</h4>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.JudgeID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.JudgeName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.JudgeID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JudgeName)
+            </td>
+            <td>
+                @Html.ActionLink("Details", "View Details", new { /* id=item.PrimaryKey */ }) 
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

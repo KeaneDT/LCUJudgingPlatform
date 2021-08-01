@@ -12,14 +12,30 @@
     <div class="collapse navbar-collapse show" id="adminNavbar">
         <!--  Links that are aligned to the left, mr-auto: right margin auto-adjusted -->
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="~/Interest/Index">View Interest</a>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Interest
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="~/Interest/Index">View Interest</a>
+                </div>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="~/Competition/Index">View Competition</a>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Competition
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="~/Competition/Index">View Competition</a>
+                </div>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="~/Assign/Index">Judges</a>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Judges
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="~/Assign/Index">Assigned Judges</a>
+                    <a class="dropdown-item" href="~/Assign/AllJudges">Judges List</a>
+                </div>
             </li>
         </ul>
         <ul class="navbar-nav ml-auto">

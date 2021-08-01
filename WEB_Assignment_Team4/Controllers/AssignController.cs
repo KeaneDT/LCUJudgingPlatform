@@ -28,6 +28,19 @@ namespace WEB_Assignment_Team4.Controllers
             return View(judgeList);
         }
 
+        public ActionResult AllJudges()
+        {
+            // Stop Accessing the action if not logged in
+            //or account not in the "Administrator" role
+            if (HttpContext.Session.GetString("Role") == null ||
+              (HttpContext.Session.GetString("Role") != "Administrator"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            List<Judge> judgeList = judgeContext.GetAllJudges();
+            return View(judgeList);
+        }
+
         // GET: AssignController/Details/5
         public ActionResult Details(int id)
         {
