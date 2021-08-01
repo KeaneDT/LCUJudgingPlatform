@@ -63,7 +63,7 @@ namespace WEB_Assignment_Team4.Controllers
                 string Role = "Administrator";
                 // Store Login ID in session with the key "LoginID"
                 HttpContext.Session.SetString("LoginID", userID);
-                // Store user role "Staff" as a string in session with the key "Role"
+                // Store user role "Administrator" as a string in session with the key "Role"
                 HttpContext.Session.SetString("Role", Role);
                 // Store date and time of the user when it has logged in
                 HttpContext.Session.SetString("DateTiming", DateTiming.ToString());
