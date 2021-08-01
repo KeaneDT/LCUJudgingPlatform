@@ -165,7 +165,7 @@ namespace WEB_Assignment_Team4.Controllers
         public ActionResult JudgeDetails(int id)
         {
             // Stop accessing the action if not logged in
-            // or account not in the "Staff" role
+            // or account not in the "Administrator" role
             if ((HttpContext.Session.GetString("Role") == null) ||
                 (HttpContext.Session.GetString("Role") != "Administrator"))
             {

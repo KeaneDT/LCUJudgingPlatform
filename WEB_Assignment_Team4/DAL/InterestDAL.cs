@@ -77,7 +77,7 @@ namespace WEB_Assignment_Team4.DAL
             //Execute the SELECT SQL through a DataReader
             SqlDataReader reader = cmd.ExecuteReader();
 
-            //Read all records until the end, save data into a staff list
+            //Read all records until the end, save data into a interest list
             List<Interest> interestList = new List<Interest>();
             while (reader.Read())
             {
@@ -105,12 +105,12 @@ namespace WEB_Assignment_Team4.DAL
             SqlCommand cmd = conn.CreateCommand();
 
             //Specify the SELECT SQL statement that     
-            //retrieves all attributes of a staff record.
+            //retrieves all attributes of an areainterest record.
             cmd.CommandText = @"SELECT * FROM AreaInterest                         
                                 WHERE AreaInterestID = @selectedAreaInterestID";
 
             //Define the parameter used in SQL statement, value for the   
-            //parameter is retrieved from the method parameter “staffId”.
+            //parameter is retrieved from the method parameter “interestId”.
             cmd.Parameters.AddWithValue("@selectedAreaInterestID", interestId);
 
             //Open a database connection
@@ -122,7 +122,7 @@ namespace WEB_Assignment_Team4.DAL
                 //Read the record from database
                 while (reader.Read())
                 {
-                    // Fill staff object with values from the data reader
+                    // Fill interest object with values from the data reader
                     interest.AreaInterestID = interestId;
                     interest.Name = !reader.IsDBNull(1) ? reader.GetString(1) : null;
                 }
@@ -141,7 +141,7 @@ namespace WEB_Assignment_Team4.DAL
             SqlCommand cmd = conn.CreateCommand();
 
             // Specify an Insert SQL statments which will
-            // return the auto-generated StaffID after insertion
+            // return the auto-generated AreaInterestID after insertion
             cmd.CommandText = @"INSERT INTO AreaInterest(Name)
                                OUTPUT INSERTED.AreaInterestID
                                VALUES(@Name)";
@@ -168,7 +168,7 @@ namespace WEB_Assignment_Team4.DAL
             bool intrecordFound = false;
 
             //Create a SqlCommand object and specify the SQL statement
-            //to get a staff record with the email address to be validated
+            //to get an interest record with the email address to be validated
             SqlCommand cmd = conn.CreateCommand();
             cmd.CommandText = @"SELECT AreaInterestId FROM AreaInterest WHERE Name=@selectedName";
             cmd.Parameters.AddWithValue("@selectedName", name);

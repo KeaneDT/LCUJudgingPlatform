@@ -280,12 +280,12 @@ namespace WEB_Assignment_Team4.DAL
             SqlCommand cmd = conn.CreateCommand();
 
             //Specify the SELECT SQL statement that     
-            //retrieves all attributes of a staff record.
+            //retrieves all attributes of a Competition record.
             cmd.CommandText = @"SELECT * FROM CompetitionJudge                         
                                 WHERE CompetitionID = @selectedCompetitionID";
 
             //Define the parameter used in SQL statement, value for the   
-            //parameter is retrieved from the method parameter “staffId”.
+            //parameter is retrieved from the method parameter “assignId”.
             cmd.Parameters.AddWithValue("@selectedCompetitionID", assignId);
 
             //Open a database connection
@@ -298,7 +298,7 @@ namespace WEB_Assignment_Team4.DAL
                 //Read the record from database
                 while (reader.Read())
                 {
-                    // Fill staff object with values from the data reader
+                    // Fill judgeAssign object with values from the data reader
                     judgeAssign.CompetitionID = assignId;
                     judgeAssign.JudgeID= reader.GetInt32(1);
                 }
