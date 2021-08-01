@@ -41,21 +41,29 @@ else
 </div>
 <hr />
 <div class="content">
-    <form method="post" action="~/Home/ContactForm">
+    <form method="post" action="mailto:someone@example.com" enctype="text/plain">
         <fieldset class="loginFieldset">
             <label for="txtName">Name:</label>
-            <input type="text" name="txtName" id="txtName" required
+            <br />
+            <input type="text" name="Name:" id="Name" required
                    placeholder="Your Name" />
             <br />
-            <label for="txtTitle">Title:</label>
-            <input type="text" name="txttext" id="txttext" required
-                   placeholder="Your Subject" />
+            <label for="txtTitle">Email:</label>
+            <br />
+            <input type="email" name="Email:" id="Email" required
+                   placeholder="Your Email" />
+            <br />
+            <label for="txtSubject">Subject:</label>
+            <br />
+            <input type="text" name="Title:" id="Title" required
+                   placeholder="Title" />
             <br />
             <label for="txtMessage">Message:</label>
-            <input type="text" name="txtMessage" id="txtMessage" required
+            <br />
+            <input type="text" name="Message:" id="Message" required
                    placeholder="Your Message" />
             <br />
-            <input type="submit" id="btnStaffLogin" class="myButton" value="Submit" />
+            <input type="submit" id="btnSubmit" class="myButton" value="Submit" />
             <br />
         </fieldset>
     </form>
