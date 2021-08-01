@@ -39,7 +39,7 @@ namespace WEB_Assignment_Team4.DAL
             //Execute the SELECT SQL through a DataReader
             SqlDataReader reader = cmd.ExecuteReader();
 
-            //Read all records until the end, save data into a staff list
+            //Read all records until the end, save data into a submissions list
             List<Submissions> submissionsList = new List<Submissions>();
             while (reader.Read())
             {
@@ -74,7 +74,7 @@ namespace WEB_Assignment_Team4.DAL
             //Execute the SELECT SQL through a DataReader
             SqlDataReader reader = cmd.ExecuteReader();
 
-            //Read all records until the end, save data into a staff list
+            //Read all records until the end, save data into a submissions list
             List<Submissions> submissionsList = new List<Submissions>();
             while (reader.Read())
             {
@@ -102,10 +102,10 @@ namespace WEB_Assignment_Team4.DAL
         {
             //Create a SqlCommand object from connection object
             SqlCommand cmd = conn.CreateCommand();
-            //Specify the SQL statement that select all branches
+            //Specify the SQL statement that select all competitionSubmissions
             cmd.CommandText = @"SELECT * FROM CompetitionSubmission WHERE CompetitionID = @selectedCompetition AND FileSubmitted IS NOT NUll";
             //Define the parameter used in SQL statement, value for the
-            //parameter is retrieved from the method parameter “branchNo”.
+            //parameter is retrieved from the method parameter “competitionID”.
             cmd.Parameters.AddWithValue("@selectedCompetition", competitionID);
 
             //Open a database connection
@@ -141,10 +141,10 @@ namespace WEB_Assignment_Team4.DAL
         public int GetCompetitionSubmissionsCount(int competitionID)
         {
             SqlCommand cmd = conn.CreateCommand();
-            //Specify the SQL statement that select all branches
+            //Specify the SQL statement that select all CompetitionSubmission
             cmd.CommandText = @"SELECT * FROM CompetitionSubmission WHERE CompetitionID = @competitionID AND FileSubmitted IS NOT NULL";
             //Define the parameter used in SQL statement, value for the
-            //parameter is retrieved from the method parameter “branchNo”.
+            //parameter is retrieved from the method parameter “competitionID”.
             cmd.Parameters.AddWithValue("@competitionID", competitionID);
 
             //Open a database connection
@@ -172,10 +172,10 @@ namespace WEB_Assignment_Team4.DAL
         {
             //Create a SqlCommand object from connection object
             SqlCommand cmd = conn.CreateCommand();
-            //Specify the SQL statement that select all branches
+            //Specify the SQL statement that select all CompetitionSubmission
             cmd.CommandText = @"SELECT * FROM CompetitionSubmission WHERE CompetitionID = @selectedCompetition AND FileSubmitted IS NOT NUll ORDER BY Ranking";
             //Define the parameter used in SQL statement, value for the
-            //parameter is retrieved from the method parameter “branchNo”.
+            //parameter is retrieved from the method parameter “competitionID”.
             cmd.Parameters.AddWithValue("@selectedCompetition", competitionID);
 
             //Open a database connection
@@ -227,7 +227,7 @@ namespace WEB_Assignment_Team4.DAL
             SqlCommand cmd = conn.CreateCommand();
 
             //Specify the SELECT SQL statement that
-            //retrieves all attributes of a staff record.
+            //retrieves all attributes of a submissionviewmodel record.
             cmd.CommandText = @"SELECT y.CompetitorID,y.Salutation, y.CompetitorName,z.CompetitionID,
                                 y.EmailAddr, x.FileSubmitted, x.DateTimeFileUpload, x.Appeal, 
                                 x.VoteCount, x.Ranking FROM CompetitionSubmission x 
@@ -236,7 +236,7 @@ namespace WEB_Assignment_Team4.DAL
                                 WHERE x.CompetitionID = @competitionID AND x.CompetitorID = @competitorID";
 
             //Define the parameter used in SQL statement, value for the
-            //parameter is retrieved from the method parameter “staffId”.
+            //parameter is retrieved from the method parameters
             cmd.Parameters.AddWithValue("@competitionID", competitionID);
             cmd.Parameters.AddWithValue("@competitorID", competitorID);
 

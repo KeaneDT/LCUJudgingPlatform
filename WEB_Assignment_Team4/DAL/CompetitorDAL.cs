@@ -40,7 +40,7 @@ namespace WEB_Assignment_Team4.DAL
             //Execute the SELECT SQL through a DataReader
             SqlDataReader reader = cmd.ExecuteReader();
 
-            //Read all records until the end, save data into a staff list
+            //Read all records until the end, save data into a competitor list
             List<Competitor> competitorList = new List<Competitor>();
             while (reader.Read())
             {
@@ -74,7 +74,7 @@ namespace WEB_Assignment_Team4.DAL
             //Execute the SELECT SQL through a DataReader
             SqlDataReader reader = cmd.ExecuteReader();
 
-            //Read all records until the end, save data into a staff list
+            //Read all records until the end, save data into a competitor list
             List<Competitor> competitorList = new List<Competitor>();
             while (reader.Read())
             {
@@ -101,7 +101,7 @@ namespace WEB_Assignment_Team4.DAL
             bool emailFound = false;
 
             //Create a SqlCommand object and specify the SQL statement
-            //to get a staff record with the email address to be validated
+            //to get a competitor record with the email address to be validated
             SqlCommand cmd = conn.CreateCommand();
             cmd.CommandText = @"SELECT CompetitorID FROM Competitor WHERE EmailAddr=@selectedEmail";
             cmd.Parameters.AddWithValue("@selectedEmail", email);

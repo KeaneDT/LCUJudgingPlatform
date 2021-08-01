@@ -197,7 +197,7 @@ namespace WEB_Assignment_Team4.Controllers
         public ActionResult Delete(Criteria criteria)
         {
             ViewData["selectedCompetitionNo"] = HttpContext.Session.GetInt32("criteriaCompNum");
-            // Delete the staff record from database
+            // Delete the criteria record from database
             criteriaContext.Delete(criteria.CriteriaID);
             return RedirectToAction("Index");
         }
