@@ -4,38 +4,66 @@
     ViewData["Title"] = "Judge List";
 }
 <br />
-<h2>Assigned Judge Competition List </h2>
-<h4>Here you can assign at least 2 Judges to their respective competition</h4>
-<p>
-    <a asp-action="Assign">Assign Competition</a>
-</p>
-<span style="color:red  ;">@TempData["Message"]</span>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.CompetitionID)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.JudgeID)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.CompetitionID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.JudgeID)
-            </td>
-            <td>
-                <a asp-action="AssignDelete" asp-controller="Assign"
-                   asp-route-id="@item.CompetitionID" >Delete</a> 
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width = device-width,
+                                           initial-scale = 1" />
+    <style>
+        .title {
+            margin-top: 10px;
+            text-align: center;
+        }
+        .title h4{
+            font-weight:normal;
+        }
+        .p{
+            margin-top:10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="title">
+        <h2>Assigned Judge Competition List </h2>
+        <h4>Here you can assign at least 2 Judges to their respective competition</h4>
+        <hr />
+    </div>
+    <p>
+        <a asp-action="Assign">Assign Competition</a>
+    </p>
+    <span style="color:red  ;">@TempData["Message"]</span>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.CompetitionID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.JudgeID)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CompetitionID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.JudgeID)
+                    </td>
+                    <td>
+                        <a asp-action="AssignDelete" asp-controller="Assign"
+                           asp-route-id="@item.CompetitionID">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>
+
+
