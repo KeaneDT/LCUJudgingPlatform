@@ -9,7 +9,45 @@ Keane Dominic Travasso (Package 3: Judge),
 Lim Jun Keat (Package 4: Public)  
 
 ### Admin (Jin Hui):  
-(Add Contributions)
+All Basic & Some mixture between two Advance Feature Implemented.
+#### Files Implemented:
+##### Models:
+Competition.cs
+CompetitionViewModel.cs
+ValidateCompetitionName.cs
+ValidateCompetitionJudge.cs
+Interest
+InterestViewModel
+ValidateInterestName
+JudgeAssign.cs
+JudgeViewModel.cs
+
+##### Views:
+Assign/AllJudges.cshtml
+Assign/Assign.cshtml
+Assign/AssignDelete.cshtml
+Assign/Index.cshtml
+Assign/JudgeDetails.cshtml
+Competition/_ViewCompetition.cshtml
+Competition/Create.cshtml
+Competition/Details.cshtml
+Competition/Delete.cshtml
+Competition/Edit.cshtml
+Competition/Index.cshtml
+Interest/ViewInterest.cshtml
+Interest/Create.cshtml
+Interest/Delete.cshtml
+Interest/Index.cshtml
+
+##### Controllers:  
+AssignController.cs
+CompetitionController.cs
+InterestController.cs
+
+##### DAL:  
+CompetitionDAL.cs (Most of the function)
+InterestDAL.cs(Most of the function)
+JudgeDAL.cs(Some of the function)
 
 ### Competitor (Pranav):  
 (Add Contributions)
