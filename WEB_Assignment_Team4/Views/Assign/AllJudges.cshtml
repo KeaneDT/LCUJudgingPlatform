@@ -4,7 +4,7 @@
     ViewData["Title"] = "AllJudges";
 }
 
-<h1>All Judges List</h1>
+<h1>Judges Profile</h1>
 <h4>Here you can view the details of the judges profile</h4>
 
 <table class="table">
@@ -29,7 +29,8 @@
                 @Html.DisplayFor(modelItem => item.JudgeName)
             </td>
             <td>
-                @Html.ActionLink("Details", "View Details", new { /* id=item.PrimaryKey */ }) 
+                <a asp-action="JudgeDetails" asp-controller="Assign"
+                   asp-route-id="@item.JudgeID">View</a> 
             </td>
         </tr>
 }

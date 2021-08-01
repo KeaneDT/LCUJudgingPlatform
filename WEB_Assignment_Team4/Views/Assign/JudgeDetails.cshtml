@@ -1,0 +1,35 @@
+﻿@model WEB_Assignment_Team4.Models.JudgeViewModel
+
+@{
+    ViewData["Title"] = "JudgeDetails";
+}
+<br />
+<h3>Judge Profile</h3>
+<h4>Here you can view the details of the judge</h4>
+<hr />
+<div>
+    <br />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.JudgeID)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.JudgeID)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.JudgeName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.JudgeName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.AreaInterestName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.AreaInterestName)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

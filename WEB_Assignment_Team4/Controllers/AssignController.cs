@@ -12,6 +12,7 @@ namespace WEB_Assignment_Team4.Controllers
     public class AssignController : Controller
     {
         private JudgeDAL judgeContext = new JudgeDAL();
+        private InterestDAL interestContext = new InterestDAL();
         private CompetitionDAL competitionContext = new CompetitionDAL();
 
         // GET: AssignController
@@ -160,6 +161,47 @@ namespace WEB_Assignment_Team4.Controllers
             judgeContext.AssignDelete(judgeAssign.CompetitionID, judgeAssign.JudgeID);
             TempData["Message"] = "Judge Records Deleted Successfully. ";
             return RedirectToAction("Index");
+        }
+        public ActionResult JudgeDetails(int id)
+        {
+            // Stop accessing the action if not logged in
+            // or account not in the "Staff" role
+            if ((HttpContext.Session.GetString("Role") == null) ||
+                (HttpContext.Session.GetString("Role") != "Administrator"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            Judge judge = judgeContext.GetDetails(id);
+            JudgeViewModel judgeVM = MapToJudgeVM(judge);
+            return View(judgeVM);
+        }
+
+        public JudgeViewModel MapToJudgeVM(Judge judge)
+        {
+            string areaInterestName = "";
+            if (judge.AreaInterestID != null)
+            {
+                List<Interest> interestList = interestContext.GetAllInterest();
+                foreach (Interest interest in interestList)
+                {
+                    if (interest.AreaInterestID == judge.AreaInterestID.Value)
+                    {
+                        areaInterestName = interest.Name;
+                        break;
+                    }
+                }
+            }
+
+            JudgeViewModel competitionVM = new JudgeViewModel
+            {
+                JudgeID= judge.JudgeID,
+                JudgeName = judge.JudgeName,
+                Salutation = judge.Salutation,
+                AreaInterestName = areaInterestName,
+                EmailAddr = judge.EmailAddr,
+                Password = judge.Password
+            };
+            return competitionVM;
         }
     }
 }
