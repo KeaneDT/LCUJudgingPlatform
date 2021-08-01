@@ -68,7 +68,7 @@ namespace WEB_Assignment_Team4.Controllers
                 // Store date and time of the user when it has logged in
                 HttpContext.Session.SetString("DateTiming", DateTiming.ToString());
 
-                return RedirectToAction("AdminMain");
+                return RedirectToAction("Index","Home");
             }
             //Judge Login
             else if(judgeContext.ValidJudgeLogin(userID,password)==true)

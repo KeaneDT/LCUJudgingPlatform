@@ -12,20 +12,28 @@
 </head>
 <body>
     <br /><br />
-    <div class="title">
-        @if (Context.Session.GetString("Role") != null && Context.Session.GetString("Role") == "Judge")
-        {
-            string userRole = Context.Session.GetString("Role");
-            <h2>
-                Welcome,
-                <span style="color:goldenrod;">@userRole</span> &nbsp;
-            </h2>
-        }
-        else
-        {
-            <h2>Welcome!</h2>
-        }
-    </div>
+          <div class="title">
+              @if (Context.Session.GetString("Role") != null && Context.Session.GetString("Role") == "Judge")
+              {
+                  string userRole = Context.Session.GetString("Role");
+                  <h2>
+                      Welcome,
+                      <span style="color:goldenrod;">@userRole</span> &nbsp;
+                  </h2>
+              }
+              @if (Context.Session.GetString("Role") != null && Context.Session.GetString("Role") == "Administrator")
+              {
+                  string userRole = Context.Session.GetString("Role");
+                  <h2>
+                      Welcome,
+                      <span style="color:goldenrod;">@userRole</span> &nbsp;
+                  </h2>
+              }
+              else
+              {
+                  <h2>Welcome!</h2>
+              }
+          </div>
     <br />
     <div class="container">
         <div class="row">
@@ -71,7 +79,40 @@
                         <div>
                             Currently Logged in as <span style="color:green;">@userId.</span> <br />
                             You have been logged in since @datetime
-                      
+
+                        </div>
+                        <br />
+                    }
+                    @if (Context.Session.GetString("Role") != null && Context.Session.GetString("Role") == "Administrator")
+                    {
+                        <hr />
+                        <p class="tpbutton btn-toolbar text-center">
+                            <a href="~/Interest/Create"
+                               class="btn btn-warning rounded-pill mr-2 nav-link">Create Interest</a>
+                            <br />
+                            <a href="~/Competition/Index"
+                               class="btn btn-warning rounded-pill mr-2 nav-link">Create Competition</a>
+                            <br />
+                        </p>
+                        string userId = "Anonymous";
+                        string userRole = "Unknown";
+                        string datetime = "";
+                        if (Context.Session.GetString("LoginID") != null)
+                        {
+                            userId = Context.Session.GetString("LoginID");
+                        }
+                        if (Context.Session.GetString("Role") != null)
+                        {
+                            userRole = Context.Session.GetString("Role");
+                        }
+                        if (Context.Session.GetString("DateTiming") != null)
+                        {
+                            datetime = Context.Session.GetString("DateTiming");
+                        }
+                        <div>
+                            Currently Logged in as <span style="color:green;">@userId.</span> <br />
+                            You have been logged in since @datetime
+
                         </div>
                         <br />
                     }
