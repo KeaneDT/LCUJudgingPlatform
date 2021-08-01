@@ -17,11 +17,9 @@ namespace WEB_Assignment_Team4.Controllers
         public ActionResult Index(int? id)
         {
             Submissions submissions = new Submissions();
-            // Check if BranchNo (id) presents in the query string
             if (id != null)
             {
                 ViewData["selectedCompetition"] = id.Value;
-                // Get list of staff working in the branch
                 submissions.submissionsList = submissionContext.GetCompetitionSubmissionsLeaderboard(id.Value);
             }
             else

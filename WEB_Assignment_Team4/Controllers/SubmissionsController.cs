@@ -15,10 +15,6 @@ namespace WEB_Assignment_Team4.Controllers
 
         // GET: SubmissionsController
 
-        //submissionContext.IncreaseCount(id);
-        //TempData["message"] = "Voted";
-        //return RedirectToAction("Index", "Submission");
-
         public ActionResult Index(int? id)
         {
             Submissions submissions = new Submissions();

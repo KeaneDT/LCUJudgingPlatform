@@ -74,8 +74,6 @@ namespace WEB_Assignment_Team4.DAL
             SqlCommand cmd = conn.CreateCommand();
             //Specify the SQL statement that select all branches
             cmd.CommandText = @"SELECT * FROM CompetitionSubmissions WHERE CompetitionID = @selectedCompetition";
-            //Define the parameter used in SQL statement, value for the
-            //parameter is retrieved from the method parameter “branchNo”.
             cmd.Parameters.AddWithValue("@selectedCompetition", competitionID);
 
             //Open a database connection
@@ -115,8 +113,6 @@ namespace WEB_Assignment_Team4.DAL
             SqlCommand cmd = conn.CreateCommand();
             //Specify the SQL statement that select all branches
             cmd.CommandText = @"SELECT * FROM Comment WHERE CompetitionID = @selectedCompetition";
-            //Define the parameter used in SQL statement, value for the
-            //parameter is retrieved from the method parameter “branchNo”.
             cmd.Parameters.AddWithValue("@selectedCompetition", competitionID);
 
             //Open a database connection
