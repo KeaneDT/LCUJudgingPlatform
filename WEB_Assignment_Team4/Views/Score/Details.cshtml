@@ -6,8 +6,12 @@
 <br />
 <h3 class="text-center">@ViewData["competitionName"].ToString() Submission</h3>
 <hr />
+@if (TempData["Success"] != null)
+{
+    <h5 class="text-success text-center">@TempData["Success"]</h5>
+}
 <div class="container">
-    @if (DateTime.Today > Convert.ToDateTime(ViewData["resultsDate"]) && ViewData["resultsDate"]!=null)
+    @if (DateTime.Today > Convert.ToDateTime(ViewData["resultsDate"]) && ViewData["resultsDate"] != null)
     {
         <div class="row gutters-sm">
             <div class="col-md-12">
@@ -114,10 +118,10 @@
             </div>
         </div>
     </div>
- }
+}
 <br />
 <div class="text-center">
-<a class="btn btn-primary text-white rounded-pill mr-2" asp-action="Index" asp-route-id="@Model.CompetitionID">Back To Submissions</a>
+    <a class="btn btn-primary text-white rounded-pill mr-2" asp-action="Index" asp-route-id="@Model.CompetitionID">Back To Submissions</a>
 </div>
 
 

@@ -138,6 +138,7 @@ namespace WEB_Assignment_Team4.Controllers
             if (ModelState.IsValid)
             {                
                 criteriaContext.UpdateCriteriaScore(cVM);
+                TempData["Success"] = "Editing of Score Successful!";
                 return RedirectToAction("Score", new
                 {
                     competitionID = cVM.CompetitionID,
@@ -251,6 +252,7 @@ namespace WEB_Assignment_Team4.Controllers
                     if (competitorContext.CheckRankingUnique(sVM) != true)
                     {
                         competitorContext.UpdateCompetitorRanking(sVM);
+                        TempData["Success"] = "Editing of Rank Successful!";
                         return RedirectToAction("Details", new
                         {
                             competitionID = sVM.CompetitionID,

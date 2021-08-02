@@ -82,6 +82,7 @@ namespace WEB_Assignment_Team4.Controllers
                     //Add the Criteria to the Criteria table for the specified Competition
                     criteria.CriteriaID = criteriaContext.Add(criteria);
                     //Redirect user to Criteria/Index view
+                    TempData["Success"] = "Creation Successful!";
                     return RedirectToAction("Index");
                 }
                 else
@@ -145,6 +146,7 @@ namespace WEB_Assignment_Team4.Controllers
                     //Update the Values of the Criteria
                     criteria.CriteriaID = criteriaContext.Update(criteria);
                     //Redirect user to Criteria/Index view
+                    TempData["Success"] = "Edit Successful!";
                     return RedirectToAction("Index");
                 }
                 else
@@ -199,6 +201,7 @@ namespace WEB_Assignment_Team4.Controllers
             ViewData["selectedCompetitionNo"] = HttpContext.Session.GetInt32("criteriaCompNum");
             // Delete the criteria record from database
             criteriaContext.Delete(criteria.CriteriaID);
+            TempData["Success"] = "Delete Successful!";
             return RedirectToAction("Index");
         }
     }

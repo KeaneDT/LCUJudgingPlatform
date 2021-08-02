@@ -47,6 +47,7 @@ namespace WEB_Assignment_Team4.Controllers
                     //Add Judge record to database
                     judge.JudgeID = judgeContext.Add(judge);
                     //Redirect user to Home/PublicMain (Login Page) view
+                    TempData["Success"] = "Judge Creation Successful!";
                     return RedirectToAction("PublicMain", "Home");
                 }
             }

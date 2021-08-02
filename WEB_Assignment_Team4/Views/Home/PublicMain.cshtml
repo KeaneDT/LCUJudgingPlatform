@@ -18,6 +18,11 @@
         <h3 class="text-center">Login to<br />LCU Judging Platform</h3>
         <hr />
     </div>
+    @if (TempData["Success"] != null)
+    {
+        <h5 class="text-success text-center">@TempData["Success"]</h5>
+        <br />
+    }
     <div class="container">
         <div class="row gutters-sm">
             <div class="col-md-12">
@@ -80,7 +85,7 @@
     <div class="container-fluid">
         <div class="text-center">
             <span class="text-warning">Don't Have an Account?</span>
-            <br /> 
+            <br />
             <a href="~/Competitor/Create">Create a Competitior Account</a>
             <br />
             <a href="~/Judge/Create">Create a Judge Account</a>
