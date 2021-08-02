@@ -9,6 +9,7 @@
 @if (TempData["Success"] != null)
 {
     <h5 class="text-success text-center">@TempData["Success"]</h5>
+    <br />
 }
 @if (DateTime.Today > Convert.ToDateTime(ViewData["resultsDate"]) && ViewData["resultsDate"] != null)
 {
